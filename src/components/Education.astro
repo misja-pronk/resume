@@ -1,0 +1,109 @@
+---
+import { education } from '../data/education';
+import { url } from '../utils';
+---
+
+<section id="education" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 08</span> FOUNDATION WORKS — EDUCATION</h2>
+  <div class="grid">
+    {education.map((edu, i) => (
+      <div class="edu reveal">
+        <header>
+          <span class="edu-no">FND {String(education.length - i).padStart(2, '0')}</span>
+          <span class="range">{edu.range}</span>
+        </header>
+        <h3>{edu.degree}</h3>
+        <p class="school">{edu.school}</p>
+        {edu.majors && (
+          <div class="subjects">
+            <span class="label">{edu.minors ? 'MAJOR SUBJECTS' : 'SUBJECTS'}</span>
+            <div class="chips">
+              {edu.majors.map((m) => <span class="chip">{m}</span>)}
+            </div>
+          </div>
+        )}
+        {edu.minors && (
+          <div class="subjects">
+            <span class="label">MINOR SUBJECTS</span>
+            <div class="chips">
+              {edu.minors.map((m) => <span class="chip">{m}</span>)}
+            </div>
+          </div>
+        )}
+        <a class="diploma" href={url(edu.diploma)} target="_blank" rel="noopener">
+          CERTIFIED COPY ON FILE — VIEW DIPLOMA (PDF) →
+        </a>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 1.2rem;
+  }
+
+  .edu {
+    border: 1px solid var(--line);
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .edu:hover {
+    border-color: var(--accent);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+  }
+
+  .edu-no {
+    color: var(--stamp);
+    font-weight: 700;
+  }
+
+  .range {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-family: var(--disp);
+    font-size: 1.05rem;
+  }
+
+  .school {
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+    margin-top: -0.5rem;
+  }
+
+  .label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .diploma {
+    margin-top: auto;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+</style>

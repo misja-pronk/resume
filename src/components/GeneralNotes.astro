@@ -1,0 +1,47 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="notes" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 09</span> GENERAL NOTES</h2>
+  <ol class="gennotes reveal">
+    <li>SUBJECT BUILDS DATA PLATFORMS THE WAY HE BUILDS FURNITURE: <b>MEASURE TWICE, BUILD ONCE.</b></li>
+    <li>CURRENT CLIENTS ARE LITERAL BUILDERS — CONSTRUCTION GROUPS <b>HEIJMANS</b> AND <b>TBI</b>. SUBJECT SPEAKS FLUENT CONSTRUCTION.</li>
+    <li>SUBJECT IS <b>MARRIED</b>. PRIMARY CONNECTION: PERMANENT, LOAD-BEARING, NOT UP FOR VALUE ENGINEERING.</li>
+    <li><span class="wip">CHANGE ORDER APPROVED:</span> ONE (1) JUNIOR RESIDENT UNDER CONSTRUCTION. <b>SUBJECT IS BECOMING A FATHER.</b> DELIVERY DATE: SEE STORK.</li>
+    <li>OFF-DUTY WORKSHOP OUTPUT: FURNITURE DESIGN, KITCHENS, TINY-HOUSE ARCHITECTURE. ALL LOAD-BEARING JOKES INTENDED.</li>
+    <li>RESIDENCE ({profile.location.toUpperCase()}): EVERYTHING THAT CAN BE AUTOMATED, IS. DESK SETUP: PERMANENTLY IN <b>v-NEXT</b>.</li>
+    <li>KITCHEN OUTPUT RANGES FROM 14-HOUR LOW &amp; SLOW BBQ TO FINE-DINING TASTING MENUS. SUBJECT ALMOST BECAME A CHEF; THE INDUSTRY'S LOSS.</li>
+    <li>LONG-TERM ROADMAP ITEM <span class="wip">[IN BACKLOG]</span>: DESIGN AND BUILD OWN HOUSE. FOUNDATIONS: TBD. AMBITION: POURED.</li>
+    <li>ALSO OPERATES: KTM 1190, GUITARS, AND ONE SCOTTISH COLLIE (REX, CHIEF MORALE OFFICER).</li>
+  </ol>
+</section>
+
+<style>
+  .gennotes {
+    margin: 0;
+    padding-left: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-dim);
+    max-width: 76ch;
+    line-height: 1.7;
+  }
+
+  .gennotes li::marker {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .gennotes b {
+    color: var(--ink);
+  }
+
+  .wip {
+    color: var(--stamp);
+    font-weight: 700;
+  }
+</style>

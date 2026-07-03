@@ -1,0 +1,83 @@
+---
+import { certifications } from '../data/certifications';
+import { url } from '../utils';
+---
+
+<section id="certifications" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 07</span> MATERIALS TESTING — CERTIFICATIONS</h2>
+  <div class="certs">
+    {certifications.map((c) => (
+      <a class="cert reveal" href={c.proof} target="_blank" rel="noopener">
+        <img src={url(c.badge)} alt={`${c.name} badge`} width="64" height="64" loading="lazy" />
+        <div class="cert-info">
+          <span class="cert-name">{c.name}</span>
+          <span class="cert-issuer">TESTED BY {c.issuer.toUpperCase()}</span>
+        </div>
+        <span class="passed">PASSED</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.75rem;
+    transition: all 0.15s;
+  }
+
+  .cert:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .cert img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    background: #fff;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+
+  .cert-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  .cert-name {
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .cert-issuer {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+  }
+
+  .passed {
+    color: var(--pass);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    border: 1px solid var(--pass);
+    padding: 0.15rem 0.4rem;
+    transform: rotate(6deg);
+    flex-shrink: 0;
+  }
+</style>

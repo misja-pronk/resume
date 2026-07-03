@@ -1,0 +1,126 @@
+---
+import { experience } from '../data/experience';
+
+const revisions = [...experience].reverse();
+---
+
+<section id="experience" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 03</span> REVISION HISTORY — CAREER</h2>
+  <div class="table-scroll reveal">
+    <table class="revtable">
+      <thead>
+        <tr><th>REV</th><th>PERIOD</th><th>ORGANISATION</th><th>DESCRIPTION OF CHANGE</th></tr>
+      </thead>
+      <tbody>
+        {revisions.map((job, i) => (
+          <tr class={i === revisions.length - 1 ? 'current' : ''}>
+            <td class="rev">{String(i + 1).padStart(2, '0')}</td>
+            <td class="period">{job.range}</td>
+            <td class="org">
+              {job.companyUrl ? (
+                <a href={job.companyUrl} target="_blank" rel="noopener">{job.company}</a>
+              ) : (
+                job.company
+              )}
+              <br />
+              <small>{job.role}</small>
+            </td>
+            <td class="desc">
+              {job.summary}
+              {job.clients && (
+                <span class="clients">
+                  {job.clients.map((c) =>
+                    c.url ? (
+                      <a class="chip" href={c.url} target="_blank" rel="noopener">{c.name}</a>
+                    ) : (
+                      <span class="chip">{c.name}</span>
+                    ),
+                  )}
+                </span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .revtable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    min-width: 640px;
+  }
+
+  .revtable th,
+  .revtable td {
+    border: 1px solid var(--line);
+    padding: 0.8rem 0.9rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .revtable th {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .rev {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .period {
+    white-space: nowrap;
+    color: var(--ink-dim);
+    font-size: 0.68rem;
+  }
+
+  .org {
+    font-weight: 700;
+    min-width: 11rem;
+  }
+
+  .org a {
+    color: var(--ink);
+  }
+
+  .org a:hover {
+    color: var(--accent);
+  }
+
+  .org small {
+    font-weight: 400;
+    color: var(--ink-dim);
+    font-size: 0.66rem;
+  }
+
+  .desc {
+    color: var(--ink-dim);
+    line-height: 1.7;
+    font-size: 0.74rem;
+  }
+
+  .clients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.7rem;
+  }
+
+  tr.current td {
+    background: var(--accent-soft);
+  }
+
+  tr.current .rev::after {
+    content: ' ◄';
+  }
+</style>

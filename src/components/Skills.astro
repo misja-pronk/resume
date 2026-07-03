@@ -1,0 +1,82 @@
+---
+import { skillGroups } from '../data/skills';
+---
+
+<section id="skills" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 06</span> SECONDARY STRUCTURE — THE TOOLBOX</h2>
+  <div class="grid">
+    {skillGroups.map((group, i) => (
+      <div class="group reveal">
+        <div class="head">
+          <span class="group-no">BOX {String(i + 1).padStart(2, '0')}</span>
+          <h3>{group.grouping.toUpperCase()}</h3>
+          <span class="count">{group.skills.length} PCS</span>
+        </div>
+        <div class="chips">
+          {group.skills.map((s) =>
+            s.link ? (
+              <a class="chip" href={s.link} target="_blank" rel="noopener">{s.name}</a>
+            ) : (
+              <span class="chip">{s.name}</span>
+            ),
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+  <p class="note">NOTE: TOOLBOX IS ACTIVELY MAINTAINED. CONTENTS SUBJECT TO CONTINUOUS EXPANSION.</p>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .group {
+    border: 1px solid var(--line);
+    padding: 1.2rem 1.3rem;
+  }
+
+  .group:hover {
+    border-color: var(--accent);
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 0.7rem;
+  }
+
+  .group-no {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--stamp);
+  }
+
+  h3 {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+  }
+
+  .count {
+    margin-left: auto;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

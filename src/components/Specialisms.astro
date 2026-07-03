@@ -1,0 +1,83 @@
+---
+import { specialisms } from '../data/skills';
+---
+
+<section id="specialisms" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 02</span> PRIMARY STRUCTURE — LOAD-BEARING EXPERTISE</h2>
+  <div class="struct-grid">
+    {specialisms.map((s, i) => (
+      <article class="member reveal">
+        <header>
+          <span class="member-no">MEMBER {String(i + 1).padStart(2, '0')}</span>
+          <span class="load-rating" aria-hidden="true">▮▮▮▮▮</span>
+        </header>
+        <h3>{s.name.toUpperCase()}</h3>
+        <p>{s.blurb}</p>
+        <footer>SPEC: {s.tools.join(' · ')}</footer>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .struct-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .member {
+    border: 1.5px solid var(--ink);
+    padding: 1.2rem 1.3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    background: repeating-linear-gradient(45deg, transparent, transparent 7px, var(--hatch) 7px, var(--hatch) 8px);
+  }
+
+  .member header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .member-no {
+    color: var(--stamp);
+    font-weight: 700;
+  }
+
+  .load-rating {
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    font-size: 0.55rem;
+  }
+
+  h3 {
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin: 0;
+    color: var(--accent);
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 0.55rem;
+  }
+
+  .member p {
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .member footer {
+    margin-top: auto;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+    padding-top: 0.6rem;
+  }
+</style>
