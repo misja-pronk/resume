@@ -1,0 +1,438 @@
+<section id="graph" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 10</span> AS-BUILT GRAPH — SELF-DOCUMENTING</h2>
+  <p class="cypher reveal">
+    <span class="prompt">neo4j&gt;</span> MATCH (m:Engineer &#123;name: "Misja Pronk"&#125;)-[r]-&gt;(n) RETURN m, r, n;
+  </p>
+  <div class="graph-wrap reveal">
+    <svg id="kgraph" viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Knowledge graph of Misja Pronk: work, open source, family and hobbies as connected nodes"></svg>
+    <div class="legend">
+      <span><i class="sw person"></i> SUBJECT</span>
+      <span><i class="sw family"></i> FAMILY</span>
+      <span><i class="sw work"></i> WORK</span>
+      <span><i class="sw oss"></i> OPEN SOURCE</span>
+      <span><i class="sw hobby"></i> AFTER HOURS</span>
+    </div>
+  </div>
+  <p class="note">NOTE: SUBJECT LOVES GRAPH DATABASES. NODES ARE DRAGGABLE. THIS SHEET DOCUMENTS ITSELF.</p>
+</section>
+
+<script>
+  type Group = 'person' | 'family' | 'work' | 'oss' | 'hobby';
+
+  interface GNode {
+    id: string;
+    label: string;
+    group: Group;
+    r: number;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    fx?: number | null;
+    fy?: number | null;
+  }
+
+  interface GEdge {
+    source: string;
+    target: string;
+    rel: string;
+  }
+
+  const W = 1000;
+  const H = 620;
+
+  const defs: [string, string, Group, number][] = [
+    ['misja', 'MISJA', 'person', 30],
+    // family
+    ['wife', 'WIFE', 'family', 15],
+    ['junior', 'JUNIOR v1.0', 'family', 13],
+    ['rex', 'REX 🐾', 'family', 13],
+    // work
+    ['prorex', 'PROREX', 'work', 16],
+    ['heijmans', 'HEIJMANS', 'work', 14],
+    ['tbi', 'TBI', 'work', 14],
+    ['vattenfall', 'VATTENFALL', 'work', 12],
+    ['databricks', 'DATABRICKS', 'work', 16],
+    ['terraform', 'TERRAFORM', 'work', 13],
+    ['terragrunt', 'TERRAGRUNT', 'work', 12],
+    ['dbt', 'DBT', 'work', 12],
+    ['github', 'GITHUB', 'work', 12],
+    ['neo4j', 'NEO4J', 'work', 13],
+    ['cypher', 'CYPHER', 'work', 11],
+    // oss
+    ['isolinear', 'ISOLINEAR', 'oss', 14],
+    // hobbies
+    ['wood', 'WOODWORKING', 'hobby', 12],
+    ['tiny', 'TINY HOUSES', 'hobby', 12],
+    ['house', 'OWN HOUSE', 'hobby', 11],
+    ['bbq', 'BBQ', 'hobby', 11],
+    ['dining', 'FINE DINING', 'hobby', 11],
+    ['homeauto', 'HOME AUTOMATION', 'hobby', 12],
+    ['desk', 'DESK SETUP', 'hobby', 10],
+    ['ktm', 'KTM 1190', 'hobby', 10],
+    ['guitars', 'GUITARS', 'hobby', 10],
+  ];
+
+  const edges: GEdge[] = [
+    { source: 'misja', target: 'wife', rel: 'MARRIED_TO' },
+    { source: 'misja', target: 'junior', rel: 'EXPECTING' },
+    { source: 'wife', target: 'junior', rel: 'EXPECTING' },
+    { source: 'misja', target: 'rex', rel: 'WALKS' },
+    { source: 'misja', target: 'prorex', rel: 'OWNS' },
+    { source: 'prorex', target: 'heijmans', rel: 'WORKS_FOR' },
+    { source: 'prorex', target: 'tbi', rel: 'WORKED_FOR' },
+    { source: 'prorex', target: 'vattenfall', rel: 'WORKED_FOR' },
+    { source: 'misja', target: 'databricks', rel: 'EXPERT_IN' },
+    { source: 'misja', target: 'terraform', rel: 'AUTOMATES_WITH' },
+    { source: 'terraform', target: 'terragrunt', rel: 'WRAPPED_BY' },
+    { source: 'misja', target: 'dbt', rel: 'TRANSFORMS_WITH' },
+    { source: 'misja', target: 'github', rel: 'SHIPS_VIA' },
+    { source: 'misja', target: 'neo4j', rel: 'LOVES' },
+    { source: 'neo4j', target: 'cypher', rel: 'SPEAKS' },
+    { source: 'misja', target: 'isolinear', rel: 'AUTHORED' },
+    { source: 'isolinear', target: 'databricks', rel: 'MANAGES_SECRETS_OF' },
+    { source: 'heijmans', target: 'databricks', rel: 'RUNS_ON' },
+    { source: 'tbi', target: 'terragrunt', rel: 'BUILT_WITH' },
+    { source: 'misja', target: 'wood', rel: 'CRAFTS' },
+    { source: 'wood', target: 'tiny', rel: 'SCALES_TO' },
+    { source: 'tiny', target: 'house', rel: 'DREAMS_OF' },
+    { source: 'misja', target: 'bbq', rel: 'SMOKES' },
+    { source: 'bbq', target: 'dining', rel: 'PAIRS_WITH' },
+    { source: 'misja', target: 'homeauto', rel: 'AUTOMATES' },
+    { source: 'homeauto', target: 'desk', rel: 'POWERS' },
+    { source: 'misja', target: 'ktm', rel: 'RIDES' },
+    { source: 'misja', target: 'guitars', rel: 'PLAYS' },
+  ];
+
+  // deterministic pseudo-random initial ring placement
+  const nodes: GNode[] = defs.map(([id, label, group, r], i) => {
+    const angle = (i / defs.length) * Math.PI * 2;
+    const dist = id === 'misja' ? 0 : 190 + (i % 5) * 28;
+    return {
+      id, label, group, r,
+      x: W / 2 + Math.cos(angle) * dist,
+      y: H / 2 + Math.sin(angle) * dist,
+      vx: 0, vy: 0,
+    };
+  });
+
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  const svg = document.getElementById('kgraph');
+
+  if (svg) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const el = (tag: string, attrs: Record<string, string>) => {
+      const e = document.createElementNS(NS, tag);
+      for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+      return e;
+    };
+
+    // edges first (under nodes)
+    const edgeEls = edges.map((e) => {
+      const g = el('g', { class: 'edge', 'data-s': e.source, 'data-t': e.target });
+      const line = el('line', { class: 'wire' });
+      const label = el('text', { class: 'rel' });
+      label.textContent = e.rel;
+      g.append(line, label);
+      svg.append(g);
+      return { e, line, label };
+    });
+
+    const nodeEls = nodes.map((n) => {
+      const g = el('g', { class: `node ${n.group}`, 'data-id': n.id, tabindex: '0' });
+      const circle = el('circle', { r: String(n.r) });
+      const label = el('text', { class: 'nlabel', dy: String(n.r + 13) });
+      label.textContent = n.label;
+      g.append(circle, label);
+      if (n.id === 'misja') {
+        const inner = el('circle', { r: String(n.r - 5), class: 'inner' });
+        const mono = el('text', { class: 'mono-mark', dy: '4' });
+        mono.textContent = 'MP';
+        g.append(inner, mono);
+      }
+      svg.append(g);
+      return { n, g };
+    });
+
+    const adj = new Map<string, Set<string>>();
+    for (const e of edges) {
+      (adj.get(e.source) ?? adj.set(e.source, new Set()).get(e.source)!).add(e.target);
+      (adj.get(e.target) ?? adj.set(e.target, new Set()).get(e.target)!).add(e.source);
+    }
+
+    // --- simple force simulation ---
+    let alpha = 1;
+    const center = byId.get('misja')!;
+    center.fx = W / 2;
+    center.fy = H / 2;
+
+    function tick() {
+      // repulsion
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i]!, b = nodes[j]!;
+          let dx = b.x - a.x, dy = b.y - a.y;
+          let d2 = dx * dx + dy * dy || 1;
+          const d = Math.sqrt(d2);
+          const f = Math.min(2600 / d2, 0.6) * alpha;
+          dx /= d; dy /= d;
+          a.vx -= dx * f * 60; a.vy -= dy * f * 60;
+          b.vx += dx * f * 60; b.vy += dy * f * 60;
+        }
+      }
+      // springs
+      for (const e of edges) {
+        const a = byId.get(e.source)!, b = byId.get(e.target)!;
+        const rest = a.id === 'misja' || b.id === 'misja' ? 170 : 110;
+        let dx = b.x - a.x, dy = b.y - a.y;
+        const d = Math.sqrt(dx * dx + dy * dy) || 1;
+        const f = ((d - rest) / d) * 0.045 * alpha * 8;
+        a.vx += dx * f; a.vy += dy * f;
+        b.vx -= dx * f; b.vy -= dy * f;
+      }
+      // gravity + integrate
+      for (const n of nodes) {
+        n.vx += (W / 2 - n.x) * 0.0016 * alpha * 8;
+        n.vy += (H / 2 - n.y) * 0.0022 * alpha * 8;
+        n.vx *= 0.82; n.vy *= 0.82;
+        n.x += n.vx; n.y += n.vy;
+        if (n.fx != null) { n.x = n.fx; n.vx = 0; }
+        if (n.fy != null) { n.y = n.fy; n.vy = 0; }
+        const m = n.r + 8;
+        n.x = Math.max(m + 42, Math.min(W - m - 42, n.x));
+        n.y = Math.max(m + 6, Math.min(H - m - 48, n.y));
+      }
+    }
+
+    function draw() {
+      for (const { n, g } of nodeEls) g.setAttribute('transform', `translate(${n.x},${n.y})`);
+      for (const { e, line, label } of edgeEls) {
+        const a = byId.get(e.source)!, b = byId.get(e.target)!;
+        line.setAttribute('x1', String(a.x)); line.setAttribute('y1', String(a.y));
+        line.setAttribute('x2', String(b.x)); line.setAttribute('y2', String(b.y));
+        label.setAttribute('x', String((a.x + b.x) / 2));
+        label.setAttribute('y', String((a.y + b.y) / 2 - 4));
+      }
+    }
+
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // settle the layout up-front
+    for (let i = 0; i < 260; i++) { tick(); alpha = Math.max(0.25, alpha * 0.995); }
+    draw();
+    alpha = 0.3;
+
+    let running = false;
+    function loop() {
+      if (alpha < 0.02) { running = false; return; }
+      alpha *= 0.985;
+      tick();
+      draw();
+      requestAnimationFrame(loop);
+    }
+    function reheat(a: number) {
+      alpha = Math.max(alpha, a);
+      if (!running && !reduced) { running = true; requestAnimationFrame(loop); }
+    }
+    reheat(0.3);
+
+    // --- drag ---
+    let dragging: GNode | null = null;
+    const pt = (svg as unknown as SVGSVGElement).createSVGPoint();
+    const toLocal = (ev: PointerEvent) => {
+      pt.x = ev.clientX; pt.y = ev.clientY;
+      const m = (svg as unknown as SVGSVGElement).getScreenCTM();
+      return m ? pt.matrixTransform(m.inverse()) : { x: 0, y: 0 };
+    };
+
+    for (const { n, g } of nodeEls) {
+      g.addEventListener('pointerdown', (ev) => {
+        dragging = n;
+        g.setPointerCapture(ev.pointerId);
+        const p = toLocal(ev);
+        n.fx = p.x; n.fy = p.y;
+        reheat(0.5);
+        ev.preventDefault();
+      });
+      g.addEventListener('pointermove', (ev) => {
+        if (dragging !== n) return;
+        const p = toLocal(ev);
+        n.fx = p.x; n.fy = p.y;
+        if (reduced) { tick(); draw(); } else reheat(0.4);
+      });
+      const release = () => {
+        if (dragging === n && n.id !== 'misja') { n.fx = null; n.fy = null; }
+        dragging = null;
+      };
+      g.addEventListener('pointerup', release);
+      g.addEventListener('pointercancel', release);
+
+      // hover highlighting
+      const hi = () => {
+        svg.classList.add('dimmed');
+        const neighbors = adj.get(n.id) ?? new Set();
+        for (const { n: m, g: mg } of nodeEls) {
+          mg.classList.toggle('hi', m.id === n.id || neighbors.has(m.id));
+        }
+        for (const { e, line, label } of edgeEls) {
+          const on = e.source === n.id || e.target === n.id;
+          line.parentElement?.classList.toggle('hi', on);
+          void label;
+        }
+      };
+      const lo = () => {
+        svg.classList.remove('dimmed');
+        for (const { g: mg } of nodeEls) mg.classList.remove('hi');
+        for (const { line } of edgeEls) line.parentElement?.classList.remove('hi');
+      };
+      g.addEventListener('pointerenter', hi);
+      g.addEventListener('pointerleave', lo);
+      g.addEventListener('focus', hi);
+      g.addEventListener('blur', lo);
+    }
+  }
+</script>
+
+<style>
+  .cypher {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--pass);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 0.65rem 0.95rem;
+    margin: 0 0 1.2rem;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .prompt {
+    color: #6fd3ff;
+    font-weight: 700;
+    margin-right: 0.5rem;
+  }
+
+  .graph-wrap {
+    border: 1px solid var(--line);
+    position: relative;
+    background: repeating-linear-gradient(0deg, transparent, transparent 23px, var(--line-soft) 23px, var(--line-soft) 24px),
+      repeating-linear-gradient(90deg, transparent, transparent 23px, var(--line-soft) 23px, var(--line-soft) 24px);
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    touch-action: none;
+  }
+
+  /* edges */
+  svg :global(.edge .wire) {
+    stroke: var(--line);
+    stroke-width: 1;
+    stroke-dasharray: 5 4;
+    transition: stroke 0.15s, opacity 0.2s;
+  }
+
+  svg :global(.edge .rel) {
+    fill: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: 6.5px;
+    letter-spacing: 1px;
+    text-anchor: middle;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+
+  /* nodes */
+  svg :global(.node) {
+    cursor: grab;
+    outline: none;
+    transition: opacity 0.2s;
+  }
+
+  svg :global(.node:active) {
+    cursor: grabbing;
+  }
+
+  svg :global(.node circle) {
+    fill: var(--paper);
+    stroke-width: 1.6;
+  }
+
+  svg :global(.node.person circle) { stroke: var(--accent); fill: var(--accent-soft); }
+  svg :global(.node.person .inner) { fill: none; stroke: var(--accent); stroke-dasharray: 3 3; }
+  svg :global(.node.person .mono-mark) {
+    fill: var(--accent);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    text-anchor: middle;
+    letter-spacing: 1px;
+  }
+
+  svg :global(.node.family circle) { stroke: var(--stamp); }
+  svg :global(.node.work circle) { stroke: var(--ink); }
+  svg :global(.node.oss circle) { stroke: var(--pass); }
+  svg :global(.node.hobby circle) { stroke: var(--ink-dim); stroke-dasharray: 4 3; }
+
+  svg :global(.node .nlabel) {
+    fill: var(--ink);
+    font-family: var(--mono);
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  /* hover dimming */
+  svg :global(.dimmed .node),
+  svg :global(.dimmed .edge) {
+    opacity: 0.18;
+  }
+
+  svg :global(.dimmed .node.hi),
+  svg :global(.dimmed .edge.hi) {
+    opacity: 1;
+  }
+
+  svg :global(.dimmed .edge.hi .wire) {
+    stroke: var(--accent);
+  }
+
+  svg :global(.dimmed .edge.hi .rel) {
+    fill: var(--accent);
+  }
+
+  .legend {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+  }
+
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .sw {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1.5px solid;
+  }
+
+  .sw.person { border-color: var(--accent); background: var(--accent-soft); }
+  .sw.family { border-color: var(--stamp); }
+  .sw.work { border-color: var(--ink); }
+  .sw.oss { border-color: var(--pass); }
+  .sw.hobby { border-color: var(--ink-dim); border-style: dashed; }
+</style>

@@ -1,0 +1,173 @@
+---
+import { getCollection } from 'astro:content';
+import { url } from '../utils';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const total = projects.length;
+
+const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())].sort();
+---
+
+<section id="projects" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 04</span> DETAIL DRAWINGS — CLIENT PROJECTS</h2>
+
+  <div class="filters reveal" role="group" aria-label="Filter projects by role">
+    <button class="filter is-active" data-role="all">ALL ({total})</button>
+    {roles.map((role) => (
+      <button class="filter" data-role={role}>{role.toUpperCase()}</button>
+    ))}
+  </div>
+
+  <div class="details-grid">
+    {projects.map((p, i) => (
+      <a
+        class="detail project reveal"
+        href={url(`projects/${p.id}/`)}
+        data-roles={p.data.role}
+      >
+        <header>
+          <span class="partno">P-{String(total - i).padStart(3, '0')}</span>
+          <span class="client">{p.data.client.toUpperCase()}</span>
+        </header>
+        <h3>{p.data.title}</h3>
+        <p>{p.data.description}</p>
+        <footer>
+          <span>ROLE: {p.data.role.toUpperCase()}</span>
+          <span>{p.data.ongoing ? 'DUR: ONGOING' : `DUR: ${p.data.duration} MO`}</span>
+        </footer>
+        <span class="corner" aria-hidden="true"></span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const cards = document.querySelectorAll<HTMLElement>('.project');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+      const role = btn.dataset.role;
+      cards.forEach((card) => {
+        const match = role === 'all' || card.dataset.roles?.includes(role ?? '');
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .filter {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .filter.is-active {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .detail {
+    border: 1px solid var(--line);
+    padding: 1.1rem 1.2rem 0.9rem;
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .detail:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translate(-2px, -2px);
+    text-decoration: none;
+  }
+
+  .detail header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+
+  .partno {
+    color: var(--stamp);
+    font-weight: 700;
+  }
+
+  .client {
+    color: var(--accent);
+    text-align: right;
+  }
+
+  h3 {
+    font-family: var(--disp);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .detail p {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .detail footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+    border-top: 1px dashed var(--line);
+    padding-top: 0.6rem;
+    margin-top: auto;
+  }
+
+  .corner {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 14px;
+    height: 14px;
+    border-top: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+  }
+</style>

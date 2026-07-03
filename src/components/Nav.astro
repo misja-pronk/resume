@@ -1,0 +1,168 @@
+---
+import { profile } from '../data/profile';
+import { url } from '../utils';
+
+const links = [
+  { href: url('/#specialisms'), label: 'Expertise' },
+  { href: url('/#experience'), label: 'Experience' },
+  { href: url('/#projects'), label: 'Projects' },
+  { href: url('/#opensource'), label: 'Open Source' },
+  { href: url('/#skills'), label: 'Toolbox' },
+  { href: url('/#education'), label: 'Education' },
+  { href: url('/#graph'), label: 'Graph' },
+];
+---
+
+<header class="nav-wrap">
+  <nav class="container">
+    <a class="brand" href={url('/')}>
+      <span class="brand-mark">MP</span>
+      <span class="brand-doc">DOC NO. MP-2026-001</span>
+    </a>
+    <div class="links">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </div>
+    <div class="actions">
+      <a class="btn-bp solid resume-btn" href={url(profile.resumePdf)} target="_blank" rel="noopener">
+        ⤓ RESUME.PDF
+      </a>
+      <button id="theme-toggle" aria-label="Toggle color theme" title="Blueprint / drafting paper">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<style>
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 3.9rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--ink);
+  }
+
+  .brand:hover {
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .brand-doc {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-dim);
+  }
+
+  .links {
+    display: flex;
+    gap: 1.3rem;
+    margin-inline: auto;
+  }
+
+  .links a {
+    color: var(--ink-dim);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .resume-btn {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.66rem;
+  }
+
+  #theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-dim);
+    cursor: pointer;
+  }
+
+  #theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  :global([data-theme='light']) .icon-sun,
+  .icon-moon {
+    display: none;
+  }
+
+  :global([data-theme='light']) .icon-moon {
+    display: block;
+  }
+
+  @media (max-width: 940px) {
+    .links {
+      display: none;
+    }
+
+    .actions {
+      margin-left: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brand-doc {
+      display: none;
+    }
+  }
+</style>

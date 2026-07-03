@@ -1,0 +1,157 @@
+---
+import { openSource } from '../data/opensource';
+---
+
+<section id="opensource" class="block">
+  <h2 class="sheet-title reveal"><span>SHT 05</span> SHOP-FABRICATED PARTS — OPEN SOURCE</h2>
+  {openSource.map((oss, i) => (
+    <a class="oss reveal" href={oss.repo} target="_blank" rel="noopener">
+      <div class="oss-head">
+        <span class="oss-part">PART NO. OSS-{String(i + 1).padStart(3, '0')}</span>
+        <span class="oss-license">LICENSE: {oss.license} — MACHINED IN THE OPEN</span>
+      </div>
+      <div class="oss-body">
+        <div>
+          <h3>{oss.name}<span class="cursor">▊</span></h3>
+          <p class="oss-tagline">{oss.tagline}</p>
+          <p class="oss-desc">{oss.description}</p>
+          <p class="oss-spec">SPEC: {oss.tech.join(' · ')}</p>
+        </div>
+        <div class="oss-terminal" aria-hidden="true">
+          <span class="term-title">— INSTALLATION —</span>
+          <code>$ {oss.install}</code>
+          <code>$ iso</code>
+          <span class="term-note">SOURCE → {oss.repo.replace('https://', '')}</span>
+        </div>
+      </div>
+    </a>
+  ))}
+</section>
+
+<style>
+  .oss {
+    display: block;
+    border: 1.5px solid var(--accent);
+    padding: 1.4rem 1.6rem;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--accent-soft);
+    transition: all 0.15s;
+  }
+
+  .oss:hover {
+    box-shadow: var(--shadow);
+    transform: translate(-2px, -2px);
+    text-decoration: none;
+  }
+
+  .oss + .oss {
+    margin-top: 1.2rem;
+  }
+
+  .oss-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .oss-part {
+    color: var(--stamp);
+    font-weight: 700;
+  }
+
+  .oss-license {
+    color: var(--accent);
+  }
+
+  .oss-body {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  h3 {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.4rem;
+    color: var(--accent);
+  }
+
+  .cursor {
+    animation: blinkc 1.1s steps(1) infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blinkc {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .oss-tagline {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin: 0 0 0.7rem;
+  }
+
+  .oss-desc {
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    margin: 0 0 0.9rem;
+    line-height: 1.7;
+  }
+
+  .oss-spec {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+    padding-top: 0.7rem;
+    margin: 0;
+  }
+
+  .oss-terminal {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .term-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    color: #8fb3d1;
+    text-align: center;
+  }
+
+  .oss-terminal code {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: #7ce38b;
+  }
+
+  .term-note {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: #6fd3ff;
+    margin-top: 0.3rem;
+    word-break: break-all;
+  }
+
+  @media (max-width: 760px) {
+    .oss-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

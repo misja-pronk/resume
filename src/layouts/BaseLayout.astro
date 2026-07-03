@@ -1,0 +1,78 @@
+---
+import '@fontsource/jetbrains-mono';
+import '@fontsource/jetbrains-mono/700.css';
+import '@fontsource-variable/space-grotesk';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { profile } from '../data/profile';
+import { url } from '../utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${profile.firstName} ${profile.lastName} — ${profile.title}`,
+  description = profile.tagline,
+} = Astro.props;
+
+const ogImage = new URL(url(profile.photo), Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={`${profile.firstName} ${profile.lastName}`} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="theme-color" content="#0c2d4d" />
+    <script is:inline>
+      // Set theme before first paint to avoid a flash.
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const preferred =
+          stored ??
+          (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.dataset.theme = preferred;
+      })();
+    </script>
+  </head>
+  <body>
+    <Nav />
+    <div class="container">
+      <main class="sheet">
+        <span class="regmark tl" aria-hidden="true">+</span>
+        <span class="regmark tr" aria-hidden="true">+</span>
+        <span class="regmark bl" aria-hidden="true">+</span>
+        <span class="regmark br" aria-hidden="true">+</span>
+        <slot />
+        <Footer />
+      </main>
+    </div>
+    <script>
+      // Scroll-reveal animation
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.08 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="titleblock">
+  <div class="tb-cell grow">
+    <span class="tb-label">Project</span>
+    <span class="tb-value">{profile.firstName.toUpperCase()} {profile.lastName.toUpperCase()} — PROFESSIONAL PROFILE</span>
+  </div>
+  <div class="tb-cell">
+    <span class="tb-label">Drawn by</span>
+    <span class="tb-value">M. PRONK</span>
+  </div>
+  <div class="tb-cell">
+    <span class="tb-label">Motto</span>
+    <span class="tb-value">MEASURE TWICE · BUILD ONCE</span>
+  </div>
+  <div class="tb-cell">
+    <span class="tb-label">Firm</span>
+    <span class="tb-value">PROREX CONSULTANCY</span>
+  </div>
+  <div class="tb-cell">
+    <span class="tb-label">Contact</span>
+    <span class="tb-value links">
+      <a href={`mailto:${profile.email}`}>EMAIL</a>
+      <a href={profile.linkedin} target="_blank" rel="noopener">LINKEDIN</a>
+      <a href={profile.github} target="_blank" rel="noopener">GITHUB</a>
+    </span>
+  </div>
+  <div class="tb-cell">
+    <span class="tb-label">Rev</span>
+    <span class="tb-value">© {year}</span>
+  </div>
+</footer>
+
+<style>
+  .titleblock {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 2px solid var(--ink);
+  }
+
+  .tb-cell {
+    border-right: 1px solid var(--line);
+    padding: 0.7rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .tb-cell:last-child {
+    border-right: none;
+  }
+
+  .tb-cell.grow {
+    flex: 1;
+  }
+
+  .tb-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+
+  .tb-value {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+
+  .tb-value.links {
+    display: flex;
+    gap: 0.9rem;
+  }
+</style>
