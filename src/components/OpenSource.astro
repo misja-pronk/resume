@@ -1,27 +1,32 @@
 ---
-import { openSource } from '../data/opensource';
+import { getOpenSource } from '../data/opensource';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const openSource = getOpenSource(locale);
 ---
 
 <section id="opensource" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 05</span> SHOP-FABRICATED PARTS — OPEN SOURCE</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 05</span> {t.oss.title}</h2>
   {openSource.map((oss, i) => (
     <a class="oss reveal" href={oss.repo} target="_blank" rel="noopener">
       <div class="oss-head">
-        <span class="oss-part">PART NO. OSS-{String(i + 1).padStart(3, '0')}</span>
-        <span class="oss-license">LICENSE: {oss.license} — MACHINED IN THE OPEN</span>
+        <span class="oss-part">{t.oss.partNo} OSS-{String(i + 1).padStart(3, '0')}</span>
+        <span class="oss-license">{t.oss.license}: {oss.license} — {t.oss.machined}</span>
       </div>
       <div class="oss-body">
         <div>
           <h3>{oss.name}<span class="cursor">▊</span></h3>
           <p class="oss-tagline">{oss.tagline}</p>
           <p class="oss-desc">{oss.description}</p>
-          <p class="oss-spec">SPEC: {oss.tech.join(' · ')}</p>
+          <p class="oss-spec">{t.oss.spec}: {oss.tech.join(' · ')}</p>
         </div>
         <div class="oss-terminal" aria-hidden="true">
-          <span class="term-title">— INSTALLATION —</span>
+          <span class="term-title">{t.oss.installation}</span>
           <code>$ {oss.install}</code>
           <code>$ iso</code>
-          <span class="term-note">SOURCE → {oss.repo.replace('https://', '')}</span>
+          <span class="term-note">{t.oss.source} → {oss.repo.replace('https://', '')}</span>
         </div>
       </div>
     </a>

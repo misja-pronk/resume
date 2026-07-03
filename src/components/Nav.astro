@@ -1,30 +1,44 @@
 ---
-import { profile } from '../data/profile';
+import { getProfile } from '../data/profile';
+import { getLocale, altPaths, lpath, ui } from '../i18n';
 import { url } from '../utils';
 
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const profile = getProfile(locale);
+const home = lpath(locale, '/');
+
 const links = [
-  { href: url('/#specialisms'), label: 'Expertise' },
-  { href: url('/#experience'), label: 'Experience' },
-  { href: url('/#projects'), label: 'Projects' },
-  { href: url('/#opensource'), label: 'Open Source' },
-  { href: url('/#skills'), label: 'Toolbox' },
-  { href: url('/#education'), label: 'Education' },
-  { href: url('/#graph'), label: 'Graph' },
+  { href: url(`${home}#specialisms`), label: t.nav.expertise },
+  { href: url(`${home}#experience`), label: t.nav.experience },
+  { href: url(`${home}#projects`), label: t.nav.projects },
+  { href: url(`${home}#opensource`), label: t.nav.openSource },
+  { href: url(`${home}#skills`), label: t.nav.toolbox },
+  { href: url(`${home}#education`), label: t.nav.education },
+  { href: url(`${home}#library`), label: t.nav.library },
+  { href: url(lpath(locale, 'blog/')), label: t.nav.fieldNotes },
 ];
+
+const alts = altPaths(Astro.url.pathname);
 ---
 
 <header class="nav-wrap">
   <nav class="container">
-    <a class="brand" href={url('/')}>
+    <a class="brand" href={url(home)}>
       <span class="brand-mark">MP</span>
-      <span class="brand-doc">DOC NO. MP-2026-001</span>
+      <span class="brand-doc">{t.head.docNo}</span>
     </a>
     <div class="links">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </div>
     <div class="actions">
+      <div class="lang" role="group" aria-label="Language">
+        <a href={alts.en} class:list={[{ active: locale === 'en' }]} aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+        <span aria-hidden="true">/</span>
+        <a href={alts.nl} class:list={[{ active: locale === 'nl' }]} aria-current={locale === 'nl' ? 'true' : undefined}>NL</a>
+      </div>
       <a class="btn-bp solid resume-btn" href={url(profile.resumePdf)} target="_blank" rel="noopener">
-        ⤓ RESUME.PDF
+        {t.nav.resume}
       </a>
       <button id="theme-toggle" aria-label="Toggle color theme" title="Blueprint / drafting paper">
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -62,7 +76,7 @@ const links = [
   nav {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.3rem;
     height: 3.9rem;
   }
 
@@ -97,15 +111,15 @@ const links = [
 
   .links {
     display: flex;
-    gap: 1.3rem;
+    gap: 1.15rem;
     margin-inline: auto;
   }
 
   .links a {
     color: var(--ink-dim);
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
   }
 
@@ -118,6 +132,31 @@ const links = [
     display: flex;
     align-items: center;
     gap: 0.7rem;
+  }
+
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.6rem;
+  }
+
+  .lang a {
+    color: var(--ink-dim);
+  }
+
+  .lang a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .lang a.active {
+    color: var(--accent);
   }
 
   .resume-btn {
@@ -150,7 +189,7 @@ const links = [
     display: block;
   }
 
-  @media (max-width: 940px) {
+  @media (max-width: 1020px) {
     .links {
       display: none;
     }

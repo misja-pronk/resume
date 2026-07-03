@@ -1,22 +1,27 @@
 ---
-import { education } from '../data/education';
+import { getEducation } from '../data/education';
+import { getLocale, ui } from '../i18n';
 import { url } from '../utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const education = getEducation(locale);
 ---
 
 <section id="education" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 08</span> FOUNDATION WORKS — EDUCATION</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 08</span> {t.education.title}</h2>
   <div class="grid">
     {education.map((edu, i) => (
       <div class="edu reveal">
         <header>
-          <span class="edu-no">FND {String(education.length - i).padStart(2, '0')}</span>
+          <span class="edu-no">{t.education.fnd} {String(education.length - i).padStart(2, '0')}</span>
           <span class="range">{edu.range}</span>
         </header>
         <h3>{edu.degree}</h3>
         <p class="school">{edu.school}</p>
         {edu.majors && (
           <div class="subjects">
-            <span class="label">{edu.minors ? 'MAJOR SUBJECTS' : 'SUBJECTS'}</span>
+            <span class="label">{edu.minors ? t.education.majors : t.education.subjects}</span>
             <div class="chips">
               {edu.majors.map((m) => <span class="chip">{m}</span>)}
             </div>
@@ -24,14 +29,14 @@ import { url } from '../utils';
         )}
         {edu.minors && (
           <div class="subjects">
-            <span class="label">MINOR SUBJECTS</span>
+            <span class="label">{t.education.minors}</span>
             <div class="chips">
               {edu.minors.map((m) => <span class="chip">{m}</span>)}
             </div>
           </div>
         )}
         <a class="diploma" href={url(edu.diploma)} target="_blank" rel="noopener">
-          CERTIFIED COPY ON FILE — VIEW DIPLOMA (PDF) →
+          {t.education.diploma}
         </a>
       </div>
     ))}

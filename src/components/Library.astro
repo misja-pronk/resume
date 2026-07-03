@@ -1,0 +1,227 @@
+---
+import { getLibrary } from '../data/library';
+import { getLocale, ui } from '../i18n';
+import { url } from '../utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const library = getLibrary(locale);
+
+const statusLabel = { read: t.library.read, reading: t.library.reading, wishlist: t.library.wishlist };
+const counts = {
+  read: library.filter((b) => b.status === 'read').length,
+  reading: library.filter((b) => b.status === 'reading').length,
+  wishlist: library.filter((b) => b.status === 'wishlist').length,
+};
+---
+
+<section id="library" class="block">
+  <h2 class="sheet-title reveal"><span>{t.sheet} 11</span> {t.library.title}</h2>
+
+  <div class="lib-filters reveal" role="group" aria-label="Filter books by status">
+    <button class="lib-filter is-active" data-status="all">{t.library.all} ({library.length})</button>
+    <button class="lib-filter" data-status="read">{t.library.read} ({counts.read})</button>
+    <button class="lib-filter" data-status="reading">{t.library.reading} ({counts.reading})</button>
+    <button class="lib-filter" data-status="wishlist">{t.library.wishlist} ({counts.wishlist})</button>
+  </div>
+
+  <div class="table-scroll reveal">
+    <table class="register">
+      <thead>
+        <tr><th>{t.library.docNo}</th><th>{t.library.bookTitle}</th><th>{t.library.author}</th><th>{t.library.discipline}</th><th>{t.library.status}</th></tr>
+      </thead>
+      <tbody>
+        {library.map((book, i) => (
+          <tr class="book" data-status={book.status}>
+            <td class="docno">B-{String(i + 1).padStart(3, '0')}</td>
+            <td class="title">
+              <span class="title-cell">
+                {book.cover ? (
+                  <img class="cover" src={url(book.cover)} alt="" width="42" height="60" loading="lazy" />
+                ) : (
+                  <span class="spine" aria-hidden="true">{book.title.split(' ').map((w) => w[0]).slice(0, 3).join('')}</span>
+                )}
+                <span class="title-text">
+                  {book.title}
+                  {book.note && <small>{book.note}</small>}
+                </span>
+              </span>
+            </td>
+            <td class="author">{book.author}</td>
+            <td class="discipline"><span class="chip">{book.discipline}</span></td>
+            <td class="status"><span class={`mark ${book.status}`}>{statusLabel[book.status]}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">{t.library.note}</p>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.lib-filter');
+  const rows = document.querySelectorAll<HTMLElement>('.book');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+      const status = btn.dataset.status;
+      rows.forEach((row) => {
+        row.style.display = status === 'all' || row.dataset.status === status ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .lib-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .lib-filter {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .lib-filter:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .lib-filter.is-active {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .register {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.76rem;
+    min-width: 620px;
+  }
+
+  .register th,
+  .register td {
+    border: 1px solid var(--line);
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .register th {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .docno {
+    font-weight: 700;
+    color: var(--stamp);
+    white-space: nowrap;
+    font-size: 0.68rem;
+  }
+
+  .title {
+    font-family: var(--disp);
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
+  .title-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .cover {
+    width: 42px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    box-shadow: 3px 3px 0 var(--accent-soft);
+    flex-shrink: 0;
+    transform: rotate(-2deg);
+    transition: transform 0.15s;
+  }
+
+  tr:hover .cover {
+    transform: rotate(0deg) scale(1.6);
+  }
+
+  .spine {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 60px;
+    border: 1px dashed var(--line);
+    color: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+    transform: rotate(-2deg);
+    background: repeating-linear-gradient(45deg, transparent, transparent 5px, var(--hatch) 5px, var(--hatch) 6px);
+  }
+
+  .title small {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.62rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+
+  .author {
+    color: var(--ink-dim);
+    white-space: nowrap;
+    font-size: 0.72rem;
+  }
+
+  .status {
+    white-space: nowrap;
+  }
+
+  .mark {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    padding: 0.18rem 0.5rem;
+    border: 1px solid;
+    transform: rotate(-2deg);
+  }
+
+  .mark.read {
+    color: var(--pass);
+    border-color: var(--pass);
+  }
+
+  .mark.reading {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .mark.wishlist {
+    color: var(--stamp);
+    border-color: var(--stamp);
+    border-style: dashed;
+  }
+</style>

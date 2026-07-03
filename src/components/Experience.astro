@@ -1,15 +1,18 @@
 ---
-import { experience } from '../data/experience';
+import { getExperience } from '../data/experience';
+import { getLocale, ui } from '../i18n';
 
-const revisions = [...experience].reverse();
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const revisions = [...getExperience(locale)].reverse();
 ---
 
 <section id="experience" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 03</span> REVISION HISTORY — CAREER</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 03</span> {t.experience.title}</h2>
   <div class="table-scroll reveal">
     <table class="revtable">
       <thead>
-        <tr><th>REV</th><th>PERIOD</th><th>ORGANISATION</th><th>DESCRIPTION OF CHANGE</th></tr>
+        <tr><th>{t.experience.rev}</th><th>{t.experience.period}</th><th>{t.experience.org}</th><th>{t.experience.desc}</th></tr>
       </thead>
       <tbody>
         {revisions.map((job, i) => (

@@ -1,20 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
+import { getLocale, lpath, ui } from '../i18n';
 import { url } from '../utils';
 
-const projects = (await getCollection('projects')).sort(
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+
+const projects = (await getCollection('projects', (p) => p.id.startsWith(`${locale}/`))).sort(
   (a, b) => a.data.order - b.data.order,
 );
 const total = projects.length;
+const slug = (id: string) => id.replace(`${locale}/`, '');
 
 const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())].sort();
 ---
 
 <section id="projects" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 04</span> DETAIL DRAWINGS — CLIENT PROJECTS</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 04</span> {t.projects.title}</h2>
 
   <div class="filters reveal" role="group" aria-label="Filter projects by role">
-    <button class="filter is-active" data-role="all">ALL ({total})</button>
+    <button class="filter is-active" data-role="all">{t.projects.all} ({total})</button>
     {roles.map((role) => (
       <button class="filter" data-role={role}>{role.toUpperCase()}</button>
     ))}
@@ -24,7 +29,7 @@ const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())]
     {projects.map((p, i) => (
       <a
         class="detail project reveal"
-        href={url(`projects/${p.id}/`)}
+        href={url(lpath(locale, `projects/${slug(p.id)}/`))}
         data-roles={p.data.role}
       >
         <header>
@@ -34,8 +39,8 @@ const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())]
         <h3>{p.data.title}</h3>
         <p>{p.data.description}</p>
         <footer>
-          <span>ROLE: {p.data.role.toUpperCase()}</span>
-          <span>{p.data.ongoing ? 'DUR: ONGOING' : `DUR: ${p.data.duration} MO`}</span>
+          <span>{t.projects.role}: {p.data.role.toUpperCase()}</span>
+          <span>{p.data.ongoing ? `${t.projects.dur}: ${t.projects.ongoing}` : `${t.projects.dur}: ${p.data.duration} ${t.projects.mo}`}</span>
         </footer>
         <span class="corner" aria-hidden="true"></span>
       </a>

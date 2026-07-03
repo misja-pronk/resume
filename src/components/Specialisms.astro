@@ -1,19 +1,24 @@
 ---
-import { specialisms } from '../data/skills';
+import { getSpecialisms } from '../data/skills';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const specialisms = getSpecialisms(locale);
 ---
 
 <section id="specialisms" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 02</span> PRIMARY STRUCTURE — LOAD-BEARING EXPERTISE</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 02</span> {t.specialisms.title}</h2>
   <div class="struct-grid">
     {specialisms.map((s, i) => (
       <article class="member reveal">
         <header>
-          <span class="member-no">MEMBER {String(i + 1).padStart(2, '0')}</span>
+          <span class="member-no">{t.specialisms.member} {String(i + 1).padStart(2, '0')}</span>
           <span class="load-rating" aria-hidden="true">▮▮▮▮▮</span>
         </header>
         <h3>{s.name.toUpperCase()}</h3>
         <p>{s.blurb}</p>
-        <footer>SPEC: {s.tools.join(' · ')}</footer>
+        <footer>{t.specialisms.spec}: {s.tools.join(' · ')}</footer>
       </article>
     ))}
   </div>

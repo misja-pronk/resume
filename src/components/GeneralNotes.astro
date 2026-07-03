@@ -1,19 +1,14 @@
 ---
-import { profile } from '../data/profile';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
 ---
 
 <section id="notes" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 09</span> GENERAL NOTES</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 09</span> {t.notes.title}</h2>
   <ol class="gennotes reveal">
-    <li>SUBJECT BUILDS DATA PLATFORMS THE WAY HE BUILDS FURNITURE: <b>MEASURE TWICE, BUILD ONCE.</b></li>
-    <li>CURRENT CLIENTS ARE LITERAL BUILDERS — CONSTRUCTION GROUPS <b>HEIJMANS</b> AND <b>TBI</b>. SUBJECT SPEAKS FLUENT CONSTRUCTION.</li>
-    <li>SUBJECT IS <b>MARRIED</b>. PRIMARY CONNECTION: PERMANENT, LOAD-BEARING, NOT UP FOR VALUE ENGINEERING.</li>
-    <li><span class="wip">CHANGE ORDER APPROVED:</span> ONE (1) JUNIOR RESIDENT UNDER CONSTRUCTION. <b>SUBJECT IS BECOMING A FATHER.</b> DELIVERY DATE: SEE STORK.</li>
-    <li>OFF-DUTY WORKSHOP OUTPUT: FURNITURE DESIGN, KITCHENS, TINY-HOUSE ARCHITECTURE. ALL LOAD-BEARING JOKES INTENDED.</li>
-    <li>RESIDENCE ({profile.location.toUpperCase()}): EVERYTHING THAT CAN BE AUTOMATED, IS. DESK SETUP: PERMANENTLY IN <b>v-NEXT</b>.</li>
-    <li>KITCHEN OUTPUT RANGES FROM 14-HOUR LOW &amp; SLOW BBQ TO FINE-DINING TASTING MENUS. SUBJECT ALMOST BECAME A CHEF; THE INDUSTRY'S LOSS.</li>
-    <li>LONG-TERM ROADMAP ITEM <span class="wip">[IN BACKLOG]</span>: DESIGN AND BUILD OWN HOUSE. FOUNDATIONS: TBD. AMBITION: POURED.</li>
-    <li>ALSO OPERATES: KTM 1190, GUITARS, AND ONE SCOTTISH COLLIE (REX, CHIEF MORALE OFFICER).</li>
+    {t.notes.items.map((item) => <li set:html={item} />)}
   </ol>
 </section>
 
@@ -36,11 +31,11 @@ import { profile } from '../data/profile';
     font-weight: 700;
   }
 
-  .gennotes b {
+  .gennotes :global(b) {
     color: var(--ink);
   }
 
-  .wip {
+  .gennotes :global(.wip) {
     color: var(--stamp);
     font-weight: 700;
   }

@@ -1,16 +1,21 @@
 ---
-import { skillGroups } from '../data/skills';
+import { getSkillGroups } from '../data/skills';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const skillGroups = getSkillGroups(locale);
 ---
 
 <section id="skills" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 06</span> SECONDARY STRUCTURE — THE TOOLBOX</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 06</span> {t.skills.title}</h2>
   <div class="grid">
     {skillGroups.map((group, i) => (
       <div class="group reveal">
         <div class="head">
-          <span class="group-no">BOX {String(i + 1).padStart(2, '0')}</span>
+          <span class="group-no">{t.skills.box} {String(i + 1).padStart(2, '0')}</span>
           <h3>{group.grouping.toUpperCase()}</h3>
-          <span class="count">{group.skills.length} PCS</span>
+          <span class="count">{group.skills.length} {t.skills.pcs}</span>
         </div>
         <div class="chips">
           {group.skills.map((s) =>
@@ -24,7 +29,7 @@ import { skillGroups } from '../data/skills';
       </div>
     ))}
   </div>
-  <p class="note">NOTE: TOOLBOX IS ACTIVELY MAINTAINED. CONTENTS SUBJECT TO CONTINUOUS EXPANSION.</p>
+  <p class="note">{t.skills.note}</p>
 </section>
 
 <style>
