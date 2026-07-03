@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+import { getLocale, lpath, ui } from '../i18n';
+import { url } from '../utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+
+const posts = (await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d: Date) =>
+  d
+    .toLocaleDateString(locale === 'nl' ? 'nl-NL' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+    .toUpperCase();
+---
+
+<section class="block">
+  <h2 class="sheet-title"><span>{t.sheet} 12</span> {t.blog.title}</h2>
+  <p class="intro">{t.blog.intro}</p>
+
+  {posts.length === 0 && (
+    <div class="empty">
+      <p class="empty-code">{t.blog.emptyCode}</p>
+      <p>{t.blog.emptyMsg}</p>
+    </div>
+  )}
+
+  <div class="memos">
+    {posts.map((post, i) => (
+      <a class="memo" href={url(lpath(locale, `blog/${post.id}/`))}>
+        <div class="memo-side">
+          <span class="memo-no">MEMO-{String(posts.length - i).padStart(3, '0')}</span>
+          <span class="memo-date">{fmt(post.data.date)}</span>
+          {post.data.draft && <span class="draft">{t.blog.draft}</span>}
+        </div>
+        <div class="memo-body">
+          <h3>{post.data.title}</h3>
+          <p>{post.data.summary}</p>
+          <div class="memo-tags">
+            {post.data.tags.map((tag) => <span class="chip">{tag}</span>)}
+          </div>
+        </div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .intro {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-dim);
+    margin: -0.6rem 0 2rem;
+  }
+
+  .empty {
+    border: 1px dashed var(--line);
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+  }
+
+  .empty-code {
+    font-weight: 700;
+    color: var(--stamp);
+    margin-bottom: 0.6rem;
+  }
+
+  .memos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .memo {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    border: 1px solid var(--line);
+    padding: 1.3rem 1.5rem;
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .memo:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translate(-2px, -2px);
+    text-decoration: none;
+  }
+
+  .memo-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border-right: 1px dashed var(--line);
+    padding-right: 1.2rem;
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .memo-no {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--stamp);
+  }
+
+  .memo-date {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+  }
+
+  .draft {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    border: 1px dashed var(--accent);
+    padding: 0.1rem 0.4rem;
+    width: fit-content;
+    transform: rotate(-3deg);
+  }
+
+  .memo-body h3 {
+    font-family: var(--disp);
+    font-size: 1.1rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .memo-body p {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    margin: 0 0 0.7rem;
+    max-width: 62ch;
+  }
+
+  .memo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+    transition: transform 0.15s;
+  }
+
+  .memo:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 640px) {
+    .memo {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    .memo-side {
+      flex-direction: row;
+      align-items: center;
+      border-right: none;
+      border-bottom: 1px dashed var(--line);
+      padding: 0 0 0.7rem;
+    }
+
+    .arrow {
+      display: none;
+    }
+  }
+</style>

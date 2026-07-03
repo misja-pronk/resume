@@ -5,7 +5,8 @@ import '@fontsource-variable/space-grotesk';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { profile } from '../data/profile';
+import { getProfile } from '../data/profile';
+import { getLocale, altPaths } from '../i18n';
 import { url } from '../utils';
 
 interface Props {
@@ -13,16 +14,20 @@ interface Props {
   description?: string;
 }
 
+const locale = getLocale(Astro.currentLocale);
+const profile = getProfile(locale);
+
 const {
   title = `${profile.firstName} ${profile.lastName} — ${profile.title}`,
   description = profile.tagline,
 } = Astro.props;
 
 const ogImage = new URL(url(profile.photo), Astro.site);
+const alts = altPaths(Astro.url.pathname);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,6 +36,9 @@ const ogImage = new URL(url(profile.photo), Astro.site);
     <meta name="author" content={`${profile.firstName} ${profile.lastName}`} />
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(alts.en, Astro.site)} />
+    <link rel="alternate" hreflang="nl" href={new URL(alts.nl, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(alts.en, Astro.site)} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

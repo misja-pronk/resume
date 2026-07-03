@@ -1,19 +1,26 @@
+---
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+---
+
 <section id="graph" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 10</span> AS-BUILT GRAPH — SELF-DOCUMENTING</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 10</span> {t.graph.title}</h2>
   <p class="cypher reveal">
     <span class="prompt">neo4j&gt;</span> MATCH (m:Engineer &#123;name: "Misja Pronk"&#125;)-[r]-&gt;(n) RETURN m, r, n;
   </p>
   <div class="graph-wrap reveal">
     <svg id="kgraph" viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Knowledge graph of Misja Pronk: work, open source, family and hobbies as connected nodes"></svg>
     <div class="legend">
-      <span><i class="sw person"></i> SUBJECT</span>
-      <span><i class="sw family"></i> FAMILY</span>
-      <span><i class="sw work"></i> WORK</span>
-      <span><i class="sw oss"></i> OPEN SOURCE</span>
-      <span><i class="sw hobby"></i> AFTER HOURS</span>
+      <span><i class="sw person"></i> {t.graph.legend.person}</span>
+      <span><i class="sw family"></i> {t.graph.legend.family}</span>
+      <span><i class="sw work"></i> {t.graph.legend.work}</span>
+      <span><i class="sw oss"></i> {t.graph.legend.oss}</span>
+      <span><i class="sw hobby"></i> {t.graph.legend.hobby}</span>
     </div>
   </div>
-  <p class="note">NOTE: SUBJECT LOVES GRAPH DATABASES. NODES ARE DRAGGABLE. THIS SHEET DOCUMENTS ITSELF.</p>
+  <p class="note">{t.graph.note}</p>
 </section>
 
 <script>
@@ -69,6 +76,8 @@
     ['dining', 'FINE DINING', 'hobby', 11],
     ['homeauto', 'HOME AUTOMATION', 'hobby', 12],
     ['desk', 'DESK SETUP', 'hobby', 10],
+    ['pcs', 'CUSTOM PCs', 'hobby', 10],
+    ['keebs', 'MECH KEYBOARDS', 'hobby', 10],
     ['ktm', 'KTM 1190', 'hobby', 10],
     ['guitars', 'GUITARS', 'hobby', 10],
   ];
@@ -100,6 +109,10 @@
     { source: 'bbq', target: 'dining', rel: 'PAIRS_WITH' },
     { source: 'misja', target: 'homeauto', rel: 'AUTOMATES' },
     { source: 'homeauto', target: 'desk', rel: 'POWERS' },
+    { source: 'misja', target: 'pcs', rel: 'BUILDS' },
+    { source: 'misja', target: 'keebs', rel: 'SOLDERS' },
+    { source: 'pcs', target: 'desk', rel: 'DRIVES' },
+    { source: 'keebs', target: 'desk', rel: 'CLACKS_ON' },
     { source: 'misja', target: 'ktm', rel: 'RIDES' },
     { source: 'misja', target: 'guitars', rel: 'PLAYS' },
   ];

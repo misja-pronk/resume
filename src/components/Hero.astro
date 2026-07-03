@@ -1,24 +1,30 @@
 ---
-import { profile, stats } from '../data/profile';
+import { getProfile, getStats } from '../data/profile';
+import { getLocale, ui } from '../i18n';
 import { url } from '../utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale].hero;
+const profile = getProfile(locale);
+const stats = getStats(locale);
 ---
 
 <section class="hero block">
-  <p class="fig">FIG. 001 — THE CONSULTANT</p>
+  <p class="fig">{t.fig}</p>
   <div class="hero-grid">
     <div>
       <h1>
-        <span class="dim-line" aria-hidden="true"><i>◄</i>1 (one) well-rounded professional<i>►</i></span>
+        <span class="dim-line" aria-hidden="true"><i>◄</i>{t.dim}<i>►</i></span>
         {profile.firstName}<br />{profile.lastName}
       </h1>
       <p class="spec-line">
-        TYPE: <b>DATA PLATFORM ARCHITECT</b> · MATERIALS: <b>AZURE, DATABRICKS, dbt, TERRAFORM</b>
-        <small>(AFTER HOURS: OAK)</small> · FINISH: <b>METADATA-DRIVEN</b> · ORIGIN: <b>FRIESLAND, NL</b>
+        {t.specType}: <b>{t.specTypeVal}</b> · {t.specMaterials}: <b>{t.specMaterialsVal}</b>
+        <small>{t.specAfterHours}</small> · {t.specFinish}: <b>{t.specFinishVal}</b> · {t.specOrigin}: <b>{t.specOriginVal}</b>
       </p>
       <p class="tagline">// {profile.tagline}</p>
       <div class="hero-cta">
-        <a class="btn-bp solid" href={url(profile.resumePdf)} target="_blank" rel="noopener">⤓ RESUME.PDF</a>
-        <a class="btn-bp" href={`mailto:${profile.email}`}>INITIATE CONTACT</a>
+        <a class="btn-bp solid" href={url(profile.resumePdf)} target="_blank" rel="noopener">{t.resume}</a>
+        <a class="btn-bp" href={`mailto:${profile.email}`}>{t.contact}</a>
       </div>
       <dl class="quantities">
         {stats.map((s) => (
@@ -39,22 +45,22 @@ import { url } from '../utils';
           height="640"
           loading="eager"
         />
-        <figcaption>SITE PHOTO — THE ARCHITECT, ON LOCATION</figcaption>
+        <figcaption>{t.photoCaption}</figcaption>
       </div>
-      <span class="stamp">APPROVED<br /><small>FOR PRODUCTION</small></span>
+      <span class="stamp">{t.stampTop}<br /><small>{t.stampSub}</small></span>
     </figure>
   </div>
 
   <svg class="dag" viewBox="0 0 900 150" xmlns="http://www.w3.org/2000/svg" aria-label="Data pipeline schematic">
-    <g class="node"><rect x="10" y="45" width="150" height="60" rx="2"/><text x="85" y="70">SOURCES</text><text x="85" y="88" class="sub">APIs · DBs · FILES</text></g>
-    <g class="node"><rect x="240" y="45" width="150" height="60" rx="2"/><text x="315" y="70">INGEST</text><text x="315" y="88" class="sub">DATA FACTORY</text></g>
-    <g class="node"><rect x="470" y="45" width="150" height="60" rx="2"/><text x="545" y="70">TRANSFORM</text><text x="545" y="88" class="sub">DATABRICKS · dbt</text></g>
-    <g class="node"><rect x="700" y="45" width="150" height="60" rx="2"/><text x="775" y="70">SERVE</text><text x="775" y="88" class="sub">LAKEHOUSE · BI</text></g>
+    <g class="node"><rect x="10" y="45" width="150" height="60" rx="2"/><text x="85" y="70">{t.dagNodes[0]}</text><text x="85" y="88" class="sub">APIs · DBs · FILES</text></g>
+    <g class="node"><rect x="240" y="45" width="150" height="60" rx="2"/><text x="315" y="70">{t.dagNodes[1]}</text><text x="315" y="88" class="sub">DATA FACTORY</text></g>
+    <g class="node"><rect x="470" y="45" width="150" height="60" rx="2"/><text x="545" y="70">{t.dagNodes[2]}</text><text x="545" y="88" class="sub">DATABRICKS · dbt</text></g>
+    <g class="node"><rect x="700" y="45" width="150" height="60" rx="2"/><text x="775" y="70">{t.dagNodes[3]}</text><text x="775" y="88" class="sub">LAKEHOUSE · BI</text></g>
     <g class="wire">
       <path d="M160 75 H240"/><path d="M390 75 H470"/><path d="M620 75 H700"/>
       <circle cx="200" cy="75" r="3"/><circle cx="430" cy="75" r="3"/><circle cx="660" cy="75" r="3"/>
     </g>
-    <text x="450" y="20" class="dag-title">TYPICAL DEPLOYMENT — REF. DETAIL DRAWINGS SHT 04</text>
+    <text x="450" y="20" class="dag-title">{t.dagTitle}</text>
   </svg>
 </section>
 

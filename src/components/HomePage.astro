@@ -1,0 +1,54 @@
+---
+import Hero from './Hero.astro';
+import About from './About.astro';
+import Specialisms from './Specialisms.astro';
+import Experience from './Experience.astro';
+import Projects from './Projects.astro';
+import OpenSource from './OpenSource.astro';
+import Skills from './Skills.astro';
+import Certifications from './Certifications.astro';
+import Education from './Education.astro';
+import GeneralNotes from './GeneralNotes.astro';
+import KnowledgeGraph from './KnowledgeGraph.astro';
+import Library from './Library.astro';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+---
+
+<div class="sheet-head">
+  <span>{t.head.docNo}</span>
+  <span class="head-title">{t.head.title}</span>
+  <span>{t.head.scale}</span>
+</div>
+<Hero />
+<About />
+<Specialisms />
+<Experience />
+<Projects />
+<OpenSource />
+<Skills />
+<Certifications />
+<Education />
+<GeneralNotes />
+<KnowledgeGraph />
+<Library />
+
+<style>
+  .sheet-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 1.25rem;
+    border-bottom: 2px solid var(--ink);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+    flex-wrap: wrap;
+  }
+
+  .head-title {
+    color: var(--accent);
+  }
+</style>

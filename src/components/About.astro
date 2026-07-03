@@ -1,9 +1,14 @@
 ---
-import { profile } from '../data/profile';
+import { getProfile } from '../data/profile';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const profile = getProfile(locale);
 ---
 
 <section id="about" class="block reveal">
-  <h2 class="sheet-title"><span>SHT 01</span> DESIGN STATEMENT</h2>
+  <h2 class="sheet-title"><span>{t.sheet} 01</span> {t.about.title}</h2>
   <div class="statement">
     {profile.bio.map((paragraph) => <p>{paragraph}</p>)}
   </div>

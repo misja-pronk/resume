@@ -1,51 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Specialisms from '../components/Specialisms.astro';
-import Experience from '../components/Experience.astro';
-import Projects from '../components/Projects.astro';
-import OpenSource from '../components/OpenSource.astro';
-import Skills from '../components/Skills.astro';
-import Certifications from '../components/Certifications.astro';
-import Education from '../components/Education.astro';
-import GeneralNotes from '../components/GeneralNotes.astro';
-import KnowledgeGraph from '../components/KnowledgeGraph.astro';
+import HomePage from '../components/HomePage.astro';
 ---
 
 <BaseLayout>
-  <div class="sheet-head">
-    <span>DOC NO. MP-2026-001</span>
-    <span class="head-title">PERSONNEL SPECIFICATION — DATA &amp; PLATFORM ENGINEERING</span>
-    <span>SCALE 1:1 · DO NOT REDUCE</span>
-  </div>
-  <Hero />
-  <About />
-  <Specialisms />
-  <Experience />
-  <Projects />
-  <OpenSource />
-  <Skills />
-  <Certifications />
-  <Education />
-  <GeneralNotes />
-  <KnowledgeGraph />
+  <HomePage />
 </BaseLayout>
-
-<style>
-  .sheet-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 1.25rem;
-    border-bottom: 2px solid var(--ink);
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    color: var(--ink-dim);
-    flex-wrap: wrap;
-  }
-
-  .head-title {
-    color: var(--accent);
-  }
-</style>

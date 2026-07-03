@@ -1,28 +1,32 @@
 ---
-import { profile } from '../data/profile';
+import { getProfile } from '../data/profile';
+import { getLocale, ui } from '../i18n';
 
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale].footer;
+const profile = getProfile(locale);
 const year = new Date().getFullYear();
 ---
 
 <footer class="titleblock">
   <div class="tb-cell grow">
-    <span class="tb-label">Project</span>
-    <span class="tb-value">{profile.firstName.toUpperCase()} {profile.lastName.toUpperCase()} — PROFESSIONAL PROFILE</span>
+    <span class="tb-label">{t.project}</span>
+    <span class="tb-value">{t.projectVal}</span>
   </div>
   <div class="tb-cell">
-    <span class="tb-label">Drawn by</span>
+    <span class="tb-label">{t.drawnBy}</span>
     <span class="tb-value">M. PRONK</span>
   </div>
   <div class="tb-cell">
-    <span class="tb-label">Motto</span>
-    <span class="tb-value">MEASURE TWICE · BUILD ONCE</span>
+    <span class="tb-label">{t.motto}</span>
+    <span class="tb-value">{t.mottoVal}</span>
   </div>
   <div class="tb-cell">
-    <span class="tb-label">Firm</span>
+    <span class="tb-label">{t.firm}</span>
     <span class="tb-value">PROREX CONSULTANCY</span>
   </div>
   <div class="tb-cell">
-    <span class="tb-label">Contact</span>
+    <span class="tb-label">{t.contact}</span>
     <span class="tb-value links">
       <a href={`mailto:${profile.email}`}>EMAIL</a>
       <a href={profile.linkedin} target="_blank" rel="noopener">LINKEDIN</a>
@@ -30,7 +34,7 @@ const year = new Date().getFullYear();
     </span>
   </div>
   <div class="tb-cell">
-    <span class="tb-label">Rev</span>
+    <span class="tb-label">{t.rev}</span>
     <span class="tb-value">© {year}</span>
   </div>
 </footer>

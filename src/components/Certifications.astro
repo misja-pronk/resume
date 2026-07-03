@@ -1,19 +1,24 @@
 ---
-import { certifications } from '../data/certifications';
+import { getCertifications } from '../data/certifications';
+import { getLocale, ui } from '../i18n';
 import { url } from '../utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const certifications = getCertifications(locale);
 ---
 
 <section id="certifications" class="block">
-  <h2 class="sheet-title reveal"><span>SHT 07</span> MATERIALS TESTING — CERTIFICATIONS</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 07</span> {t.certs.title}</h2>
   <div class="certs">
     {certifications.map((c) => (
       <a class="cert reveal" href={c.proof} target="_blank" rel="noopener">
         <img src={url(c.badge)} alt={`${c.name} badge`} width="64" height="64" loading="lazy" />
         <div class="cert-info">
           <span class="cert-name">{c.name}</span>
-          <span class="cert-issuer">TESTED BY {c.issuer.toUpperCase()}</span>
+          <span class="cert-issuer">{t.certs.testedBy} {c.issuer.toUpperCase()}</span>
         </div>
-        <span class="passed">PASSED</span>
+        <span class="passed">{t.certs.passed}</span>
       </a>
     ))}
   </div>
