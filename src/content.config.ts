@@ -11,6 +11,7 @@ const projects = defineCollection({
     employer: z.string(),
     duration: z.number().optional(), // months
     ongoing: z.boolean().default(false),
+    start: z.coerce.date().optional(), // shown for ongoing engagements
     tags: z.array(z.string()),
     order: z.number(), // lower = more recent
     featured: z.boolean().default(false),

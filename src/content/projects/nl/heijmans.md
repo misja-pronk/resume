@@ -5,6 +5,7 @@ client: Heijmans
 role: Platform Engineer / Data Engineer
 employer: ProRex Consultancy
 ongoing: true
+start: 2025-12-01
 order: -5
 featured: true
 tags:

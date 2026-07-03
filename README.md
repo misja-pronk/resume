@@ -66,6 +66,14 @@ All content is data, no HTML surgery required:
 
 **Write a blog post (field note):** add a markdown file to `src/content/posts/` with `title`, `date`, `summary`, `tags` and `draft: false`. Drafts are visible in `npm run dev` but excluded from the production build.
 
+**Regenerate the resume PDFs** (EN + NL, served from `public/docs/`):
+
+```sh
+uv run scripts/generate_resume.py
+```
+
+The content lives inside [`scripts/generate_resume.py`](scripts/generate_resume.py) — edit the `CONTENT` dict and rerun.
+
 ## Deployment
 
 Every push to `master` builds the site and publishes `dist/` to the `gh-pages` branch via [`.github/workflows/gh-pages.yml`](.github/workflows/gh-pages.yml). Pull requests get a build check but do not deploy.

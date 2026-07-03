@@ -7,7 +7,6 @@ const shared = {
   email: 'misja@prorexconsultancy.nl',
   linkedin: 'https://www.linkedin.com/in/misja-pronk',
   github: 'https://github.com/misja-pronk',
-  resumePdf: 'docs/mp_resume.pdf',
   photo: 'img/profile-picture.webp',
 };
 
@@ -15,6 +14,7 @@ const text = {
   en: {
     title: 'Data & Platform Engineering Consultant',
     location: 'Friesland, The Netherlands',
+    resumePdf: 'docs/mp_resume.pdf',
     tagline:
       'I design and build data platforms — Databricks-deep, open-source-first, automated end to end, and built to last.',
     bio: [
@@ -27,6 +27,7 @@ const text = {
   nl: {
     title: 'Data & Platform Engineering Consultant',
     location: 'Friesland, Nederland',
+    resumePdf: 'docs/mp_resume_nl.pdf',
     tagline:
       'Ik ontwerp en bouw dataplatformen — Databricks-diep, open source eerst, end-to-end geautomatiseerd en gebouwd om lang mee te gaan.',
     bio: [

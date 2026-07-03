@@ -4,7 +4,7 @@ description: Meerjarige opdracht als lead data & platform engineer — een data-
 client: TBI
 role: Lead Data & Platform Engineer
 employer: ProRex Consultancy
-duration: 30
+duration: 36
 order: -4
 featured: true
 tags:
