@@ -85,4 +85,4 @@ The content lives inside [`scripts/generate_resume.py`](scripts/generate_resume.
 
 ## Deployment
 
-Every push to `master` builds the site and publishes `dist/` to the `gh-pages` branch via [`.github/workflows/gh-pages.yml`](.github/workflows/gh-pages.yml). Pull requests get a build check but do not deploy.
+Every push to `main` builds the site and publishes `dist/` to the `gh-pages` branch via [`.github/workflows/gh-pages.yml`](.github/workflows/gh-pages.yml). Pull requests get a build check but do not deploy.
