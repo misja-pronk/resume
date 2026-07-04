@@ -27,6 +27,7 @@ export const ui = {
     sheet: 'SHT',
     nav: {
       expertise: 'Expertise',
+      services: 'Services',
       experience: 'Experience',
       projects: 'Projects',
       openSource: 'Open Source',
@@ -203,6 +204,7 @@ export const ui = {
     sheet: 'BLAD',
     nav: {
       expertise: 'Expertise',
+      services: 'Diensten',
       experience: 'Ervaring',
       projects: 'Projecten',
       openSource: 'Open Source',

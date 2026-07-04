@@ -22,7 +22,8 @@ const {
   description = profile.tagline,
 } = Astro.props;
 
-const ogImage = new URL(url(profile.photo), Astro.site);
+const ogImage = new URL(url('img/og-card.png'), Astro.site);
+const photoUrl = new URL(url(profile.photo), Astro.site);
 const alts = altPaths(Astro.url.pathname);
 
 const personSchema = {
@@ -31,7 +32,7 @@ const personSchema = {
   name: `${profile.firstName} ${profile.lastName}`,
   jobTitle: profile.title,
   email: `mailto:${profile.email}`,
-  image: ogImage.toString(),
+  image: photoUrl.toString(),
   url: new URL(url(locale === 'nl' ? 'nl/' : '/'), Astro.site).toString(),
   sameAs: [profile.linkedin, profile.github],
   worksFor: {
@@ -74,7 +75,10 @@ const personSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#0c2d4d" />
     <link
       rel="alternate"

@@ -1,0 +1,103 @@
+---
+import { getServices } from '../data/services';
+import { getProfile } from '../data/profile';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const services = getServices(locale);
+const profile = getProfile(locale);
+const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(services.ctaSubject)}`;
+---
+
+<section id="services" class="block">
+  <h2 class="sheet-title reveal"><span>{t.sheet} {services.sheetNo}</span> {services.title}</h2>
+  <p class="intro reveal">{services.intro}</p>
+  <div class="wp-grid">
+    {services.items.map((s, i) => (
+      <article class="wp reveal">
+        <header>
+          <span class="wp-no">WP-{String(i + 1).padStart(2, '0')}</span>
+        </header>
+        <h3>{s.title}</h3>
+        <p>{s.blurb}</p>
+        <footer>{s.deliverables}</footer>
+      </article>
+    ))}
+  </div>
+  <div class="cta reveal">
+    <a class="btn-bp solid" href={mailto}>{services.ctaLabel}</a>
+    <span class="cta-note">{services.ctaNote}</span>
+  </div>
+</section>
+
+<style>
+  .intro {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-dim);
+    margin: -0.6rem 0 1.8rem;
+  }
+
+  .wp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .wp {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 1.2rem 1.3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .wp:hover {
+    border-color: var(--accent);
+  }
+
+  .wp-no {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--stamp);
+  }
+
+  h3 {
+    font-family: var(--disp);
+    font-size: 1.02rem;
+    margin: 0;
+  }
+
+  .wp p {
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .wp footer {
+    margin-top: auto;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    border-top: 1px dashed var(--line);
+    padding-top: 0.6rem;
+  }
+
+  .cta {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 1.8rem;
+  }
+
+  .cta-note {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+</style>

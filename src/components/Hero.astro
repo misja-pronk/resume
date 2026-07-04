@@ -11,7 +11,10 @@ const stats = getStats(locale);
 ---
 
 <section class="hero block">
-  <p class="fig">{t.fig}</p>
+  <div class="fig-row">
+    <p class="fig">{t.fig}</p>
+    <p class="status-chip"><span class="dot" aria-hidden="true"></span>STATUS: {profile.availability}</p>
+  </div>
   <div class="hero-grid">
     <div>
       <h1>
@@ -66,11 +69,54 @@ const stats = getStats(locale);
 </section>
 
 <style>
+  .fig-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
   .fig {
     font-size: 0.72rem;
     letter-spacing: 0.25em;
     color: var(--accent);
-    margin: 0 0 1.5rem;
+    margin: 0;
+  }
+
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.8rem;
+    margin: 0;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f0b429;
+    box-shadow: 0 0 0 4px rgba(240, 180, 41, 0.18);
+    animation: pulse 2.4s infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot {
+      animation: none;
+    }
   }
 
   .hero-grid {

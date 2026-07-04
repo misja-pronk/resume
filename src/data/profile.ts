@@ -15,6 +15,7 @@ const text = {
     title: 'Data & Platform Engineering Consultant',
     location: 'Friesland, The Netherlands',
     resumePdf: 'docs/mp_resume.pdf',
+    availability: 'ON ENGAGEMENT @ HEIJMANS — OPEN TO CONVERSATIONS',
     tagline:
       'I design and build data platforms — Databricks-deep, open-source-first, automated end to end, and built to last.',
     bio: [
@@ -28,6 +29,7 @@ const text = {
     title: 'Data & Platform Engineering Consultant',
     location: 'Friesland, Nederland',
     resumePdf: 'docs/mp_resume_nl.pdf',
+    availability: 'OP OPDRACHT BIJ HEIJMANS — ALTIJD IN VOOR EEN GESPREK',
     tagline:
       'Ik ontwerp en bouw dataplatformen — Databricks-diep, open source eerst, end-to-end geautomatiseerd en gebouwd om lang mee te gaan.',
     bio: [
