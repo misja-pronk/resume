@@ -37,6 +37,16 @@ export const ui = {
       fieldNotes: 'Field Notes',
       resume: '⤓ RESUME.PDF',
     },
+    cv: {
+      button: '⤓ RESUME.PDF',
+      title: 'SELECT DRAWING SET',
+      items: [
+        { file: 'docs/mp_resume.pdf', no: 'CV-001', label: 'GENERAL — FULL SET' },
+        { file: 'docs/mp_resume_architect.pdf', no: 'CV-002', label: 'DATA & SOLUTION ARCHITECT' },
+        { file: 'docs/mp_resume_data_engineer.pdf', no: 'CV-003', label: 'SENIOR DATA ENGINEER' },
+        { file: 'docs/mp_resume_platform_engineer.pdf', no: 'CV-004', label: 'PLATFORM / CLOUD ENGINEER' },
+      ],
+    },
     head: {
       docNo: 'DOC NO. MP-2026-001',
       title: 'PERSONNEL SPECIFICATION — DATA & PLATFORM ENGINEERING',
@@ -199,6 +209,16 @@ export const ui = {
       library: 'Bibliotheek',
       fieldNotes: 'Veldnotities',
       resume: '⤓ CV.PDF',
+    },
+    cv: {
+      button: '⤓ CV.PDF',
+      title: 'KIES TEKENINGENSET',
+      items: [
+        { file: 'docs/mp_resume_nl.pdf', no: 'CV-001', label: 'ALGEMEEN — VOLLEDIGE SET' },
+        { file: 'docs/mp_resume_architect_nl.pdf', no: 'CV-002', label: 'DATA & SOLUTION ARCHITECT' },
+        { file: 'docs/mp_resume_data_engineer_nl.pdf', no: 'CV-003', label: 'SENIOR DATA ENGINEER' },
+        { file: 'docs/mp_resume_platform_engineer_nl.pdf', no: 'CV-004', label: 'PLATFORM / CLOUD ENGINEER' },
+      ],
     },
     head: {
       docNo: 'DOC NR. MP-2026-001',
