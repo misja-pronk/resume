@@ -1,4 +1,5 @@
 ---
+import ResumeMenu from './ResumeMenu.astro';
 import { getProfile, getStats } from '../data/profile';
 import { getLocale, ui } from '../i18n';
 import { url } from '../utils';
@@ -23,7 +24,7 @@ const stats = getStats(locale);
       </p>
       <p class="tagline">// {profile.tagline}</p>
       <div class="hero-cta">
-        <a class="btn-bp solid" href={url(profile.resumePdf)} target="_blank" rel="noopener">{t.resume}</a>
+        <ResumeMenu size="hero" />
         <a class="btn-bp" href={`mailto:${profile.email}`}>{t.contact}</a>
       </div>
       <dl class="quantities">

@@ -16,10 +16,11 @@ experience bullets for the target role.
 from pathlib import Path
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_RIGHT
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
+from reportlab.pdfgen import canvas as pdfcanvas
 from reportlab.platypus import (
     HRFlowable,
     KeepTogether,
@@ -42,7 +43,22 @@ OUT = Path(__file__).resolve().parent.parent / "public" / "docs"
 BASE = {
     "en": {
         "subtitle": "Owner, ProRex Consultancy · Friesland, The Netherlands",
-        "contact": "misja@prorexconsultancy.nl · linkedin.com/in/misja-pronk · github.com/misja-pronk · misja-pronk.github.io/resume",
+        "contact": (
+            '<a href="mailto:misja@prorexconsultancy.nl" color="#0d6fb8">misja@prorexconsultancy.nl</a> · '
+            '<a href="https://www.linkedin.com/in/misja-pronk" color="#0d6fb8">linkedin.com/in/misja-pronk</a><br/>'
+            '<a href="https://github.com/misja-pronk" color="#0d6fb8">github.com/misja-pronk</a> · '
+            '<a href="https://misja-pronk.github.io/resume/" color="#0d6fb8">misja-pronk.github.io/resume</a>'
+        ),
+        "stats": [
+            ("11+", "YEARS IN IT"),
+            ("8+", "YEARS DATA & PLATFORMS"),
+            ("21", "PROJECTS DELIVERED"),
+            ("4", "CERTIFICATIONS"),
+        ],
+        "clients_label": "SELECTED CLIENTS",
+        "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
+        "footer_left": "MISJA PRONK",
+        "footer_right": "MEASURE TWICE · BUILD ONCE — SHEET {page} OF {total}",
         "profile_h": "Profile",
         "expertise_h": "Core expertise",
         "experience_h": "Experience",
@@ -80,7 +96,22 @@ BASE = {
     },
     "nl": {
         "subtitle": "Eigenaar, ProRex Consultancy · Friesland, Nederland",
-        "contact": "misja@prorexconsultancy.nl · linkedin.com/in/misja-pronk · github.com/misja-pronk · misja-pronk.github.io/resume/nl",
+        "contact": (
+            '<a href="mailto:misja@prorexconsultancy.nl" color="#0d6fb8">misja@prorexconsultancy.nl</a> · '
+            '<a href="https://www.linkedin.com/in/misja-pronk" color="#0d6fb8">linkedin.com/in/misja-pronk</a><br/>'
+            '<a href="https://github.com/misja-pronk" color="#0d6fb8">github.com/misja-pronk</a> · '
+            '<a href="https://misja-pronk.github.io/resume/nl/" color="#0d6fb8">misja-pronk.github.io/resume/nl</a>'
+        ),
+        "stats": [
+            ("11+", "JAAR IN IT"),
+            ("8+", "JAAR DATA & PLATFORMS"),
+            ("21", "PROJECTEN OPGELEVERD"),
+            ("4", "CERTIFICERINGEN"),
+        ],
+        "clients_label": "SELECTIE VAN KLANTEN",
+        "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
+        "footer_left": "MISJA PRONK",
+        "footer_right": "MEET TWEE KEER · BOUW ÉÉN KEER — BLAD {page} VAN {total}",
         "profile_h": "Profiel",
         "expertise_h": "Kernexpertise",
         "experience_h": "Werkervaring",
@@ -146,6 +177,7 @@ SKILL_ORDER_DEFAULT = ["databricks", "platform", "programming", "tooling", "meth
 VARIANTS = {
     "general": {
         "file": "mp_resume",
+        "no": "CV-001",
         "skill_order": SKILL_ORDER_DEFAULT,
         "en": {
             "title": "Data & Platform Engineering Consultant",
@@ -230,6 +262,7 @@ VARIANTS = {
     },
     "architect": {
         "file": "mp_resume_architect",
+        "no": "CV-002",
         "skill_order": ["methods", "databricks", "platform", "programming", "tooling", "languages"],
         "en": {
             "title": "Data & Solution Architect",
@@ -312,6 +345,7 @@ VARIANTS = {
     },
     "data_engineer": {
         "file": "mp_resume_data_engineer",
+        "no": "CV-003",
         "skill_order": SKILL_ORDER_DEFAULT,
         "en": {
             "title": "Senior Data Engineer",
@@ -393,6 +427,7 @@ VARIANTS = {
     },
     "platform_engineer": {
         "file": "mp_resume_platform_engineer",
+        "no": "CV-004",
         "skill_order": ["platform", "tooling", "databricks", "programming", "methods", "languages"],
         "en": {
             "title": "Platform / Cloud Engineer",
@@ -499,12 +534,82 @@ S = {
 }
 
 
+S["stat_val"] = ParagraphStyle(
+    "stat_val", fontName="Helvetica-Bold", fontSize=13, leading=15, textColor=ACCENT, alignment=TA_CENTER,
+)
+S["stat_label"] = ParagraphStyle(
+    "stat_label", fontName="Helvetica", fontSize=5.6, leading=7.5, textColor=DIM, alignment=TA_CENTER,
+)
+S["clients"] = ParagraphStyle(
+    "clients", fontName="Helvetica-Bold", fontSize=7.6, leading=11, textColor=DIM, spaceBefore=5,
+)
+S["docno"] = ParagraphStyle(
+    "docno", fontName="Courier-Bold", fontSize=7.2, leading=10, textColor=DIM, alignment=TA_RIGHT,
+)
+
+
 def rule() -> HRFlowable:
     return HRFlowable(width="100%", thickness=0.7, color=LINE, spaceBefore=1, spaceAfter=5)
 
 
-def heading(text: str) -> list:
-    return [Paragraph(text.upper(), S["h"]), rule()]
+def heading(number: int, text: str) -> list:
+    return [
+        Paragraph(f'<font color="#d43d3d">{number:02d}</font> — {text.upper()}', S["h"]),
+        rule(),
+    ]
+
+
+def stats_strip(stats: list[tuple[str, str]]) -> Table:
+    cells = [
+        [Paragraph(value, S["stat_val"]), Paragraph(label, S["stat_label"])]
+        for value, label in stats
+    ]
+    t = Table([cells], colWidths=[44.5 * mm] * len(cells))
+    t.setStyle(
+        TableStyle([
+            ("GRID", (0, 0), (-1, -1), 0.7, LINE),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("TOPPADDING", (0, 0), (-1, -1), 5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ])
+    )
+    return t
+
+
+class SheetCanvas(pdfcanvas.Canvas):
+    """Two-pass canvas that draws a title-block footer with SHEET X OF Y."""
+
+    footer_left = ""
+    footer_right = ""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._saved_states = []
+
+    def showPage(self):
+        self._saved_states.append(dict(self.__dict__))
+        self._startPage()
+
+    def save(self):
+        total = len(self._saved_states)
+        for i, state in enumerate(self._saved_states, start=1):
+            self.__dict__.update(state)
+            self._draw_footer(i, total)
+            super().showPage()
+        super().save()
+
+    def _draw_footer(self, page: int, total: int):
+        self.saveState()
+        self.setStrokeColor(LINE)
+        self.setLineWidth(0.7)
+        self.line(16 * mm, 9.5 * mm, A4[0] - 16 * mm, 9.5 * mm)
+        self.setFont("Courier", 6.6)
+        self.setFillColor(DIM)
+        self.drawString(16 * mm, 6 * mm, self.footer_left)
+        self.drawRightString(
+            A4[0] - 16 * mm, 6 * mm, self.footer_right.format(page=page, total=total)
+        )
+        self.restoreState()
 
 
 def job_row(who: str, when: str) -> Table:
@@ -533,15 +638,20 @@ def build(variant_key: str, locale: str) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / f"{variant['file']}{suffix}.pdf"
 
+    docno = f"MP-{variant['no']}"
+    keywords = [v["title"], "Databricks", "Terraform", "Terragrunt", "dbt", "Azure", "Data Mesh", "CI/CD", "Kubernetes"]
+
     doc = SimpleDocTemplate(
         str(path),
         pagesize=A4,
         leftMargin=16 * mm,
         rightMargin=16 * mm,
         topMargin=14 * mm,
-        bottomMargin=13 * mm,
+        bottomMargin=15 * mm,
         title=f"Misja Pronk — {v['title']}",
         author="Misja Pronk",
+        subject=v["title"],
+        keywords=", ".join(keywords),
     )
 
     story = []
@@ -549,29 +659,41 @@ def build(variant_key: str, locale: str) -> None:
     header = Table(
         [[
             [Paragraph("MISJA PRONK", S["name"]), Spacer(1, 2), Paragraph(v["title"], S["title"])],
-            [Paragraph(base["subtitle"], S["subtitle"]), Spacer(1, 3), Paragraph(base["contact"], S["contact"])],
+            [
+                Paragraph(f"DOC NO. {docno} · REV 2026", S["docno"]),
+                Spacer(1, 3),
+                Paragraph(base["subtitle"], S["subtitle"]),
+                Spacer(1, 3),
+                Paragraph(base["contact"], S["contact"]),
+            ],
         ]],
-        colWidths=[95 * mm, 83 * mm],
+        colWidths=[88 * mm, 90 * mm],
     )
     header.setStyle(
         TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
             ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("ALIGN", (1, 0), (1, 0), "RIGHT"),
         ])
     )
     story.append(header)
     story.append(Spacer(1, 6))
-    story.append(HRFlowable(width="100%", thickness=1.4, color=INK, spaceAfter=6))
+    story.append(HRFlowable(width="100%", thickness=1.4, color=INK, spaceAfter=7))
 
-    story += heading(base["profile_h"])
+    story.append(stats_strip(base["stats"]))
+    story.append(Spacer(1, 2))
+
+    n = iter(range(1, 10))
+    story += heading(next(n), base["profile_h"])
     story.append(Paragraph(v["profile"], S["body"]))
+    story.append(Paragraph(f'<font color="#7a8ea3">{base["clients_label"]}:</font> {base["clients"]}', S["clients"]))
 
-    story += heading(base["expertise_h"])
+    story += heading(next(n), base["expertise_h"])
     for item in v["expertise"]:
         story.append(Paragraph(item, S["bullet"], bulletText="—"))
 
-    story += heading(base["experience_h"])
+    story += heading(next(n), base["experience_h"])
     for key in JOB_ORDER:
         who, when = base["job_meta"][key]
         if key == "vixion":
@@ -583,25 +705,30 @@ def build(variant_key: str, locale: str) -> None:
             entry.append(Paragraph(b, S["bullet"], bulletText="•"))
         story.append(KeepTogether(entry))
 
-    story += heading(base["oss_h"])
+    story += heading(next(n), base["oss_h"])
     story.append(Paragraph(base["oss"], S["body"]))
 
-    story += heading(base["certs_h"])
+    story += heading(next(n), base["certs_h"])
     for cert in base["certs"]:
         story.append(Paragraph(cert, S["bullet"], bulletText="•"))
 
-    story += heading(base["edu_h"])
+    story += heading(next(n), base["edu_h"])
     for degree, when in base["edu"]:
         story.append(job_row(degree, when))
 
-    story += heading(base["skills_h"])
+    story += heading(next(n), base["skills_h"])
     for skill_key in variant["skill_order"]:
         label, value = SKILLS[locale][skill_key]
         story.append(Paragraph(f"<b>{label}:</b> {value}", S["bullet"]))
 
     story.append(Paragraph(base["footer"], S["footer"]))
 
-    doc.build(story)
+    canvas_cls = type(
+        "FooterCanvas",
+        (SheetCanvas,),
+        {"footer_left": f"{base['footer_left']} — {v['title'].upper()}", "footer_right": base["footer_right"]},
+    )
+    doc.build(story, canvasmaker=canvas_cls)
     print(f"wrote {path}")
 
 

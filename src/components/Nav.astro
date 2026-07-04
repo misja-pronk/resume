@@ -1,11 +1,10 @@
 ---
-import { getProfile } from '../data/profile';
+import ResumeMenu from './ResumeMenu.astro';
 import { getLocale, altPaths, lpath, ui } from '../i18n';
 import { url } from '../utils';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
-const profile = getProfile(locale);
 const home = lpath(locale, '/');
 
 const links = [
@@ -37,9 +36,7 @@ const alts = altPaths(Astro.url.pathname);
         <span aria-hidden="true">/</span>
         <a href={alts.nl} class:list={[{ active: locale === 'nl' }]} aria-current={locale === 'nl' ? 'true' : undefined}>NL</a>
       </div>
-      <a class="btn-bp solid resume-btn" href={url(profile.resumePdf)} target="_blank" rel="noopener">
-        {t.nav.resume}
-      </a>
+      <ResumeMenu size="nav" />
       <button id="theme-toggle" aria-label="Toggle color theme" title="Blueprint / drafting paper">
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <circle cx="12" cy="12" r="4"></circle>
@@ -157,11 +154,6 @@ const alts = altPaths(Astro.url.pathname);
 
   .lang a.active {
     color: var(--accent);
-  }
-
-  .resume-btn {
-    padding: 0.45rem 0.9rem;
-    font-size: 0.66rem;
   }
 
   #theme-toggle {

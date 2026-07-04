@@ -1,0 +1,141 @@
+---
+import { getLocale, ui } from '../i18n';
+import { url } from '../utils';
+
+interface Props {
+  size?: 'nav' | 'hero';
+}
+
+const { size = 'nav' } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale].cv;
+---
+
+<details class:list={['resume-menu', size]}>
+  <summary class="btn-bp solid">{t.button} <span class="caret" aria-hidden="true">▾</span></summary>
+  <div class="menu">
+    <span class="menu-title">{t.title}</span>
+    {t.items.map((item) => (
+      <div class="row">
+        <span class="no">{item.no}</span>
+        <span class="label">{item.label}</span>
+        <span class="langs">
+          <a href={url(item.en)} target="_blank" rel="noopener" title={`${item.label} — English (PDF)`}>⤓ EN</a>
+          <a href={url(item.nl)} target="_blank" rel="noopener" title={`${item.label} — Nederlands (PDF)`}>⤓ NL</a>
+        </span>
+      </div>
+    ))}
+  </div>
+</details>
+
+<script>
+  // Close any open resume menu when clicking outside it.
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll<HTMLDetailsElement>('details.resume-menu[open]').forEach((d) => {
+      if (e.target instanceof Node && !d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+</script>
+
+<style>
+  .resume-menu {
+    position: relative;
+  }
+
+  summary {
+    list-style: none;
+    user-select: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .resume-menu.nav summary {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.66rem;
+  }
+
+  .caret {
+    font-size: 0.8em;
+    margin-left: 0.15rem;
+  }
+
+  .resume-menu[open] .caret {
+    display: inline-block;
+    transform: rotate(180deg);
+  }
+
+  .menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 60;
+    min-width: 19rem;
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
+    padding: 0.4rem;
+  }
+
+  .resume-menu.hero .menu {
+    left: 0;
+    right: auto;
+  }
+
+  .menu-title {
+    display: block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    padding: 0.45rem 0.7rem 0.5rem;
+    border-bottom: 1px dashed var(--line);
+    margin-bottom: 0.3rem;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0.7rem;
+    color: var(--ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .row + .row {
+    border-top: 1px dashed var(--line-soft);
+  }
+
+  .no {
+    font-size: 0.58rem;
+    color: var(--stamp);
+    letter-spacing: 0.12em;
+  }
+
+  .langs {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .langs a {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 0.28rem 0.45rem;
+    text-decoration: none;
+    transition: all 0.12s;
+  }
+
+  .langs a:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+  }
+</style>
