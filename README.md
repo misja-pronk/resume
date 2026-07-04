@@ -66,6 +66,23 @@ All content is data, no HTML surgery required:
 
 **Write a blog post (field note):** add a markdown file to `src/content/posts/` with `title`, `date`, `summary`, `tags` and `draft: false`. Drafts are visible in `npm run dev` but excluded from the production build.
 
+**Regenerate the resume PDFs** (served from `public/docs/`):
+
+```sh
+uv run scripts/generate_resume.py
+```
+
+This produces the general resume plus three **role-targeted variants** — same facts, different lens — each in English and Dutch:
+
+| Variant | Files |
+|---------|-------|
+| General (linked from the site) | `mp_resume.pdf` / `mp_resume_nl.pdf` |
+| Data & Solution Architect | `mp_resume_architect.pdf` / `_nl.pdf` |
+| Senior Data Engineer | `mp_resume_data_engineer.pdf` / `_nl.pdf` |
+| Platform / Cloud Engineer | `mp_resume_platform_engineer.pdf` / `_nl.pdf` |
+
+The content lives inside [`scripts/generate_resume.py`](scripts/generate_resume.py) — shared facts in `BASE`, per-role framing in `VARIANTS`. Edit and rerun.
+
 ## Deployment
 
 Every push to `master` builds the site and publishes `dist/` to the `gh-pages` branch via [`.github/workflows/gh-pages.yml`](.github/workflows/gh-pages.yml). Pull requests get a build check but do not deploy.

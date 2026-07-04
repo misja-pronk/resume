@@ -39,7 +39,17 @@ const slug = (id: string) => id.replace(`${locale}/`, '');
       </div>
       <div class="fact">
         <span class="label">{t.detail.duration}</span>
-        <span class="value">{project.data.ongoing ? t.detail.ongoing : `${project.data.duration} ${t.detail.months}`}</span>
+        <span class="value">
+          {project.data.ongoing
+            ? `${t.detail.ongoing}${
+                project.data.start
+                  ? ` — ${t.detail.since} ${project.data.start
+                      .toLocaleDateString(locale === 'nl' ? 'nl-NL' : 'en-GB', { month: 'long', year: 'numeric' })
+                      .toUpperCase()}`
+                  : ''
+              }`
+            : `${project.data.duration} ${t.detail.months}`}
+        </span>
       </div>
       <div class="fact">
         <span class="label">{t.detail.via}</span>
