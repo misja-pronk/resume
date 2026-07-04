@@ -41,10 +41,10 @@ export const ui = {
       button: '⤓ RESUME.PDF',
       title: 'SELECT DRAWING SET',
       items: [
-        { file: 'docs/mp_resume.pdf', no: 'CV-001', label: 'GENERAL — FULL SET' },
-        { file: 'docs/mp_resume_architect.pdf', no: 'CV-002', label: 'DATA & SOLUTION ARCHITECT' },
-        { file: 'docs/mp_resume_data_engineer.pdf', no: 'CV-003', label: 'SENIOR DATA ENGINEER' },
-        { file: 'docs/mp_resume_platform_engineer.pdf', no: 'CV-004', label: 'PLATFORM / CLOUD ENGINEER' },
+        { no: 'CV-001', label: 'GENERAL — FULL SET', en: 'docs/mp_resume.pdf', nl: 'docs/mp_resume_nl.pdf' },
+        { no: 'CV-002', label: 'DATA & SOLUTION ARCHITECT', en: 'docs/mp_resume_architect.pdf', nl: 'docs/mp_resume_architect_nl.pdf' },
+        { no: 'CV-003', label: 'SENIOR DATA ENGINEER', en: 'docs/mp_resume_data_engineer.pdf', nl: 'docs/mp_resume_data_engineer_nl.pdf' },
+        { no: 'CV-004', label: 'PLATFORM / CLOUD ENGINEER', en: 'docs/mp_resume_platform_engineer.pdf', nl: 'docs/mp_resume_platform_engineer_nl.pdf' },
       ],
     },
     head: {
@@ -214,10 +214,10 @@ export const ui = {
       button: '⤓ CV.PDF',
       title: 'KIES TEKENINGENSET',
       items: [
-        { file: 'docs/mp_resume_nl.pdf', no: 'CV-001', label: 'ALGEMEEN — VOLLEDIGE SET' },
-        { file: 'docs/mp_resume_architect_nl.pdf', no: 'CV-002', label: 'DATA & SOLUTION ARCHITECT' },
-        { file: 'docs/mp_resume_data_engineer_nl.pdf', no: 'CV-003', label: 'SENIOR DATA ENGINEER' },
-        { file: 'docs/mp_resume_platform_engineer_nl.pdf', no: 'CV-004', label: 'PLATFORM / CLOUD ENGINEER' },
+        { no: 'CV-001', label: 'ALGEMEEN — VOLLEDIGE SET', en: 'docs/mp_resume.pdf', nl: 'docs/mp_resume_nl.pdf' },
+        { no: 'CV-002', label: 'DATA & SOLUTION ARCHITECT', en: 'docs/mp_resume_architect.pdf', nl: 'docs/mp_resume_architect_nl.pdf' },
+        { no: 'CV-003', label: 'SENIOR DATA ENGINEER', en: 'docs/mp_resume_data_engineer.pdf', nl: 'docs/mp_resume_data_engineer_nl.pdf' },
+        { no: 'CV-004', label: 'PLATFORM / CLOUD ENGINEER', en: 'docs/mp_resume_platform_engineer.pdf', nl: 'docs/mp_resume_platform_engineer_nl.pdf' },
       ],
     },
     head: {

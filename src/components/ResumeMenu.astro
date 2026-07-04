@@ -16,11 +16,14 @@ const t = ui[locale].cv;
   <div class="menu">
     <span class="menu-title">{t.title}</span>
     {t.items.map((item) => (
-      <a href={url(item.file)} target="_blank" rel="noopener">
+      <div class="row">
         <span class="no">{item.no}</span>
         <span class="label">{item.label}</span>
-        <span class="dl" aria-hidden="true">⤓</span>
-      </a>
+        <span class="langs">
+          <a href={url(item.en)} target="_blank" rel="noopener" title={`${item.label} — English (PDF)`}>⤓ EN</a>
+          <a href={url(item.nl)} target="_blank" rel="noopener" title={`${item.label} — Nederlands (PDF)`}>⤓ NL</a>
+        </span>
+      </div>
     ))}
   </div>
 </details>
@@ -91,25 +94,20 @@ const t = ui[locale].cv;
     margin-bottom: 0.3rem;
   }
 
-  .menu a {
+  .row {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 0.7rem;
-    padding: 0.55rem 0.7rem;
+    padding: 0.45rem 0.7rem;
     color: var(--ink);
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: all 0.12s;
   }
 
-  .menu a:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    text-decoration: none;
+  .row + .row {
+    border-top: 1px dashed var(--line-soft);
   }
 
   .no {
@@ -118,7 +116,26 @@ const t = ui[locale].cv;
     letter-spacing: 0.12em;
   }
 
-  .dl {
+  .langs {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .langs a {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 0.28rem 0.45rem;
+    text-decoration: none;
+    transition: all 0.12s;
+  }
+
+  .langs a:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
   }
 </style>
