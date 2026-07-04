@@ -28,12 +28,15 @@ const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())]
   <div class="details-grid">
     {projects.map((p, i) => (
       <a
-        class="detail project reveal"
+        class:list={['detail', 'project', 'reveal', { featured: p.data.featured }]}
         href={url(lpath(locale, `projects/${slug(p.id)}/`))}
         data-roles={p.data.role}
       >
         <header>
-          <span class="partno">P-{String(total - i).padStart(3, '0')}</span>
+          <span class="partno">
+            P-{String(total - i).padStart(3, '0')}
+            {p.data.featured && <span class="key">★ {t.projects.key}</span>}
+          </span>
           <span class="client">{p.data.client.toUpperCase()}</span>
         </header>
         <h3>{p.data.title}</h3>
@@ -174,5 +177,17 @@ const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())]
     height: 14px;
     border-top: 2px solid var(--accent);
     border-right: 2px solid var(--accent);
+  }
+
+  .detail.featured {
+    border: 1.5px solid var(--ink);
+    background: repeating-linear-gradient(45deg, transparent, transparent 9px, var(--hatch) 9px, var(--hatch) 10px);
+  }
+
+  .key {
+    margin-left: 0.6rem;
+    color: var(--accent);
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
   }
 </style>

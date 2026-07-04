@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://misja-pronk.github.io/resume/sitemap-index.xml

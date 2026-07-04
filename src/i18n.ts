@@ -36,6 +36,8 @@ export const ui = {
       library: 'Library',
       fieldNotes: 'Field Notes',
       resume: '⤓ RESUME.PDF',
+      menu: 'INDEX',
+      sheetIndex: 'SHEET INDEX',
     },
     cv: {
       button: '⤓ RESUME.PDF',
@@ -92,6 +94,7 @@ export const ui = {
       dur: 'DUR',
       ongoing: 'ONGOING',
       mo: 'MO',
+      key: 'KEY DETAIL',
     },
     oss: {
       title: 'SHOP-FABRICATED PARTS — OPEN SOURCE',
@@ -209,6 +212,8 @@ export const ui = {
       library: 'Bibliotheek',
       fieldNotes: 'Veldnotities',
       resume: '⤓ CV.PDF',
+      menu: 'INDEX',
+      sheetIndex: 'BLADINDEX',
     },
     cv: {
       button: '⤓ CV.PDF',
@@ -265,6 +270,7 @@ export const ui = {
       dur: 'DUUR',
       ongoing: 'LOPEND',
       mo: 'MND',
+      key: 'KERNDETAIL',
     },
     oss: {
       title: 'WERKPLAATSFABRICAAT — OPEN SOURCE',

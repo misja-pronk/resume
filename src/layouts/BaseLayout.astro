@@ -24,6 +24,37 @@ const {
 
 const ogImage = new URL(url(profile.photo), Astro.site);
 const alts = altPaths(Astro.url.pathname);
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `${profile.firstName} ${profile.lastName}`,
+  jobTitle: profile.title,
+  email: `mailto:${profile.email}`,
+  image: ogImage.toString(),
+  url: new URL(url(locale === 'nl' ? 'nl/' : '/'), Astro.site).toString(),
+  sameAs: [profile.linkedin, profile.github],
+  worksFor: {
+    '@type': 'Organization',
+    name: profile.company,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Friesland',
+    addressCountry: 'NL',
+  },
+  knowsAbout: [
+    'Databricks',
+    'Data engineering',
+    'Platform engineering',
+    'Terraform',
+    'Terragrunt',
+    'dbt',
+    'Microsoft Azure',
+    'Data mesh',
+    'CI/CD',
+  ],
+};
 ---
 
 <!doctype html>
@@ -43,7 +74,15 @@ const alts = altPaths(Astro.url.pathname);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
     <meta name="theme-color" content="#0c2d4d" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Misja Pronk — Field Notes"
+      href={new URL(url('rss.xml'), Astro.site)}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script is:inline>
       // Set theme before first paint to avoid a flash.
       (() => {
