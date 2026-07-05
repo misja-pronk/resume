@@ -24,14 +24,13 @@ const alts = altPaths(Astro.url.pathname);
 
 <header class="nav-wrap">
   <nav class="container">
-    <a class="brand" href={url(home)}>
+    <a class="brand" href={url(home)} aria-label="Misja Pronk — home">
       <span class="brand-mark">MP</span>
-      <span class="brand-doc">{t.head.docNo}</span>
     </a>
-    <details class="mobile-menu">
+    <details class="menu">
       <summary aria-label={t.nav.sheetIndex}>☰ {t.nav.menu}</summary>
-      <div class="mobile-panel">
-        <span class="mobile-title">{t.nav.sheetIndex}</span>
+      <div class="menu-panel">
+        <span class="menu-title">{t.nav.sheetIndex}</span>
         {links.map((l, i) => (
           <a href={l.href}>
             <span class="sheet-no">{String(i + 1).padStart(2, '0')}</span>
@@ -40,9 +39,6 @@ const alts = altPaths(Astro.url.pathname);
         ))}
       </div>
     </details>
-    <div class="links">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
-    </div>
     <div class="actions">
       <button class="cmdk-btn" data-cmdk-open title={t.cmdk.placeholder}>{t.cmdk.button}</button>
       <div class="lang" role="group" aria-label="Language">
@@ -72,15 +68,15 @@ const alts = altPaths(Astro.url.pathname);
     localStorage.setItem('theme', next);
   });
 
-  // Close the mobile sheet index on link click or outside click.
-  const menu = document.querySelector<HTMLDetailsElement>('details.mobile-menu');
+  // Close the sheet index on link click or outside click.
+  const menu = document.querySelector<HTMLDetailsElement>('details.menu');
   menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.removeAttribute('open')));
   document.addEventListener('click', (e) => {
     if (menu?.open && e.target instanceof Node && !menu.contains(e.target)) menu.removeAttribute('open');
   });
 
-  // Scrollspy: highlight the nav link of the section in view (home page only).
-  const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.links a')].map((a) => {
+  // Scrollspy: highlight the current section inside the sheet index (home page only).
+  const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.menu-panel a')].map((a) => {
     const hash = a.href.split('#')[1];
     return hash ? { a, section: document.getElementById(hash) } : null;
   });
@@ -145,38 +141,6 @@ const alts = altPaths(Astro.url.pathname);
     letter-spacing: 0.08em;
   }
 
-  .brand-doc {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    color: var(--ink-dim);
-  }
-
-  .links {
-    display: flex;
-    gap: 1.15rem;
-    margin-inline: auto;
-  }
-
-  .links a {
-    color: var(--ink-dim);
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
-  .links a:hover,
-  .links a.active {
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  .links a.active {
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-color: var(--stamp);
-  }
-
   .cmdk-btn {
     font-family: var(--mono);
     font-size: 0.62rem;
@@ -198,6 +162,7 @@ const alts = altPaths(Astro.url.pathname);
     display: flex;
     align-items: center;
     gap: 0.7rem;
+    margin-left: auto;
   }
 
   .lang {
@@ -250,13 +215,14 @@ const alts = altPaths(Astro.url.pathname);
     display: block;
   }
 
-  /* mobile sheet index */
-  .mobile-menu {
-    display: none;
+  /* collapsed sheet index (all screen sizes) */
+  .menu {
+    display: block;
     position: relative;
+    margin-left: 0.4rem;
   }
 
-  .mobile-menu summary {
+  .menu summary {
     list-style: none;
     user-select: none;
     cursor: pointer;
@@ -268,28 +234,33 @@ const alts = altPaths(Astro.url.pathname);
     padding: 0.45rem 0.7rem;
   }
 
-  .mobile-menu summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .mobile-menu[open] summary {
+  .menu summary:hover {
     color: var(--accent);
     border-color: var(--accent);
   }
 
-  .mobile-panel {
+  .menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu[open] summary {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .menu-panel {
     position: absolute;
     top: calc(100% + 0.6rem);
     left: 0;
     z-index: 60;
-    min-width: 14rem;
+    min-width: 15rem;
     background: var(--paper);
     border: 1.5px solid var(--accent);
     box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
     padding: 0.4rem;
   }
 
-  .mobile-title {
+  .menu-title {
     display: block;
     font-size: 0.55rem;
     font-weight: 700;
@@ -300,7 +271,7 @@ const alts = altPaths(Astro.url.pathname);
     margin-bottom: 0.3rem;
   }
 
-  .mobile-panel a {
+  .menu-panel a {
     display: flex;
     align-items: center;
     gap: 0.7rem;
@@ -313,35 +284,20 @@ const alts = altPaths(Astro.url.pathname);
     border: 1px solid transparent;
   }
 
-  .mobile-panel a:hover {
+  .menu-panel a:hover,
+  .menu-panel a.active {
     border-color: var(--accent);
     background: var(--accent-soft);
     text-decoration: none;
+  }
+
+  .menu-panel a.active .sheet-no {
+    color: var(--accent);
   }
 
   .sheet-no {
     font-size: 0.58rem;
     color: var(--stamp);
     letter-spacing: 0.12em;
-  }
-
-  @media (max-width: 1020px) {
-    .links {
-      display: none;
-    }
-
-    .mobile-menu {
-      display: block;
-    }
-
-    .actions {
-      margin-left: auto;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .brand-doc {
-      display: none;
-    }
   }
 </style>
