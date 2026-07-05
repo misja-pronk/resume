@@ -1,0 +1,24 @@
+[
+  {
+    "file": "deck-template.enc",
+    "label": {
+      "en": "ProRex deck template",
+      "nl": "ProRex-decktemplate"
+    },
+    "sub": "POWERPOINT \u00b7 7 SHEETS",
+    "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "filename": "prorex-deck-template.pptx",
+    "bytes": 45373
+  },
+  {
+    "file": "business-card.enc",
+    "label": {
+      "en": "Business card (print-ready)",
+      "nl": "Visitekaartje (drukklaar)"
+    },
+    "sub": "PDF \u00b7 85\u00d755 MM \u00b7 FRONT+BACK",
+    "mime": "application/pdf",
+    "filename": "prorex-business-card.pdf",
+    "bytes": 3952
+  }
+]

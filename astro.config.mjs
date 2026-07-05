@@ -11,6 +11,7 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: { en: 'en', nl: 'nl' },
       },
+      filter: (page) => !page.includes('/vault'),
     }),
   ],
   i18n: {

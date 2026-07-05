@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import manifest from '../data/vault.json';
+import { url } from '../utils';
+
+const items = manifest.map((m) => ({ ...m, href: url(`vault/${m.file}`) }));
+---
+
+<BaseLayout title="Site Office — Misja Pronk" description="Authorized personnel only." noindex>
+  <section class="block vault">
+    <h2 class="sheet-title"><span>SHT 00</span> SITE OFFICE — AUTHORIZED PERSONNEL ONLY</h2>
+    <p class="intro">
+      BRAND ASSETS FOR PROREX CONSULTANCY. FILES ARE STORED ENCRYPTED (AES-256-GCM) AND DECRYPTED
+      IN YOUR BROWSER — THE PASSPHRASE NEVER LEAVES THIS PAGE.
+    </p>
+
+    <div class="gate">
+      <label for="vault-pass">PASSPHRASE</label>
+      <input id="vault-pass" type="password" autocomplete="off" spellcheck="false" placeholder="••••••••••••" />
+    </div>
+
+    <ul class="assets">
+      {items.map((item) => (
+        <li>
+          <button
+            class="asset"
+            data-href={item.href}
+            data-mime={item.mime}
+            data-filename={item.filename}
+          >
+            <span class="a-label">{item.label.en}</span>
+            <span class="a-sub">{item.sub} · {Math.max(1, Math.round(item.bytes / 1024))} KB</span>
+            <span class="a-status" data-idle="⤓ DECRYPT & DOWNLOAD">⤓ DECRYPT &amp; DOWNLOAD</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <p class="note">
+      CONFIDENTIAL — DO NOT DISTRIBUTE. REGENERATE ASSETS WITH THE SCRIPTS IN
+      <code>scripts/</code>; RE-ENCRYPT WITH <code>vault_encrypt.py</code>.
+    </p>
+    <span class="stamp" aria-hidden="true">CONFIDENTIAL</span>
+  </section>
+</BaseLayout>
+
+<script>
+  const ITERATIONS = 310000;
+  const pass = document.getElementById('vault-pass') as HTMLInputElement | null;
+
+  async function decrypt(buf: ArrayBuffer, passphrase: string): Promise<ArrayBuffer> {
+    const bytes = new Uint8Array(buf);
+    const magic = new TextDecoder().decode(bytes.slice(0, 4));
+    if (magic !== 'MPV1') throw new Error('bad file');
+    const salt = bytes.slice(4, 20);
+    const iv = bytes.slice(20, 32);
+    const ct = bytes.slice(32);
+    const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: ITERATIONS, hash: 'SHA-256' },
+      material,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['decrypt'],
+    );
+    return crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.asset').forEach((btn) => {
+    const status = btn.querySelector<HTMLElement>('.a-status');
+    btn.addEventListener('click', async () => {
+      if (!pass?.value) {
+        status!.textContent = '✗ ENTER PASSPHRASE';
+        pass?.focus();
+        return;
+      }
+      status!.textContent = '… DECRYPTING';
+      try {
+        const res = await fetch(btn.dataset.href!);
+        const plain = await decrypt(await res.arrayBuffer(), pass.value);
+        const blob = new Blob([plain], { type: btn.dataset.mime });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = btn.dataset.filename!;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        status!.textContent = '✓ ISSUED';
+      } catch {
+        status!.textContent = '✗ WRONG PASSPHRASE';
+      }
+      setTimeout(() => {
+        status!.textContent = status!.dataset.idle!;
+      }, 3000);
+    });
+  });
+</script>
+
+<style>
+  .vault {
+    position: relative;
+    max-width: 760px;
+    min-height: 55vh;
+  }
+
+  .intro {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+    margin: -0.6rem 0 1.8rem;
+    max-width: 60ch;
+  }
+
+  .gate {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .gate label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+  }
+
+  .gate input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--line);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    padding: 0.3rem 0.2rem;
+    outline: none;
+  }
+
+  .gate input:focus {
+    border-bottom-color: var(--accent);
+  }
+
+  .assets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .asset {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'label status' 'sub status';
+    gap: 0.15rem 1rem;
+    align-items: center;
+    text-align: left;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--stamp);
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    font-family: var(--mono);
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+
+  .asset:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .a-label {
+    grid-area: label;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+
+  .a-sub {
+    grid-area: sub;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  .a-status {
+    grid-area: status;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .stamp {
+    position: absolute;
+    top: 4.2rem;
+    right: 0;
+    transform: rotate(8deg);
+    border: 3px double var(--stamp);
+    color: var(--stamp);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    padding: 0.4rem 0.9rem;
+    opacity: 0.85;
+  }
+
+  .note code {
+    font-size: 0.9em;
+  }
+</style>

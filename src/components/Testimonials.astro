@@ -19,6 +19,7 @@ const sourceLabel = locale === 'nl' ? 'BRON' : 'SOURCE';
         <figcaption>
           <span class="author">{item.author}</span>
           <span class="role">{item.role}</span>
+          <span class="context">{item.context}</span>
           <span class="source">
             {sourceLabel}:{' '}
             {item.sourceUrl ? (
@@ -84,6 +85,12 @@ const sourceLabel = locale === 'nl' ? 'BRON' : 'SOURCE';
   .role {
     font-size: 0.66rem;
     color: var(--ink-dim);
+    letter-spacing: 0.08em;
+  }
+
+  .context {
+    font-size: 0.6rem;
+    color: var(--ink-faint);
     letter-spacing: 0.08em;
   }
 
