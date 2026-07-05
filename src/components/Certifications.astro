@@ -18,6 +18,7 @@ const coursework = getCoursework(locale);
         <div class="cert-info">
           <span class="cert-name">{c.name}</span>
           <span class="cert-issuer">{t.certs.testedBy} {c.issuer.toUpperCase()}</span>
+          {c.certId && <span class="cert-id">CERT ID: {c.certId}</span>}
         </div>
         <span class="passed">{t.certs.passed}</span>
       </a>
@@ -75,6 +76,13 @@ const coursework = getCoursework(locale);
     font-size: 0.58rem;
     letter-spacing: 0.14em;
     color: var(--ink-dim);
+  }
+
+  .cert-id {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    word-break: break-all;
   }
 
   .passed {

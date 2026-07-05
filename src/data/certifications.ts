@@ -6,6 +6,7 @@ export interface Certification {
   badge: string; // path under public/
   proof: string;
   description: string;
+  certId?: string;
 }
 
 const base = [
@@ -34,10 +35,11 @@ const base = [
     proof: 'https://credentials.databricks.com/e8be9194-5f17-4cf0-b48c-5e85a2636858',
   },
   {
-    name: 'dlt Certification',
+    name: 'dlt Fundamentals',
     issuer: 'dltHub',
     badge: 'img/badges/dlthub.png',
     proof: 'https://www.linkedin.com/in/misja-pronk/details/certifications/',
+    certId: '69d288adea358dc31e0af3cc',
   },
 ];
 
@@ -47,14 +49,14 @@ const descriptions: Record<Locale, string[]> = {
     'Demonstrates the skills required to build enterprise-scale data solutions and leverage business intelligence data, both on-premises and in cloud environments.',
     'Demonstrates fundamental understanding of models, sources, tests, docs and deployment in dbt.',
     'Demonstrates understanding of fundamental concepts related to the Databricks Lakehouse Platform.',
-    'Demonstrates the ability to build and deploy production-grade data pipelines with dlt, the open-source Python library for data loading.',
+    'Certifies successful completion of the dlt Fundamentals course: building and deploying production-grade data pipelines with dlt, the open-source Python library for data loading. Certificate ID 69d288adea358dc31e0af3cc.',
   ],
   nl: [
     'Toont kennis aan van het ontwerpen en bouwen van analytics- en operationele oplossingen op Azure en het implementeren van big-data-engineering-workflows op HDInsight.',
     'Toont de vaardigheden aan die nodig zijn om enterprise-dataoplossingen te bouwen en business-intelligence-data te benutten, zowel on-premises als in de cloud.',
     'Toont fundamenteel begrip aan van models, sources, tests, docs en deployment in dbt.',
     'Toont begrip aan van de fundamentele concepten van het Databricks Lakehouse Platform.',
-    'Toont het vermogen aan om productiewaardige datapijplijnen te bouwen en te deployen met dlt, de open-source Python-bibliotheek voor data loading.',
+    'Certificeert de succesvolle afronding van de dlt Fundamentals-cursus: productiewaardige datapijplijnen bouwen en deployen met dlt, de open-source Python-bibliotheek voor data loading. Certificaat-ID 69d288adea358dc31e0af3cc.',
   ],
 };
 

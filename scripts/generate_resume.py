@@ -73,7 +73,7 @@ BASE = {
             "MCSE: Data Management and Analytics — Microsoft",
             "dbt Fundamentals — dbt Labs",
             "Databricks Lakehouse Fundamentals — Databricks",
-            "dlt Certification — dltHub",
+            "dlt Fundamentals — dltHub",
         ],
         "edu_h": "Education",
         "edu": [
@@ -127,7 +127,7 @@ BASE = {
             "MCSE: Data Management and Analytics — Microsoft",
             "dbt Fundamentals — dbt Labs",
             "Databricks Lakehouse Fundamentals — Databricks",
-            "dlt Certification — dltHub",
+            "dlt Fundamentals — dltHub",
         ],
         "edu_h": "Opleiding",
         "edu": [
