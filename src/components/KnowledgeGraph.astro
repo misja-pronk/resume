@@ -417,6 +417,12 @@ const t = ui[locale];
     fill: var(--accent);
   }
 
+  @media (max-width: 640px) {
+    svg :global(.edge .rel) {
+      display: none;
+    }
+  }
+
   .legend {
     position: absolute;
     bottom: 0.6rem;

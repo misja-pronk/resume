@@ -5,6 +5,7 @@ import '@fontsource-variable/space-grotesk';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 import { getProfile } from '../data/profile';
 import { getLocale, altPaths } from '../i18n';
 import { url } from '../utils';
@@ -99,9 +100,11 @@ const personSchema = {
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">{locale === 'nl' ? 'Direct naar inhoud' : 'Skip to content'}</a>
     <Nav />
+    <CommandPalette />
     <div class="container">
-      <main class="sheet">
+      <main class="sheet" id="main">
         <span class="regmark tl" aria-hidden="true">+</span>
         <span class="regmark tr" aria-hidden="true">+</span>
         <span class="regmark bl" aria-hidden="true">+</span>
@@ -124,6 +127,22 @@ const personSchema = {
         { threshold: 0.08 },
       );
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Site inspection by the Chief Morale Officer (type: r-e-x)
+      let buf = '';
+      document.addEventListener('keydown', (e) => {
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+        buf = (buf + e.key.toLowerCase()).slice(-3);
+        if (buf === 'rex' && !document.querySelector('.rex')) {
+          buf = '';
+          const d = document.createElement('div');
+          d.className = 'rex';
+          d.innerHTML =
+            '<span class="rex-tag">REX — CHIEF MORALE OFFICER, ON PATROL</span><span class="rex-dog">🐕</span>';
+          document.body.append(d);
+          setTimeout(() => d.remove(), 9500);
+        }
+      });
     </script>
   </body>
 </html>

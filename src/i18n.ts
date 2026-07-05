@@ -40,6 +40,13 @@ export const ui = {
       menu: 'INDEX',
       sheetIndex: 'SHEET INDEX',
     },
+    cmdk: {
+      button: '⌘K',
+      placeholder: 'SEARCH THE DRAWING SET…',
+      empty: 'NOTHING ON FILE',
+      hint: '↑↓ NAVIGATE · ↵ OPEN · ESC CLOSE',
+      badges: { section: 'SHT', project: 'DETAIL', post: 'MEMO', book: 'DOC', cv: 'CV' },
+    },
     cv: {
       button: '⤓ RESUME.PDF',
       title: 'SELECT DRAWING SET',
@@ -188,6 +195,7 @@ export const ui = {
       delivered: '✓ DELIVERED',
       bom: 'BILL OF MATERIALS',
       detail: 'DETAIL',
+      related: 'SHARED MATERIALS — RELATED DETAILS',
     },
     footer: {
       project: 'Project',
@@ -216,6 +224,13 @@ export const ui = {
       resume: '⤓ CV.PDF',
       menu: 'INDEX',
       sheetIndex: 'BLADINDEX',
+    },
+    cmdk: {
+      button: '⌘K',
+      placeholder: 'DOORZOEK DE TEKENINGENSET…',
+      empty: 'NIETS IN ARCHIEF',
+      hint: '↑↓ NAVIGEREN · ↵ OPENEN · ESC SLUITEN',
+      badges: { section: 'BLAD', project: 'DETAIL', post: 'MEMO', book: 'DOC', cv: 'CV' },
     },
     cv: {
       button: '⤓ CV.PDF',
@@ -365,6 +380,7 @@ export const ui = {
       delivered: '✓ OPGELEVERD',
       bom: 'STUKLIJST',
       detail: 'DETAIL',
+      related: 'GEDEELDE MATERIALEN — VERWANTE DETAILS',
     },
     footer: {
       project: 'Project',

@@ -21,6 +21,14 @@ const partNo = `P-${String(all.length - index).padStart(3, '0')}`;
 const prev = all[index - 1];
 const next = all[index + 1];
 const slug = (id: string) => id.replace(`${locale}/`, '');
+
+const tagSet = new Set(project.data.tags);
+const related = all
+  .filter((p) => p.id !== project.id)
+  .map((p) => ({ p, shared: p.data.tags.filter((tag) => tagSet.has(tag)) }))
+  .filter((r) => r.shared.length > 0)
+  .sort((a, b) => b.shared.length - a.shared.length)
+  .slice(0, 3);
 ---
 
 <article class="block">
@@ -74,6 +82,19 @@ const slug = (id: string) => id.replace(`${locale}/`, '');
       {project.data.tags.map((tag) => <span class="chip">{tag}</span>)}
     </div>
   </div>
+
+  {related.length > 0 && (
+    <div class="related">
+      <span class="related-label">{t.detail.related}</span>
+      {related.map(({ p, shared }) => (
+        <a class="related-link" href={url(lpath(locale, `projects/${slug(p.id)}/`))}>
+          <span class="related-client">{p.data.client.toUpperCase()}</span>
+          <span class="related-title">{p.data.title}</span>
+          <span class="related-shared">{shared.slice(0, 3).join(' · ')}</span>
+        </a>
+      ))}
+    </div>
+  )}
 
   <nav class="pager">
     {prev ? (
@@ -214,6 +235,66 @@ const slug = (id: string) => id.replace(`${locale}/`, '');
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
+  }
+
+  .related {
+    margin-top: 2rem;
+    border-top: 1px dashed var(--line);
+    padding-top: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .related-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    margin-bottom: 0.2rem;
+  }
+
+  .related-link {
+    display: grid;
+    grid-template-columns: 11rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    border: 1px solid var(--line);
+    padding: 0.65rem 0.9rem;
+    color: var(--ink);
+    font-size: 0.75rem;
+    transition: all 0.15s;
+  }
+
+  .related-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+  }
+
+  .related-client {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+  }
+
+  .related-title {
+    font-family: var(--disp);
+    font-weight: 600;
+  }
+
+  .related-shared {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 640px) {
+    .related-link {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
   }
 
   .pager {

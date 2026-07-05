@@ -1,0 +1,329 @@
+---
+import { getCollection } from 'astro:content';
+import { getLibrary } from '../data/library';
+import { getLocale, lpath, ui } from '../i18n';
+import { url } from '../utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const home = lpath(locale, '/');
+
+interface Item {
+  type: 'section' | 'project' | 'post' | 'book' | 'cv';
+  label: string;
+  sub: string;
+  href: string;
+}
+
+const sections: Item[] = [
+  { anchor: 'specialisms', label: t.nav.expertise, sub: t.specialisms.title },
+  { anchor: 'services', label: t.nav.services, sub: 'SHT 02A' },
+  { anchor: 'experience', label: t.nav.experience, sub: t.experience.title },
+  { anchor: 'projects', label: t.nav.projects, sub: t.projects.title },
+  { anchor: 'opensource', label: t.nav.openSource, sub: t.oss.title },
+  { anchor: 'skills', label: t.nav.toolbox, sub: t.skills.title },
+  { anchor: 'certifications', label: 'Certifications', sub: t.certs.title },
+  { anchor: 'education', label: t.nav.education, sub: t.education.title },
+  { anchor: 'graph', label: t.nav.graph, sub: t.graph.title },
+  { anchor: 'library', label: t.nav.library, sub: t.library.title },
+].map((s) => ({ type: 'section' as const, label: s.label, sub: s.sub, href: url(`${home}#${s.anchor}`) }));
+
+const localePrefix = locale + '/';
+const projects = (await getCollection('projects', (p) => p.id.startsWith(localePrefix)))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p, i, arr) => {
+    const projectSlug = p.id.replace(localePrefix, '');
+    return {
+      type: 'project' as const,
+      label: p.data.title,
+      sub: `P-${String(arr.length - i).padStart(3, '0')} · ${p.data.client} · ${p.data.tags.join(' ')}`,
+      href: url(lpath(locale, `projects/${projectSlug}/`)),
+    };
+  });
+
+const posts = (await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((p) => ({
+    type: 'post' as const,
+    label: p.data.title,
+    sub: p.data.tags.join(' '),
+    href: url(lpath(locale, `blog/${p.id}/`)),
+  }));
+
+const blogIndex: Item = {
+  type: 'post',
+  label: t.nav.fieldNotes,
+  sub: t.blog.title,
+  href: url(lpath(locale, 'blog/')),
+};
+
+const books = getLibrary(locale).map((b) => ({
+  type: 'book' as const,
+  label: b.title,
+  sub: `${b.author} · ${b.discipline}`,
+  href: url(`${home}#library`),
+}));
+
+const cvs = t.cv.items.map((item) => ({
+  type: 'cv' as const,
+  label: item.label,
+  sub: `${item.no} · PDF`,
+  href: url(locale === 'nl' ? item.nl : item.en),
+}));
+
+const items: Item[] = [...sections, blogIndex, ...projects, ...posts, ...books, ...cvs];
+---
+
+<div class="cmdk" id="cmdk" hidden>
+  <div class="cmdk-backdrop" data-cmdk-close></div>
+  <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label={t.cmdk.placeholder}>
+    <input
+      id="cmdk-input"
+      type="text"
+      placeholder={t.cmdk.placeholder}
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <ul id="cmdk-results"></ul>
+    <div class="cmdk-hint">{t.cmdk.hint}</div>
+  </div>
+</div>
+
+
+
+<script
+  is:inline
+  type="application/json"
+  id="cmdk-data"
+  set:html={JSON.stringify({ items, badges: t.cmdk.badges, empty: t.cmdk.empty })}
+></script>
+
+<script>
+  interface CmdkItem {
+    type: string;
+    label: string;
+    sub: string;
+    href: string;
+  }
+
+  const root = document.getElementById('cmdk');
+  const input = document.getElementById('cmdk-input') as HTMLInputElement | null;
+  const list = document.getElementById('cmdk-results');
+  const dataEl = document.getElementById('cmdk-data');
+
+  if (root && input && list && dataEl) {
+    const { items, badges, empty } = JSON.parse(dataEl.textContent ?? '{}') as {
+      items: CmdkItem[];
+      badges: Record<string, string>;
+      empty: string;
+    };
+
+    let active = 0;
+    let shown: CmdkItem[] = [];
+
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      shown = (
+        q === ''
+          ? items.filter((i) => i.type === 'section' || i.type === 'cv')
+          : items
+              .map((i) => {
+                const hay = `${i.label} ${i.sub}`.toLowerCase();
+                const score = hay.startsWith(q) ? 3 : i.label.toLowerCase().includes(q) ? 2 : hay.includes(q) ? 1 : 0;
+                return { i, score };
+              })
+              .filter((x) => x.score > 0)
+              .sort((a, b) => b.score - a.score)
+              .map((x) => x.i)
+      ).slice(0, 10);
+      active = 0;
+
+      list.innerHTML = '';
+      if (shown.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'cmdk-empty';
+        li.textContent = empty;
+        list.append(li);
+        return;
+      }
+      shown.forEach((item, idx) => {
+        const li = document.createElement('li');
+        li.className = idx === active ? 'is-active' : '';
+        const badge = document.createElement('span');
+        badge.className = `cmdk-badge ${item.type}`;
+        badge.textContent = badges[item.type] ?? '';
+        const label = document.createElement('span');
+        label.className = 'cmdk-label';
+        label.textContent = item.label;
+        const sub = document.createElement('span');
+        sub.className = 'cmdk-sub';
+        sub.textContent = item.sub.length > 60 ? `${item.sub.slice(0, 60)}…` : item.sub;
+        li.append(badge, label, sub);
+        li.addEventListener('click', () => go(item));
+        li.addEventListener('pointerenter', () => {
+          active = idx;
+          highlight();
+        });
+        list.append(li);
+      });
+    };
+
+    const highlight = () => {
+      [...list.children].forEach((el, idx) => el.classList.toggle('is-active', idx === active));
+      list.children[active]?.scrollIntoView({ block: 'nearest' });
+    };
+
+    const go = (item: CmdkItem) => {
+      close();
+      window.location.href = item.href;
+    };
+
+    const open = () => {
+      root.hidden = false;
+      input.value = '';
+      render();
+      input.focus();
+    };
+
+    const close = () => {
+      root.hidden = true;
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        root.hidden ? open() : close();
+        return;
+      }
+      if (root.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        active = Math.min(active + 1, shown.length - 1);
+        highlight();
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = Math.max(active - 1, 0);
+        highlight();
+      }
+      if (e.key === 'Enter' && shown[active]) go(shown[active]);
+    });
+
+    input.addEventListener('input', render);
+    root.querySelector('[data-cmdk-close]')?.addEventListener('click', close);
+    document.querySelectorAll('[data-cmdk-open]').forEach((btn) => btn.addEventListener('click', open));
+  }
+</script>
+
+<style>
+  .cmdk {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+  }
+
+  .cmdk-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 15, 28, 0.6);
+    backdrop-filter: blur(2px);
+  }
+
+  .cmdk-panel {
+    position: relative;
+    margin: 12vh auto 0;
+    width: min(620px, calc(100% - 2rem));
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  #cmdk-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--line);
+    padding: 1rem 1.2rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    outline: none;
+  }
+
+  #cmdk-input::placeholder {
+    color: var(--ink-faint);
+    letter-spacing: 0.12em;
+  }
+
+  #cmdk-results {
+    list-style: none;
+    margin: 0;
+    padding: 0.4rem;
+    max-height: 46vh;
+    overflow-y: auto;
+  }
+
+  #cmdk-results :global(li) {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.55rem 0.8rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: var(--mono);
+  }
+
+  #cmdk-results :global(li.is-active) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  #cmdk-results :global(.cmdk-badge) {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--stamp);
+    min-width: 3.2rem;
+  }
+
+  #cmdk-results :global(.cmdk-label) {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 18rem;
+  }
+
+  #cmdk-results :global(.cmdk-sub) {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #cmdk-results :global(.cmdk-empty) {
+    cursor: default;
+    color: var(--stamp);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    justify-content: center;
+    display: flex;
+    padding: 1.2rem;
+  }
+
+  .cmdk-hint {
+    border-top: 1px dashed var(--line);
+    padding: 0.5rem 1.2rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+  }
+</style>

@@ -221,6 +221,115 @@ a.chip:hover {
   text-transform: uppercase;
 }
 
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 200;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.6rem 1rem;
+}
+
+.skip-link:focus {
+  top: 0.6rem;
+  text-decoration: none;
+}
+
+/* ---------- Chief Morale Officer ---------- */
+.rex {
+  position: fixed;
+  bottom: 0.6rem;
+  left: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  pointer-events: none;
+  animation: rex-patrol 9s linear forwards;
+}
+
+.rex-dog {
+  font-size: 2.2rem;
+  transform: scaleX(-1);
+  animation: rex-trot 0.4s ease-in-out infinite alternate;
+}
+
+.rex-tag {
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink-dim);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+}
+
+@keyframes rex-patrol {
+  from {
+    transform: translateX(-16rem);
+  }
+  to {
+    transform: translateX(calc(100vw + 4rem));
+  }
+}
+
+@keyframes rex-trot {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -4px;
+  }
+}
+
+/* ---------- Print: always drafting paper ---------- */
+@media print {
+  :root,
+  [data-theme='dark'] {
+    --paper: #ffffff;
+    --paper-deep: #f4f1e8;
+    --sheet: #ffffff;
+    --panel: #f4f1e8;
+    --ink: #16324f;
+    --ink-dim: #47617c;
+    --ink-faint: #7a8ea3;
+    --line: rgba(22, 50, 79, 0.35);
+    --line-soft: rgba(22, 50, 79, 0.1);
+    --accent: #0d6fb8;
+    --accent-ink: #ffffff;
+    --stamp: #d43d3d;
+    --pass: #1e8a4c;
+    --hatch: rgba(13, 111, 184, 0.05);
+    --accent-soft: rgba(13, 111, 184, 0.08);
+    --glow: #ffffff;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .nav-wrap,
+  .skip-link,
+  .regmark,
+  .rex {
+    display: none !important;
+  }
+
+  .sheet {
+    outline: none;
+    margin-block: 0;
+  }
+}
+
 /* ---------- Reveal animation ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
