@@ -11,12 +11,12 @@ export async function GET(context: APIContext) {
     title: 'Misja Pronk — Field Notes',
     description:
       'Engineering memos from the field: Databricks, platform engineering, dbt and data platforms in practice.',
-    site: new URL('/resume/', context.site ?? 'https://misja-pronk.github.io'),
+    site: context.site ?? 'https://prorexconsultancy.nl',
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.summary,
       pubDate: post.data.date,
-      link: `/resume/blog/${post.id}/`,
+      link: `/blog/${post.id}/`,
     })),
     customData: '<language>en</language>',
   });

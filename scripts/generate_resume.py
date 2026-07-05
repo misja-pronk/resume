@@ -47,7 +47,7 @@ BASE = {
             '<a href="mailto:misja@prorexconsultancy.nl" color="#0d6fb8">misja@prorexconsultancy.nl</a> · '
             '<a href="https://www.linkedin.com/in/misja-pronk" color="#0d6fb8">linkedin.com/in/misja-pronk</a><br/>'
             '<a href="https://github.com/misja-pronk" color="#0d6fb8">github.com/misja-pronk</a> · '
-            '<a href="https://misja-pronk.github.io/resume/" color="#0d6fb8">misja-pronk.github.io/resume</a>'
+            '<a href="https://prorexconsultancy.nl/" color="#0d6fb8">prorexconsultancy.nl</a>'
         ),
         "stats": [
             ("11+", "YEARS IN IT"),
@@ -81,7 +81,7 @@ BASE = {
             ("MBO 4 Application Development — ROC ID College", "2010 – 2012"),
         ],
         "skills_h": "Skills",
-        "footer": "Full interactive portfolio: misja-pronk.github.io/resume (EN) · misja-pronk.github.io/resume/nl/ (NL)",
+        "footer": "Full interactive portfolio: prorexconsultancy.nl (EN) · prorexconsultancy.nl/nl (NL)",
         "job_meta": {
             "prorex": ("ProRex Consultancy — Owner · Data & Platform Engineering Consultant", "Mar 2022 – present"),
             "heijmans": ("Heijmans — Platform Engineer / Data Engineer (via ProRex)", "Dec 2025 – present"),
@@ -101,7 +101,7 @@ BASE = {
             '<a href="mailto:misja@prorexconsultancy.nl" color="#0d6fb8">misja@prorexconsultancy.nl</a> · '
             '<a href="https://www.linkedin.com/in/misja-pronk" color="#0d6fb8">linkedin.com/in/misja-pronk</a><br/>'
             '<a href="https://github.com/misja-pronk" color="#0d6fb8">github.com/misja-pronk</a> · '
-            '<a href="https://misja-pronk.github.io/resume/nl/" color="#0d6fb8">misja-pronk.github.io/resume/nl</a>'
+            '<a href="https://prorexconsultancy.nl/nl/" color="#0d6fb8">prorexconsultancy.nl/nl</a>'
         ),
         "stats": [
             ("11+", "JAAR IN IT"),
@@ -135,7 +135,7 @@ BASE = {
             ("MBO 4 Applicatieontwikkelaar — ROC ID College", "2010 – 2012"),
         ],
         "skills_h": "Vaardigheden",
-        "footer": "Volledig interactief portfolio: misja-pronk.github.io/resume/nl/ (NL) · misja-pronk.github.io/resume (EN)",
+        "footer": "Volledig interactief portfolio: prorexconsultancy.nl/nl (NL) · prorexconsultancy.nl (EN)",
         "job_meta": {
             "prorex": ("ProRex Consultancy — Eigenaar · Data & Platform Engineering Consultant", "mrt 2022 – heden"),
             "heijmans": ("Heijmans — Platform Engineer / Data Engineer (via ProRex)", "dec 2025 – heden"),
