@@ -138,7 +138,12 @@ const personSchema = {
           const d = document.createElement('div');
           d.className = 'rex';
           d.innerHTML =
-            '<span class="rex-tag">REX — CHIEF MORALE OFFICER, ON PATROL</span><span class="rex-dog">🐕</span>';
+            '<span class="rex-tag">REX — CHIEF MORALE OFFICER, ON PATROL</span>' +
+            '<svg class="rex-dog" viewBox="0 0 150 100" width="66" height="44" aria-hidden="true">' +
+            '<path fill="var(--ink)" d="M141 33C133 30 126 28 119 26 117 25 115 23 114 20 112 14 111 11 110 8 108 12 107 16 107 20 105 19 103 19 101 20 99 15 97 11 94 8 93 12 93 17 94 21 90 23 87 26 85 30 74 27 60 27 48 32 40 35 34 40 30 46 24 49 16 55 10 63 14 62 18 61 21 61 16 67 12 74 10 81 16 76 22 72 27 70 28 75 30 81 33 86L39 86C37 80 36 74 37 68 44 70 53 70 60 68 60 74 61 80 63 86L69 86C68 80 68 73 69 67 73 65 76 62 78 58 81 61 86 62 91 61 90 69 91 78 94 86L100 86C98 78 98 69 99 61 103 57 106 51 107 45 111 44 116 42 120 40 127 38 135 36 141 33Z"/>' +
+            '<path fill="none" stroke="var(--paper)" stroke-width="1.6" stroke-linecap="round" opacity="0.55" d="M96 34C92 40 90 48 92 56M103 32C99 38 97 46 98 54"/>' +
+            '<circle cx="108" cy="26" r="2" fill="var(--paper)"/>' +
+            '</svg>';
           document.body.append(d);
           setTimeout(() => d.remove(), 9500);
         }

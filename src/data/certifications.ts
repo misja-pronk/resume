@@ -53,3 +53,12 @@ const descriptions: Record<Locale, string[]> = {
 export function getCertifications(locale: Locale): Certification[] {
   return base.map((c, i) => ({ ...c, description: descriptions[locale][i]! }));
 }
+
+const courseworkText: Record<Locale, string> = {
+  en: 'NOTE: ADDITIONAL COURSEWORK ON FILE — MICROSOFT PROFESSIONAL PROGRAM (BIG DATA & DATA SCIENCE TRACKS), 8 EDX CERTIFICATES, 2017–2019.',
+  nl: 'OPMERKING: AANVULLENDE CURSUSSEN IN ARCHIEF — MICROSOFT PROFESSIONAL PROGRAM (BIG DATA- & DATA SCIENCE-TRACKS), 8 EDX-CERTIFICATEN, 2017–2019.',
+};
+
+export function getCoursework(locale: Locale): string {
+  return courseworkText[locale];
+}

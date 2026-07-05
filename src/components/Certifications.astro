@@ -1,11 +1,12 @@
 ---
-import { getCertifications } from '../data/certifications';
+import { getCertifications, getCoursework } from '../data/certifications';
 import { getLocale, ui } from '../i18n';
 import { url } from '../utils';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const certifications = getCertifications(locale);
+const coursework = getCoursework(locale);
 ---
 
 <section id="certifications" class="block">
@@ -22,6 +23,7 @@ const certifications = getCertifications(locale);
       </a>
     ))}
   </div>
+  <p class="note">{coursework}</p>
 </section>
 
 <style>
