@@ -45,13 +45,13 @@ const statsData = {
   en: [
     { value: '11+', label: 'years in IT, 8+ in data & platforms' },
     { value: '21', label: 'projects delivered' },
-    { value: '4', label: 'certifications' },
+    { value: '5', label: 'certifications' },
     { value: '25+', label: 'Azure services in production' },
   ],
   nl: [
     { value: '11+', label: 'jaar in IT, 8+ in data & platforms' },
     { value: '21', label: 'projecten opgeleverd' },
-    { value: '4', label: 'certificeringen' },
+    { value: '5', label: 'certificeringen' },
     { value: '25+', label: 'Azure-services in productie' },
   ],
 } as const;

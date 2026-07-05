@@ -37,6 +37,14 @@ ASSETS = [
         "filename": "prorex-deck-template.pptx",
     },
     {
+        "src": "prorex-deck-template.html",
+        "out": "deck-html.enc",
+        "label": {"en": "Deck template (browser/HTML)", "nl": "Decktemplate (browser/HTML)"},
+        "sub": "HTML · 7 SHEETS · ARROW-KEY NAV",
+        "mime": "text/html",
+        "filename": "prorex-deck-template.html",
+    },
+    {
         "src": "prorex-business-card.pdf",
         "out": "business-card.enc",
         "label": {"en": "Business card (print-ready)", "nl": "Visitekaartje (drukklaar)"},
