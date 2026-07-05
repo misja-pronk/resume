@@ -1,6 +1,6 @@
 import type { Locale } from '../i18n';
 
-export type BookStatus = 'read' | 'reading' | 'wishlist';
+export type BookStatus = 'read' | 'reference' | 'reading' | 'toread';
 
 export interface Book {
   title: string;
@@ -42,28 +42,28 @@ const d = {
 };
 
 /**
- * The library — books read, in hand, or on order.
- * status: 'read' · 'reading' · 'wishlist'
+ * The library — books read, kept for reference, in hand, or queued to read.
+ * status: 'read' · 'reference' · 'reading' · 'toread'
  */
 const books: BookDef[] = [
   // --- data
   { title: 'Designing Data-Intensive Applications', author: 'Martin Kleppmann', discipline: d.dataSystems, status: 'read', cover: 'img/books/ddia.jpg' },
-  { title: 'The Data Warehouse Toolkit', author: 'Ralph Kimball & Margy Ross', discipline: d.dataModeling, status: 'read', cover: 'img/books/dw-toolkit.jpg' },
+  { title: 'The Data Warehouse Toolkit', author: 'Ralph Kimball & Margy Ross', discipline: d.dataModeling, status: 'reference', cover: 'img/books/dw-toolkit.jpg' },
   { title: 'Data Management at Scale', author: 'Piethein Strengholt', discipline: d.dataArch, status: 'read', cover: 'img/books/data-mgmt-scale.jpg' },
   { title: 'Data Pipelines with Apache Airflow', author: 'Bas Harenslak & Julian de Ruiter', discipline: d.dataEng, status: 'read', cover: 'img/books/airflow.jpg' },
   { title: 'Spark: The Definitive Guide', author: 'Bill Chambers & Matei Zaharia', discipline: d.dataEng, status: 'read', cover: 'img/books/spark-definitive.jpg' },
-  { title: 'The Definitive Guide to DAX', author: 'Marco Russo & Alberto Ferrari', discipline: d.bi, status: 'read', cover: 'img/books/bi-excel-ssas.jpg' },
+  { title: 'The Definitive Guide to DAX', author: 'Marco Russo & Alberto Ferrari', discipline: d.bi, status: 'reference', cover: 'img/books/bi-excel-ssas.jpg' },
   { title: 'Data Science for Business', author: 'Foster Provost & Tom Fawcett', discipline: d.dataScience, status: 'read', cover: 'img/books/ds-for-business.jpg' },
-  { title: 'Machine Learning with Python Cookbook', author: 'Chris Albon', discipline: d.ml, status: 'read', cover: 'img/books/ml-python-cookbook.jpg' },
+  { title: 'Machine Learning with Python Cookbook', author: 'Chris Albon', discipline: d.ml, status: 'reference', cover: 'img/books/ml-python-cookbook.jpg' },
   { title: 'Ethics of Data and Analytics', author: 'Kirsten Martin', discipline: d.dataEthics, status: 'read', cover: 'img/books/ethics-of-data.jpg' },
-  { title: 'The Wall Street Journal Guide to Information Graphics', author: 'Dona M. Wong', discipline: d.dataViz, status: 'read', cover: 'img/books/info-graphics.jpg' },
+  { title: 'The Wall Street Journal Guide to Information Graphics', author: 'Dona M. Wong', discipline: d.dataViz, status: 'reference', cover: 'img/books/info-graphics.jpg' },
   // --- sql
-  { title: 'The Art of SQL', author: 'Stéphane Faroult', discipline: d.sql, status: 'read', cover: 'img/books/art-of-sql.jpg' },
-  { title: 'SQL Cookbook', author: 'Anthony Molinaro', discipline: d.sql, status: 'read', cover: 'img/books/sql-cookbook.jpg' },
+  { title: 'The Art of SQL', author: 'Stéphane Faroult', discipline: d.sql, status: 'reference', cover: 'img/books/art-of-sql.jpg' },
+  { title: 'SQL Cookbook', author: 'Anthony Molinaro', discipline: d.sql, status: 'reference', cover: 'img/books/sql-cookbook.jpg' },
   // --- python
   { title: 'Fluent Python', author: 'Luciano Ramalho', discipline: d.python, status: 'read', cover: 'img/books/fluent-python.jpg' },
   { title: 'Effective Python', author: 'Brett Slatkin', discipline: d.python, status: 'read', cover: 'img/books/effective-python.jpg' },
-  { title: 'Python Cookbook', author: 'David Beazley & Brian K. Jones', discipline: d.python, status: 'read', cover: 'img/books/python-cookbook.jpg' },
+  { title: 'Python Cookbook', author: 'David Beazley & Brian K. Jones', discipline: d.python, status: 'reference', cover: 'img/books/python-cookbook.jpg' },
   { title: 'Introduction to Computing Using Python', author: 'Ljubomir Perkovic', discipline: d.python, status: 'read', cover: 'img/books/intro-computing-python.jpg' },
   // --- other languages
   { title: 'C# in Depth', author: 'Jon Skeet', discipline: d.programming, status: 'read', cover: 'img/books/csharp-in-depth.jpg' },

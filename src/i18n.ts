@@ -153,11 +153,12 @@ export const ui = {
     library: {
       title: 'DOCUMENT REGISTER — THE LIBRARY',
       intro:
-        'PRIMARY EVIDENCE OF CONTINUOUS LEARNING — 37 VOLUMES LOGGED, READ, AND APPLIED ON SITE. NO EXPIRY DATE, NO RETIRED PROGRAM.',
+        'PRIMARY EVIDENCE OF CONTINUOUS LEARNING — 37 VOLUMES ON THE SHELF: READ, KEPT FOR REFERENCE, OR QUEUED. NO EXPIRY DATE, NO RETIRED PROGRAM.',
       all: 'ALL',
       read: 'READ',
+      reference: 'REFERENCE',
       reading: 'IN HAND',
-      wishlist: 'ON ORDER',
+      toread: 'TO READ',
       docNo: 'DOC NO',
       bookTitle: 'TITLE',
       author: 'AUTHOR',
@@ -338,11 +339,12 @@ export const ui = {
     library: {
       title: 'DOCUMENTENREGISTER — DE BIBLIOTHEEK',
       intro:
-        'PRIMAIR BEWIJS VAN CONTINU LEREN — 37 DELEN GEREGISTREERD, GELEZEN EN OP LOCATIE TOEGEPAST. GEEN VERLOOPDATUM, GEEN VERVALLEN PROGRAMMA.',
+        'PRIMAIR BEWIJS VAN CONTINU LEREN — 37 DELEN OP DE PLANK: GELEZEN, ALS NASLAG GEBRUIKT OF NOG TE LEZEN. GEEN VERLOOPDATUM, GEEN VERVALLEN PROGRAMMA.',
       all: 'ALLE',
       read: 'GELEZEN',
+      reference: 'NASLAG',
       reading: 'IN HANDEN',
-      wishlist: 'IN BESTELLING',
+      toread: 'TE LEZEN',
       docNo: 'DOC NR',
       bookTitle: 'TITEL',
       author: 'AUTEUR',

@@ -7,12 +7,16 @@ const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const library = getLibrary(locale);
 
-const statusLabel = { read: t.library.read, reading: t.library.reading, wishlist: t.library.wishlist };
-const counts = {
-  read: library.filter((b) => b.status === 'read').length,
-  reading: library.filter((b) => b.status === 'reading').length,
-  wishlist: library.filter((b) => b.status === 'wishlist').length,
+const statusLabel = {
+  read: t.library.read,
+  reference: t.library.reference,
+  reading: t.library.reading,
+  toread: t.library.toread,
 };
+const order = ['read', 'reference', 'reading', 'toread'] as const;
+const counts = Object.fromEntries(
+  order.map((s) => [s, library.filter((b) => b.status === s).length]),
+) as Record<(typeof order)[number], number>;
 ---
 
 <section id="library" class="block">
@@ -22,8 +26,9 @@ const counts = {
   <div class="lib-filters reveal" role="group" aria-label="Filter books by status">
     <button class="lib-filter is-active" data-status="all">{t.library.all} ({library.length})</button>
     <button class="lib-filter" data-status="read">{t.library.read} ({counts.read})</button>
-    <button class="lib-filter" data-status="reading">{t.library.reading} ({counts.reading})</button>
-    <button class="lib-filter" data-status="wishlist">{t.library.wishlist} ({counts.wishlist})</button>
+    <button class="lib-filter" data-status="reference">{t.library.reference} ({counts.reference})</button>
+    {counts.reading > 0 && <button class="lib-filter" data-status="reading">{t.library.reading} ({counts.reading})</button>}
+    {counts.toread > 0 && <button class="lib-filter" data-status="toread">{t.library.toread} ({counts.toread})</button>}
   </div>
 
   <div class="table-scroll reveal">
@@ -223,12 +228,17 @@ const counts = {
     border-color: var(--pass);
   }
 
+  .mark.reference {
+    color: var(--ink-dim);
+    border-color: var(--line);
+  }
+
   .mark.reading {
     color: var(--accent);
     border-color: var(--accent);
   }
 
-  .mark.wishlist {
+  .mark.toread {
     color: var(--stamp);
     border-color: var(--stamp);
     border-style: dashed;
