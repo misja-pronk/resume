@@ -27,6 +27,7 @@ export const ui = {
     sheet: 'SHT',
     nav: {
       expertise: 'Expertise',
+      services: 'Services',
       experience: 'Experience',
       projects: 'Projects',
       openSource: 'Open Source',
@@ -36,6 +37,15 @@ export const ui = {
       library: 'Library',
       fieldNotes: 'Field Notes',
       resume: '⤓ RESUME.PDF',
+      menu: 'INDEX',
+      sheetIndex: 'SHEET INDEX',
+    },
+    cmdk: {
+      button: '⌘K',
+      placeholder: 'SEARCH THE DRAWING SET…',
+      empty: 'NOTHING ON FILE',
+      hint: '↑↓ NAVIGATE · ↵ OPEN · ESC CLOSE',
+      badges: { section: 'SHT', project: 'DETAIL', post: 'MEMO', book: 'DOC', cv: 'CV' },
     },
     cv: {
       button: '⤓ RESUME.PDF',
@@ -92,6 +102,7 @@ export const ui = {
       dur: 'DUR',
       ongoing: 'ONGOING',
       mo: 'MO',
+      key: 'KEY DETAIL',
     },
     oss: {
       title: 'SHOP-FABRICATED PARTS — OPEN SOURCE',
@@ -108,18 +119,16 @@ export const ui = {
       pcs: 'PCS',
       note: 'NOTE: TOOLBOX IS ACTIVELY MAINTAINED. CONTENTS SUBJECT TO CONTINUOUS EXPANSION.',
     },
-    certs: {
-      title: 'MATERIALS TESTING — CERTIFICATIONS',
-      testedBy: 'TESTED BY',
-      passed: 'PASSED',
-    },
     education: {
-      title: 'FOUNDATION WORKS — EDUCATION',
+      title: 'CONTINUING EDUCATION — FOUNDATION & FIELD LEARNING',
       fnd: 'FND',
       majors: 'MAJOR SUBJECTS',
       minors: 'MINOR SUBJECTS',
       subjects: 'SUBJECTS',
       diploma: 'CERTIFIED COPY ON FILE — VIEW DIPLOMA (PDF) →',
+      philosophy:
+        'I learn the way I build: on site, from the material, one honest iteration at a time. Eleven years shipping data platforms and a shelf of thirty-seven titles taught me more than any exam room could — so I let the work and the reading carry the proof. The certificates below are the foundation; the projects and the register that follows are the real inspection report.',
+      credentials: 'ON FILE — CERTIFICATIONS',
     },
     notes: {
       title: 'GENERAL NOTES',
@@ -143,10 +152,13 @@ export const ui = {
     },
     library: {
       title: 'DOCUMENT REGISTER — THE LIBRARY',
+      intro:
+        'PRIMARY EVIDENCE OF CONTINUOUS LEARNING — 37 VOLUMES ON THE SHELF: READ, KEPT FOR REFERENCE, OR QUEUED. NO EXPIRY DATE, NO RETIRED PROGRAM.',
       all: 'ALL',
       read: 'READ',
+      reference: 'REFERENCE',
       reading: 'IN HAND',
-      wishlist: 'ON ORDER',
+      toread: 'TO READ',
       docNo: 'DOC NO',
       bookTitle: 'TITLE',
       author: 'AUTHOR',
@@ -184,6 +196,7 @@ export const ui = {
       delivered: '✓ DELIVERED',
       bom: 'BILL OF MATERIALS',
       detail: 'DETAIL',
+      related: 'SHARED MATERIALS — RELATED DETAILS',
     },
     footer: {
       project: 'Project',
@@ -200,6 +213,7 @@ export const ui = {
     sheet: 'BLAD',
     nav: {
       expertise: 'Expertise',
+      services: 'Diensten',
       experience: 'Ervaring',
       projects: 'Projecten',
       openSource: 'Open Source',
@@ -209,6 +223,15 @@ export const ui = {
       library: 'Bibliotheek',
       fieldNotes: 'Veldnotities',
       resume: '⤓ CV.PDF',
+      menu: 'INDEX',
+      sheetIndex: 'BLADINDEX',
+    },
+    cmdk: {
+      button: '⌘K',
+      placeholder: 'DOORZOEK DE TEKENINGENSET…',
+      empty: 'NIETS IN ARCHIEF',
+      hint: '↑↓ NAVIGEREN · ↵ OPENEN · ESC SLUITEN',
+      badges: { section: 'BLAD', project: 'DETAIL', post: 'MEMO', book: 'DOC', cv: 'CV' },
     },
     cv: {
       button: '⤓ CV.PDF',
@@ -265,6 +288,7 @@ export const ui = {
       dur: 'DUUR',
       ongoing: 'LOPEND',
       mo: 'MND',
+      key: 'KERNDETAIL',
     },
     oss: {
       title: 'WERKPLAATSFABRICAAT — OPEN SOURCE',
@@ -281,18 +305,16 @@ export const ui = {
       pcs: 'STKS',
       note: 'OPMERKING: GEREEDSCHAPSKIST WORDT ACTIEF ONDERHOUDEN. INHOUD ONDERHEVIG AAN CONTINUE UITBREIDING.',
     },
-    certs: {
-      title: 'MATERIAALKEURING — CERTIFICERINGEN',
-      testedBy: 'GEKEURD DOOR',
-      passed: 'GESLAAGD',
-    },
     education: {
-      title: 'FUNDERINGSWERK — OPLEIDING',
+      title: 'PERMANENTE EDUCATIE — FUNDERING & LEREN OP LOCATIE',
       fnd: 'FND',
       majors: 'HOOFDVAKKEN',
       minors: 'BIJVAKKEN',
       subjects: 'VAKKEN',
       diploma: 'GEWAARMERKT AFSCHRIFT IN ARCHIEF — BEKIJK DIPLOMA (PDF) →',
+      philosophy:
+        'Ik leer zoals ik bouw: op locatie, vanuit het materiaal, één eerlijke iteratie per keer. Ruim tien jaar dataplatformen opleveren en een plank met zevenendertig titels leerden me meer dan welk examenlokaal ook — dus laat ik het werk en het lezen het bewijs dragen. De certificaten hieronder vormen de fundering; de projecten en het register hierna zijn het echte keuringsrapport.',
+      credentials: 'IN ARCHIEF — CERTIFICERINGEN',
     },
     notes: {
       title: 'ALGEMENE OPMERKINGEN',
@@ -316,10 +338,13 @@ export const ui = {
     },
     library: {
       title: 'DOCUMENTENREGISTER — DE BIBLIOTHEEK',
+      intro:
+        'PRIMAIR BEWIJS VAN CONTINU LEREN — 37 DELEN OP DE PLANK: GELEZEN, ALS NASLAG GEBRUIKT OF NOG TE LEZEN. GEEN VERLOOPDATUM, GEEN VERVALLEN PROGRAMMA.',
       all: 'ALLE',
       read: 'GELEZEN',
+      reference: 'NASLAG',
       reading: 'IN HANDEN',
-      wishlist: 'IN BESTELLING',
+      toread: 'TE LEZEN',
       docNo: 'DOC NR',
       bookTitle: 'TITEL',
       author: 'AUTEUR',
@@ -357,6 +382,7 @@ export const ui = {
       delivered: '✓ OPGELEVERD',
       bom: 'STUKLIJST',
       detail: 'DETAIL',
+      related: 'GEDEELDE MATERIALEN — VERWANTE DETAILS',
     },
     footer: {
       project: 'Project',

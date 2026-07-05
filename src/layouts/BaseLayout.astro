@@ -5,6 +5,7 @@ import '@fontsource-variable/space-grotesk';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 import { getProfile } from '../data/profile';
 import { getLocale, altPaths } from '../i18n';
 import { url } from '../utils';
@@ -12,6 +13,7 @@ import { url } from '../utils';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const locale = getLocale(Astro.currentLocale);
@@ -20,10 +22,43 @@ const profile = getProfile(locale);
 const {
   title = `${profile.firstName} ${profile.lastName} — ${profile.title}`,
   description = profile.tagline,
+  noindex = false,
 } = Astro.props;
 
-const ogImage = new URL(url(profile.photo), Astro.site);
+const ogImage = new URL(url('img/og-card.png'), Astro.site);
+const photoUrl = new URL(url(profile.photo), Astro.site);
 const alts = altPaths(Astro.url.pathname);
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `${profile.firstName} ${profile.lastName}`,
+  jobTitle: profile.title,
+  email: `mailto:${profile.email}`,
+  image: photoUrl.toString(),
+  url: new URL(url(locale === 'nl' ? 'nl/' : '/'), Astro.site).toString(),
+  sameAs: [profile.linkedin, profile.github],
+  worksFor: {
+    '@type': 'Organization',
+    name: profile.company,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Friesland',
+    addressCountry: 'NL',
+  },
+  knowsAbout: [
+    'Databricks',
+    'Data engineering',
+    'Platform engineering',
+    'Terraform',
+    'Terragrunt',
+    'dbt',
+    'Microsoft Azure',
+    'Data mesh',
+    'CI/CD',
+  ],
+};
 ---
 
 <!doctype html>
@@ -34,6 +69,7 @@ const alts = altPaths(Astro.url.pathname);
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={`${profile.firstName} ${profile.lastName}`} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="alternate" hreflang="en" href={new URL(alts.en, Astro.site)} />
@@ -43,7 +79,18 @@ const alts = altPaths(Astro.url.pathname);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#0c2d4d" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Misja Pronk — Field Notes"
+      href={new URL(url('rss.xml'), Astro.site)}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script is:inline>
       // Set theme before first paint to avoid a flash.
       (() => {
@@ -56,9 +103,11 @@ const alts = altPaths(Astro.url.pathname);
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">{locale === 'nl' ? 'Direct naar inhoud' : 'Skip to content'}</a>
     <Nav />
+    <CommandPalette />
     <div class="container">
-      <main class="sheet">
+      <main class="sheet" id="main">
         <span class="regmark tl" aria-hidden="true">+</span>
         <span class="regmark tr" aria-hidden="true">+</span>
         <span class="regmark bl" aria-hidden="true">+</span>
@@ -81,6 +130,32 @@ const alts = altPaths(Astro.url.pathname);
         { threshold: 0.08 },
       );
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Site inspection by the Chief Morale Officer (type: r-e-x)
+      let buf = '';
+      document.addEventListener('keydown', (e) => {
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+        buf = (buf + e.key.toLowerCase()).slice(-3);
+        if (buf === 'rex' && !document.querySelector('.rex')) {
+          buf = '';
+          const d = document.createElement('div');
+          d.className = 'rex';
+          d.innerHTML =
+            '<span class="rex-tag">REX — CHIEF MORALE OFFICER, ON PATROL</span>' +
+            '<svg class="rex-dog" viewBox="0 0 150 100" width="66" height="44" aria-hidden="true">' +
+            '<path fill="#b5793a" stroke="#5b3a1e" stroke-width="1.4" stroke-linejoin="round" d="M141 33C133 30 126 28 119 26 117 25 115 23 114 20 112 14 111 11 110 8 108 12 107 16 107 20 105 19 103 19 101 20 99 15 97 11 94 8 93 12 93 17 94 21 90 23 87 26 85 30 74 27 60 27 48 32 40 35 34 40 30 46 24 49 16 55 10 63 14 62 18 61 21 61 16 67 12 74 10 81 16 76 22 72 27 70 28 75 30 81 33 86L39 86C37 80 36 74 37 68 44 70 53 70 60 68 60 74 61 80 63 86L69 86C68 80 68 73 69 67 73 65 76 62 78 58 81 61 86 62 91 61 90 69 91 78 94 86L100 86C98 78 98 69 99 61 103 57 106 51 107 45 111 44 116 42 120 40 127 38 135 36 141 33Z"/>' +
+            '<path fill="#f7f3ea" d="M109 40C99 43 92 51 89 61 86 62 82 61 79 58 82 53 86 48 92 44 97 41 103 40 109 40Z"/>' +
+            '<path fill="#f7f3ea" d="M12 76C15 72 18 68 20 64 22 68 20 74 16 79 14 80 12 78 12 76Z"/>' +
+            '<rect x="33" y="81" width="6" height="5" rx="2" fill="#f7f3ea"/>' +
+            '<rect x="63" y="81" width="6" height="5" rx="2" fill="#f7f3ea"/>' +
+            '<rect x="94" y="81" width="6" height="5" rx="2" fill="#f7f3ea"/>' +
+            '<circle cx="108" cy="26" r="2" fill="#2b1a0c"/>' +
+            '<circle cx="140" cy="33" r="2.4" fill="#2b1a0c"/>' +
+            '</svg>';
+          document.body.append(d);
+          setTimeout(() => d.remove(), 9500);
+        }
+      });
     </script>
   </body>
 </html>

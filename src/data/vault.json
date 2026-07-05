@@ -1,0 +1,35 @@
+[
+  {
+    "file": "deck-template.enc",
+    "label": {
+      "en": "ProRex deck template",
+      "nl": "ProRex-decktemplate"
+    },
+    "sub": "POWERPOINT \u00b7 7 SHEETS",
+    "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "filename": "prorex-deck-template.pptx",
+    "bytes": 45373
+  },
+  {
+    "file": "deck-html.enc",
+    "label": {
+      "en": "Deck template (browser/HTML)",
+      "nl": "Decktemplate (browser/HTML)"
+    },
+    "sub": "HTML \u00b7 7 SHEETS \u00b7 ARROW-KEY NAV",
+    "mime": "text/html",
+    "filename": "prorex-deck-template.html",
+    "bytes": 9667
+  },
+  {
+    "file": "business-card.enc",
+    "label": {
+      "en": "Business card (print-ready)",
+      "nl": "Visitekaartje (drukklaar)"
+    },
+    "sub": "PDF \u00b7 85\u00d755 MM \u00b7 FRONT+BACK",
+    "mime": "application/pdf",
+    "filename": "prorex-business-card.pdf",
+    "bytes": 3952
+  }
+]

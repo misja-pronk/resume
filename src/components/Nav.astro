@@ -9,6 +9,7 @@ const home = lpath(locale, '/');
 
 const links = [
   { href: url(`${home}#specialisms`), label: t.nav.expertise },
+  { href: url(`${home}#services`), label: t.nav.services },
   { href: url(`${home}#experience`), label: t.nav.experience },
   { href: url(`${home}#projects`), label: t.nav.projects },
   { href: url(`${home}#opensource`), label: t.nav.openSource },
@@ -27,10 +28,23 @@ const alts = altPaths(Astro.url.pathname);
       <span class="brand-mark">MP</span>
       <span class="brand-doc">{t.head.docNo}</span>
     </a>
+    <details class="mobile-menu">
+      <summary aria-label={t.nav.sheetIndex}>☰ {t.nav.menu}</summary>
+      <div class="mobile-panel">
+        <span class="mobile-title">{t.nav.sheetIndex}</span>
+        {links.map((l, i) => (
+          <a href={l.href}>
+            <span class="sheet-no">{String(i + 1).padStart(2, '0')}</span>
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </details>
     <div class="links">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </div>
     <div class="actions">
+      <button class="cmdk-btn" data-cmdk-open title={t.cmdk.placeholder}>{t.cmdk.button}</button>
       <div class="lang" role="group" aria-label="Language">
         <a href={alts.en} class:list={[{ active: locale === 'en' }]} aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
         <span aria-hidden="true">/</span>
@@ -57,6 +71,37 @@ const alts = altPaths(Astro.url.pathname);
     document.documentElement.dataset.theme = next;
     localStorage.setItem('theme', next);
   });
+
+  // Close the mobile sheet index on link click or outside click.
+  const menu = document.querySelector<HTMLDetailsElement>('details.mobile-menu');
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.removeAttribute('open')));
+  document.addEventListener('click', (e) => {
+    if (menu?.open && e.target instanceof Node && !menu.contains(e.target)) menu.removeAttribute('open');
+  });
+
+  // Scrollspy: highlight the nav link of the section in view (home page only).
+  const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.links a')].map((a) => {
+    const hash = a.href.split('#')[1];
+    return hash ? { a, section: document.getElementById(hash) } : null;
+  });
+  const spied = navLinks.filter((l): l is { a: HTMLAnchorElement; section: HTMLElement } => !!l?.section);
+  if (spied.length) {
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          spied.forEach(({ a, section }) => {
+            const on = section === entry.target;
+            a.classList.toggle('active', on);
+            if (on) a.setAttribute('aria-current', 'true');
+            else a.removeAttribute('aria-current');
+          });
+        }
+      },
+      { rootMargin: '-25% 0px -65% 0px' },
+    );
+    spied.forEach(({ section }) => spy.observe(section));
+  }
 </script>
 
 <style>
@@ -120,9 +165,33 @@ const alts = altPaths(Astro.url.pathname);
     text-transform: uppercase;
   }
 
-  .links a:hover {
+  .links a:hover,
+  .links a.active {
     color: var(--accent);
     text-decoration: none;
+  }
+
+  .links a.active {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--stamp);
+  }
+
+  .cmdk-btn {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 0.45rem 0.6rem;
+    cursor: pointer;
+  }
+
+  .cmdk-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
   }
 
   .actions {
@@ -181,9 +250,88 @@ const alts = altPaths(Astro.url.pathname);
     display: block;
   }
 
+  /* mobile sheet index */
+  .mobile-menu {
+    display: none;
+    position: relative;
+  }
+
+  .mobile-menu summary {
+    list-style: none;
+    user-select: none;
+    cursor: pointer;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    padding: 0.45rem 0.7rem;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu[open] summary {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .mobile-panel {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0;
+    z-index: 60;
+    min-width: 14rem;
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
+    padding: 0.4rem;
+  }
+
+  .mobile-title {
+    display: block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    padding: 0.45rem 0.7rem 0.5rem;
+    border-bottom: 1px dashed var(--line);
+    margin-bottom: 0.3rem;
+  }
+
+  .mobile-panel a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0.7rem;
+    color: var(--ink);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+
+  .mobile-panel a:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+  }
+
+  .sheet-no {
+    font-size: 0.58rem;
+    color: var(--stamp);
+    letter-spacing: 0.12em;
+  }
+
   @media (max-width: 1020px) {
     .links {
       display: none;
+    }
+
+    .mobile-menu {
+      display: block;
     }
 
     .actions {

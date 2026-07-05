@@ -2,15 +2,16 @@
 import Hero from './Hero.astro';
 import About from './About.astro';
 import Specialisms from './Specialisms.astro';
+import ScopeOfWorks from './ScopeOfWorks.astro';
 import Experience from './Experience.astro';
+import Testimonials from './Testimonials.astro';
 import Projects from './Projects.astro';
 import OpenSource from './OpenSource.astro';
 import Skills from './Skills.astro';
-import Certifications from './Certifications.astro';
 import Education from './Education.astro';
+import Library from './Library.astro';
 import GeneralNotes from './GeneralNotes.astro';
 import KnowledgeGraph from './KnowledgeGraph.astro';
-import Library from './Library.astro';
 import { getLocale, ui } from '../i18n';
 
 const locale = getLocale(Astro.currentLocale);
@@ -25,15 +26,16 @@ const t = ui[locale];
 <Hero />
 <About />
 <Specialisms />
+<ScopeOfWorks />
 <Experience />
+<Testimonials />
 <Projects />
 <OpenSource />
 <Skills />
-<Certifications />
 <Education />
+<Library />
 <GeneralNotes />
 <KnowledgeGraph />
-<Library />
 
 <style>
   .sheet-head {

@@ -15,6 +15,7 @@ const text = {
     title: 'Data & Platform Engineering Consultant',
     location: 'Friesland, The Netherlands',
     resumePdf: 'docs/mp_resume.pdf',
+    availability: 'ON ENGAGEMENT @ HEIJMANS — OPEN TO CONVERSATIONS',
     tagline:
       'I design and build data platforms — Databricks-deep, open-source-first, automated end to end, and built to last.',
     bio: [
@@ -28,6 +29,7 @@ const text = {
     title: 'Data & Platform Engineering Consultant',
     location: 'Friesland, Nederland',
     resumePdf: 'docs/mp_resume_nl.pdf',
+    availability: 'OP OPDRACHT BIJ HEIJMANS — ALTIJD IN VOOR EEN GESPREK',
     tagline:
       'Ik ontwerp en bouw dataplatformen — Databricks-diep, open source eerst, end-to-end geautomatiseerd en gebouwd om lang mee te gaan.',
     bio: [
@@ -41,16 +43,16 @@ const text = {
 
 const statsData = {
   en: [
-    { value: '11+', label: 'years in IT, 8+ in data & platforms' },
+    { value: '11+', label: 'years in IT' },
+    { value: '8+', label: 'years data & platforms' },
     { value: '21', label: 'projects delivered' },
-    { value: '4', label: 'certifications' },
-    { value: '25+', label: 'Azure services in production' },
+    { value: '37', label: 'books on the shelf' },
   ],
   nl: [
-    { value: '11+', label: 'jaar in IT, 8+ in data & platforms' },
+    { value: '11+', label: 'jaar in IT' },
+    { value: '8+', label: 'jaar data & platforms' },
     { value: '21', label: 'projecten opgeleverd' },
-    { value: '4', label: 'certificeringen' },
-    { value: '25+', label: 'Azure-services in productie' },
+    { value: '37', label: 'boeken op de plank' },
   ],
 } as const;
 

@@ -53,7 +53,7 @@ BASE = {
             ("11+", "YEARS IN IT"),
             ("8+", "YEARS DATA & PLATFORMS"),
             ("21", "PROJECTS DELIVERED"),
-            ("4", "CERTIFICATIONS"),
+            ("5", "CERTIFICATIONS"),
         ],
         "clients_label": "SELECTED CLIENTS",
         "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
@@ -73,6 +73,7 @@ BASE = {
             "MCSE: Data Management and Analytics — Microsoft",
             "dbt Fundamentals — dbt Labs",
             "Databricks Lakehouse Fundamentals — Databricks",
+            "dlt Fundamentals — dltHub",
         ],
         "edu_h": "Education",
         "edu": [
@@ -106,7 +107,7 @@ BASE = {
             ("11+", "JAAR IN IT"),
             ("8+", "JAAR DATA & PLATFORMS"),
             ("21", "PROJECTEN OPGELEVERD"),
-            ("4", "CERTIFICERINGEN"),
+            ("5", "CERTIFICERINGEN"),
         ],
         "clients_label": "SELECTIE VAN KLANTEN",
         "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
@@ -126,6 +127,7 @@ BASE = {
             "MCSE: Data Management and Analytics — Microsoft",
             "dbt Fundamentals — dbt Labs",
             "Databricks Lakehouse Fundamentals — Databricks",
+            "dlt Fundamentals — dltHub",
         ],
         "edu_h": "Opleiding",
         "edu": [
