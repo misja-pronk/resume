@@ -46,13 +46,13 @@ const statsData = {
     { value: '11+', label: 'years in IT' },
     { value: '8+', label: 'years data & platforms' },
     { value: '21', label: 'projects delivered' },
-    { value: '5', label: 'certifications' },
+    { value: '37', label: 'books read' },
   ],
   nl: [
     { value: '11+', label: 'jaar in IT' },
     { value: '8+', label: 'jaar data & platforms' },
     { value: '21', label: 'projecten opgeleverd' },
-    { value: '5', label: 'certificeringen' },
+    { value: '37', label: 'boeken gelezen' },
   ],
 } as const;
 

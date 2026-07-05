@@ -1,15 +1,19 @@
 ---
 import { getEducation } from '../data/education';
+import { getCertifications, getCoursework } from '../data/certifications';
 import { getLocale, ui } from '../i18n';
 import { url } from '../utils';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const education = getEducation(locale);
+const certifications = getCertifications(locale);
+const coursework = getCoursework(locale);
 ---
 
 <section id="education" class="block">
-  <h2 class="sheet-title reveal"><span>{t.sheet} 08</span> {t.education.title}</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 07</span> {t.education.title}</h2>
+  <p class="philosophy reveal">{t.education.philosophy}</p>
   <div class="grid">
     {education.map((edu, i) => (
       <div class="edu reveal">
@@ -41,9 +45,82 @@ const education = getEducation(locale);
       </div>
     ))}
   </div>
+
+  <div class="credentials reveal">
+    <span class="cred-label">{t.education.credentials}</span>
+    <ul class="cred-list">
+      {certifications.map((c) => (
+        <li>
+          <a href={c.proof} target="_blank" rel="noopener">{c.name}</a>
+          <span class="cred-issuer">— {c.issuer}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="cred-note">{coursework}</p>
+  </div>
 </section>
 
 <style>
+  .philosophy {
+    max-width: 74ch;
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.8;
+    border-left: 2px solid var(--accent);
+    padding-left: 1.4rem;
+    margin: -0.6rem 0 1.8rem;
+  }
+
+  .credentials {
+    margin-top: 1.4rem;
+    border-top: 1px dashed var(--line);
+    padding-top: 1.2rem;
+  }
+
+  .cred-label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    margin-bottom: 0.7rem;
+  }
+
+  .cred-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cred-list li {
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+  }
+
+  .cred-list a {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .cred-list a:hover {
+    color: var(--accent);
+  }
+
+  .cred-issuer {
+    color: var(--ink-dim);
+  }
+
+  .cred-note {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    margin-top: 0.9rem;
+    text-transform: uppercase;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));

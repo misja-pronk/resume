@@ -3,7 +3,6 @@ import type { Locale } from '../i18n';
 export interface Certification {
   name: string;
   issuer: string;
-  badge: string; // path under public/
   proof: string;
   description: string;
   certId?: string;
@@ -13,31 +12,26 @@ const base = [
   {
     name: 'MCSA: Data Engineering with Azure',
     issuer: 'Microsoft',
-    badge: 'img/badges/mcsa-data-engineering.png',
     proof: 'https://www.credly.com/badges/20cb6a5f-8ae8-44ca-8008-ab7f6febdc82',
   },
   {
     name: 'MCSE: Data Management and Analytics',
     issuer: 'Microsoft',
-    badge: 'img/badges/mcse-data-management.png',
     proof: 'https://www.credly.com/badges/c5164531-b99f-4347-8ebe-55fa3c818e5f',
   },
   {
     name: 'dbt Fundamentals',
     issuer: 'dbt Labs',
-    badge: 'img/badges/dbt-fundamentals.png',
     proof: 'https://www.credential.net/9eba8dfd-594e-4faf-b6b0-e1f46c6a057d#gs.shuwjt',
   },
   {
     name: 'Databricks Lakehouse Fundamentals',
     issuer: 'Databricks',
-    badge: 'img/badges/databricks-lakehouse.png',
     proof: 'https://credentials.databricks.com/e8be9194-5f17-4cf0-b48c-5e85a2636858',
   },
   {
     name: 'dlt Fundamentals',
     issuer: 'dltHub',
-    badge: 'img/badges/dlthub.png',
     proof: 'https://www.linkedin.com/in/misja-pronk/details/certifications/',
     certId: '69d288adea358dc31e0af3cc',
   },

@@ -22,10 +22,9 @@ const sections: Item[] = [
   { anchor: 'projects', label: t.nav.projects, sub: t.projects.title },
   { anchor: 'opensource', label: t.nav.openSource, sub: t.oss.title },
   { anchor: 'skills', label: t.nav.toolbox, sub: t.skills.title },
-  { anchor: 'certifications', label: 'Certifications', sub: t.certs.title },
   { anchor: 'education', label: t.nav.education, sub: t.education.title },
-  { anchor: 'graph', label: t.nav.graph, sub: t.graph.title },
   { anchor: 'library', label: t.nav.library, sub: t.library.title },
+  { anchor: 'graph', label: t.nav.graph, sub: t.graph.title },
 ].map((s) => ({ type: 'section' as const, label: s.label, sub: s.sub, href: url(`${home}#${s.anchor}`) }));
 
 const localePrefix = locale + '/';

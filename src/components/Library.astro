@@ -16,7 +16,8 @@ const counts = {
 ---
 
 <section id="library" class="block">
-  <h2 class="sheet-title reveal"><span>{t.sheet} 11</span> {t.library.title}</h2>
+  <h2 class="sheet-title reveal"><span>{t.sheet} 08</span> {t.library.title}</h2>
+  <p class="lib-intro reveal">{t.library.intro}</p>
 
   <div class="lib-filters reveal" role="group" aria-label="Filter books by status">
     <button class="lib-filter is-active" data-status="all">{t.library.all} ({library.length})</button>
@@ -73,6 +74,14 @@ const counts = {
 </script>
 
 <style>
+  .lib-intro {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+    margin: -0.6rem 0 1.6rem;
+    max-width: 68ch;
+  }
+
   .lib-filters {
     display: flex;
     flex-wrap: wrap;
