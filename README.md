@@ -1,8 +1,8 @@
-# misja-pronk.github.io/resume
+# prorexconsultancy.nl
 
 The personal portfolio of **Misja Pronk** — Data & Platform Engineering Consultant and owner of ProRex Consultancy — built as an engineer's **blueprint**: a technical drawing sheet with registration marks, revision tables, detail drawings and a title block.
 
-**Live:** [misja-pronk.github.io/resume](https://misja-pronk.github.io/resume/) (English) · [/nl/](https://misja-pronk.github.io/resume/nl/) (Nederlands)
+**Live:** [prorexconsultancy.nl](https://prorexconsultancy.nl/) (English) · [/nl/](https://prorexconsultancy.nl/nl/) (Nederlands)
 
 > MOTTO: MEASURE TWICE · BUILD ONCE
 
@@ -43,7 +43,7 @@ Tool versions are pinned in [`.mise.toml`](.mise.toml) ([mise](https://mise.jdx.
 ```sh
 mise install          # installs the pinned Node version
 npm install
-npm run dev           # http://localhost:4321/resume/
+npm run dev           # http://localhost:4321/
 npm run build         # static build into dist/
 ```
 

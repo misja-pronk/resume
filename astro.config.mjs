@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://misja-pronk.github.io',
-  base: '/resume',
+  site: 'https://prorexconsultancy.nl',
+  base: '/',
   trailingSlash: 'ignore',
   integrations: [
     sitemap({

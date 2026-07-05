@@ -111,7 +111,7 @@ def main() -> None:
     # footer strip
     d.line([m, H - m - 52, W - m, H - m - 52], fill=INK, width=2)
     d.text((m + 26, H - m - 36), "MEASURE TWICE · BUILD ONCE", font=mono_s, fill=DIM)
-    d.text((W - m - 26, H - m - 36), "misja-pronk.github.io/resume", font=mono_s, fill=ACCENT, anchor="ra")
+    d.text((W - m - 26, H - m - 36), "prorexconsultancy.nl", font=mono_s, fill=ACCENT, anchor="ra")
 
     # registration marks
     for cx, cy in [(14, 14), (W - 14, 14), (14, H - 14), (W - 14, H - 14)]:
