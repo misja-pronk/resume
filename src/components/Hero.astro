@@ -201,29 +201,26 @@ const stats = getStats(locale);
   }
 
   .quantities {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 1.1rem 1.6rem;
     margin: 2.2rem 0 0;
-    border: 1px solid var(--line);
-    width: fit-content;
+    max-width: 44rem;
   }
 
   .qty {
     display: flex;
     flex-direction: column;
-    padding: 0.7rem 1.1rem;
-    border-right: 1px solid var(--line);
-  }
-
-  .qty:last-child {
-    border-right: none;
+    gap: 0.15rem;
+    border-left: 2px solid var(--accent);
+    padding-left: 0.85rem;
   }
 
   .qty dd {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
+    line-height: 1.1;
     color: var(--accent);
   }
 
@@ -232,7 +229,7 @@ const stats = getStats(locale);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-dim);
-    max-width: 9rem;
+    line-height: 1.5;
   }
 
   /* portrait */
