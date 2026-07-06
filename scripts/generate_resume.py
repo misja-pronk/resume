@@ -65,7 +65,9 @@ BASE = {
         "oss_h": "Open source",
         "oss": (
             "<b>isolinear</b> — keyboard-driven terminal UI for managing Databricks secrets "
-            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear"
+            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear<br/>"
+            "<b>dbt-4ps-staging</b> — generates a Databricks dbt staging layer from 4PS Construct "
+            "(Business Central) exports (Python, dbt, MIT) · github.com/misja-pronk/dbt-4ps-staging"
         ),
         "certs_h": "Certifications",
         "certs": [
@@ -119,7 +121,9 @@ BASE = {
         "oss_h": "Open source",
         "oss": (
             "<b>isolinear</b> — toetsenbordgedreven terminal-UI voor het beheren van Databricks-secrets "
-            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear"
+            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear<br/>"
+            "<b>dbt-4ps-staging</b> — genereert een Databricks dbt-staginglaag uit 4PS Construct-exports "
+            "(Business Central) (Python, dbt, MIT) · github.com/misja-pronk/dbt-4ps-staging"
         ),
         "certs_h": "Certificeringen",
         "certs": [
