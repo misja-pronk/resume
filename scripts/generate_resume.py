@@ -185,9 +185,11 @@ VARIANTS = {
             "title": "Data & Platform Engineering Consultant",
             "profile": (
                 "Freelance Data & Platform Engineering consultant with 11+ years in IT, of which 8+ years designing and "
-                "building data platforms. Deep, day-to-day Databricks expertise, metadata-driven architectures and the full "
-                "platform-engineering stack — Terraform, Terragrunt, GitHub and CI/CD. Open-source-first, and as much a "
-                "coach as an engineer: teams I leave behind own their platform. Motto: build fast, fail fast, keep it simple."
+                "building data platforms. Typically hired to cover what would otherwise be three roles: architecting the "
+                "platform, building and automating it, and training the team that runs it. Deep, day-to-day Databricks "
+                "expertise, metadata-driven architectures and the full platform-engineering stack — Terraform, Terragrunt, "
+                "GitHub and CI/CD. Open-source-first, and as much a coach as an engineer: teams I leave behind own their "
+                "platform. Motto: build fast, fail fast, keep it simple."
             ),
             "expertise": [
                 "<b>Databricks platform</b> — Spark, Delta Lake, Unity Catalog, Asset Bundles, workspace architecture, cost control, agentic AI",
@@ -225,9 +227,11 @@ VARIANTS = {
             "title": "Data & Platform Engineering Consultant",
             "profile": (
                 "Freelance Data & Platform Engineering consultant met 11+ jaar in de IT, waarvan 8+ jaar in het ontwerpen en "
-                "bouwen van dataplatformen. Diepgaande, dagelijkse Databricks-expertise, metadata-gedreven architecturen en de "
-                "volledige platform-engineering-stack — Terraform, Terragrunt, GitHub en CI/CD. Open source eerst, en evenzeer "
-                "coach als engineer: teams die ik achterlaat, beheren hun eigen platform. Motto: snel bouwen, snel falen, hou het simpel."
+                "bouwen van dataplatformen. Wordt doorgaans ingehuurd voor wat anders drie rollen zouden zijn: het ontwerpen "
+                "van het platform, het bouwen en automatiseren ervan, en het opleiden van het team dat het draait. Diepgaande, "
+                "dagelijkse Databricks-expertise, metadata-gedreven architecturen en de volledige platform-engineering-stack — "
+                "Terraform, Terragrunt, GitHub en CI/CD. Open source eerst, en evenzeer coach als engineer: teams die ik "
+                "achterlaat, beheren hun eigen platform. Motto: snel bouwen, snel falen, hou het simpel."
             ),
             "expertise": [
                 "<b>Databricks-platform</b> — Spark, Delta Lake, Unity Catalog, Asset Bundles, workspace-architectuur, kostenbeheersing, agentic AI",

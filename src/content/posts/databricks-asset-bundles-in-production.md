@@ -6,10 +6,8 @@ tags:
   - Databricks
   - Asset Bundles
   - CI/CD
-draft: true
+draft: false
 ---
-
-*This is a sample post so you can see the memo layout — replace it with your first real field note and set `draft: false`.*
 
 After rolling out Databricks Asset Bundles as the standard deployment mechanism at two construction-sector clients, a few patterns have proven themselves worth writing down.
 
