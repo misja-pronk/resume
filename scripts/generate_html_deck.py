@@ -108,7 +108,7 @@ HTML = """<!doctype html>
   <h1>PRESENTATION<br>TITLE</h1>
   <p class="sub">Subtitle or client name goes here</p>
   <p class="meta"><b style="color:var(--ink)">MISJA PRONK · PROREX CONSULTANCY</b><br>DATE: __________ · AUDIENCE: __________</p>
-  <div class="ftr"><span>PROREX CONSULTANCY — DATA &amp; PLATFORM ENGINEERING</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY — DATA &amp; PLATFORM ENGINEERING</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <section class="slide light">
@@ -122,7 +122,7 @@ HTML = """<!doctype html>
     <li><span class="no">04</span> Architecture</li>
     <li><span class="no">05</span> Planning &amp; next steps</li>
   </ul>
-  <div class="ftr"><span>PROREX CONSULTANCY</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <section class="slide dark">
@@ -132,7 +132,7 @@ HTML = """<!doctype html>
     <h1><span style="color:var(--stamp);font-family:var(--mono)">01</span> SECTION TITLE</h1>
     <p class="sub">One line on what this section covers</p>
   </div>
-  <div class="ftr"><span>PROREX CONSULTANCY</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <section class="slide light">
@@ -147,7 +147,7 @@ HTML = """<!doctype html>
     </div>
     <div class="panel">[ DIAGRAM / SCREENSHOT / CHART ]</div>
   </div>
-  <div class="ftr"><span>PROREX CONSULTANCY</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <section class="slide light">
@@ -160,7 +160,7 @@ HTML = """<!doctype html>
     <div class="stat"><b>€ 1.2M</b><span>METRIC THREE</span></div>
   </div>
   <p class="sub" style="margin-top:2.5rem">One sentence interpreting the numbers for the audience.</p>
-  <div class="ftr"><span>PROREX CONSULTANCY</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <section class="slide light">
@@ -173,7 +173,7 @@ HTML = """<!doctype html>
     <div class="node"><b>TRANSFORM</b><span>DATABRICKS · dbt</span></div><span class="wire">──▶</span>
     <div class="node"><b>SERVE</b><span>LAKEHOUSE · BI</span></div>
   </div>
-  <div class="ftr"><span>PROREX CONSULTANCY</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <section class="slide dark">
@@ -184,7 +184,7 @@ HTML = """<!doctype html>
     <p class="meta"><b style="color:var(--accent)">MISJA PRONK — PROREX CONSULTANCY</b><br>
     misja@prorexconsultancy.nl · prorexconsultancy.nl · linkedin.com/in/misja-pronk<br>KVK 85369624</p>
   </div>
-  <div class="ftr"><span>PROREX CONSULTANCY</span><b>MEASURE TWICE · BUILD ONCE</b></div>
+  <div class="ftr"><span>PROREX CONSULTANCY</span><b>BUILD FAST · FAIL FAST · KEEP IT SIMPLE</b></div>
 </section>
 
 <div class="counter" id="counter">SHT 01 / 07</div>

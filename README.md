@@ -4,7 +4,7 @@ The personal portfolio of **Misja Pronk** — Data & Platform Engineering Consul
 
 **Live:** [prorexconsultancy.nl](https://prorexconsultancy.nl/) (English) · [/nl/](https://prorexconsultancy.nl/nl/) (Nederlands)
 
-> MOTTO: MEASURE TWICE · BUILD ONCE
+> MOTTO: BUILD FAST · FAIL FAST · KEEP IT SIMPLE
 
 ## The concept
 

@@ -95,7 +95,7 @@ def main() -> None:
 
     c.setFillColor(DIM)
     c.setFont("Courier", 5.4)
-    c.drawRightString(W - 8 * mm, 7.4 * mm, "MEASURE TWICE · BUILD ONCE")
+    c.drawRightString(W - 8 * mm, 7.4 * mm, "BUILD FAST · FAIL FAST · KEEP IT SIMPLE")
     c.showPage()
 
     # ---------- back (drafting paper)
@@ -125,7 +125,7 @@ def main() -> None:
     c.drawRightString(W - 8 * mm, 12.8 * mm, "EST. 2022")
     c.setFillColor(ACCENT_LIGHT)
     c.setFont("Courier-Bold", 6.2)
-    c.drawCentredString(W / 2, 7.6 * mm, "MEASURE TWICE · BUILD ONCE")
+    c.drawCentredString(W / 2, 7.6 * mm, "BUILD FAST · FAIL FAST · KEEP IT SIMPLE")
     c.showPage()
 
     c.save()

@@ -23,7 +23,7 @@ const specialismsData: Record<Locale, Specialism[]> = {
     {
       name: 'Metadata-Driven Data Platforms',
       blurb:
-        'My signature approach: platforms that integrate hundreds of sources through configuration instead of code duplication — cheaper to extend, easier to maintain, faster to onboard.',
+        'How I prefer to build: platforms that integrate hundreds of sources through configuration instead of code duplication — cheaper to extend, easier to maintain, faster to onboard.',
       tools: ['Data Factory', 'Databricks', 'Azure', 'SQL'],
     },
     {
@@ -49,7 +49,7 @@ const specialismsData: Record<Locale, Specialism[]> = {
     {
       name: 'Metadata-gedreven dataplatformen',
       blurb:
-        'Mijn handtekening: platformen die honderden bronnen integreren via configuratie in plaats van codeduplicatie — goedkoper uit te breiden, makkelijker te onderhouden en sneller in gebruik te nemen.',
+        'Zo bouw ik het liefst: platformen die honderden bronnen integreren via configuratie in plaats van codeduplicatie — goedkoper uit te breiden, makkelijker te onderhouden en sneller in gebruik te nemen.',
       tools: ['Data Factory', 'Databricks', 'Azure', 'SQL'],
     },
     {

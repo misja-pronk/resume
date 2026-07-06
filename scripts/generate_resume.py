@@ -58,7 +58,7 @@ BASE = {
         "clients_label": "SELECTED CLIENTS",
         "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
         "footer_left": "MISJA PRONK",
-        "footer_right": "MEASURE TWICE · BUILD ONCE — SHEET {page} OF {total}",
+        "footer_right": "BUILD FAST · FAIL FAST · KEEP IT SIMPLE — SHEET {page} OF {total}",
         "profile_h": "Profile",
         "expertise_h": "Core expertise",
         "experience_h": "Experience",
@@ -112,7 +112,7 @@ BASE = {
         "clients_label": "SELECTIE VAN KLANTEN",
         "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
         "footer_left": "MISJA PRONK",
-        "footer_right": "MEET TWEE KEER · BOUW ÉÉN KEER — BLAD {page} VAN {total}",
+        "footer_right": "SNEL BOUWEN · SNEL FALEN · HOU HET SIMPEL — BLAD {page} VAN {total}",
         "profile_h": "Profiel",
         "expertise_h": "Kernexpertise",
         "experience_h": "Werkervaring",
@@ -187,7 +187,7 @@ VARIANTS = {
                 "Freelance Data & Platform Engineering consultant with 11+ years in IT, of which 8+ years designing and "
                 "building data platforms. Deep, day-to-day Databricks expertise, metadata-driven architectures and the full "
                 "platform-engineering stack — Terraform, Terragrunt, GitHub and CI/CD. Open-source-first, and as much a "
-                "coach as an engineer: teams I leave behind own their platform. Motto: measure twice, build once."
+                "coach as an engineer: teams I leave behind own their platform. Motto: build fast, fail fast, keep it simple."
             ),
             "expertise": [
                 "<b>Databricks platform</b> — Spark, Delta Lake, Unity Catalog, Asset Bundles, workspace architecture, cost control, agentic AI",
@@ -227,7 +227,7 @@ VARIANTS = {
                 "Freelance Data & Platform Engineering consultant met 11+ jaar in de IT, waarvan 8+ jaar in het ontwerpen en "
                 "bouwen van dataplatformen. Diepgaande, dagelijkse Databricks-expertise, metadata-gedreven architecturen en de "
                 "volledige platform-engineering-stack — Terraform, Terragrunt, GitHub en CI/CD. Open source eerst, en evenzeer "
-                "coach als engineer: teams die ik achterlaat, beheren hun eigen platform. Motto: meet twee keer, bouw één keer."
+                "coach als engineer: teams die ik achterlaat, beheren hun eigen platform. Motto: snel bouwen, snel falen, hou het simpel."
             ),
             "expertise": [
                 "<b>Databricks-platform</b> — Spark, Delta Lake, Unity Catalog, Asset Bundles, workspace-architectuur, kostenbeheersing, agentic AI",

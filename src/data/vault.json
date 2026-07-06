@@ -8,7 +8,7 @@
     "sub": "POWERPOINT \u00b7 7 SHEETS",
     "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     "filename": "prorex-deck-template.pptx",
-    "bytes": 45373
+    "bytes": 45419
   },
   {
     "file": "deck-html.enc",
@@ -19,7 +19,7 @@
     "sub": "HTML \u00b7 7 SHEETS \u00b7 ARROW-KEY NAV",
     "mime": "text/html",
     "filename": "prorex-deck-template.html",
-    "bytes": 9667
+    "bytes": 9765
   },
   {
     "file": "business-card.enc",
@@ -30,6 +30,6 @@
     "sub": "PDF \u00b7 85\u00d755 MM \u00b7 FRONT+BACK",
     "mime": "application/pdf",
     "filename": "prorex-business-card.pdf",
-    "bytes": 3952
+    "bytes": 3963
   }
 ]
