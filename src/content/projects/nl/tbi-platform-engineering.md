@@ -26,4 +26,4 @@ TBI is een groep van 17 bedrijven in de Nederlandse bouw en infrastructuur. Tijd
 
 Een groot deel van de rol was enablement. Ik coachte het BI-team (5–8 professionals) in dbt — introductie, standaarden en werkwijzen — en leerde hen TMDL, Power BI-deployments vanuit code, Git en DataOps-werkwijzen. Zo veranderde een klassiek BI-team in een team met een engineeringmentaliteit.
 
-Naast het dataplatform ondersteunde ik het integratieteam bij het moderniseren van hun infrastructuur, van Azure App Services naar Kubernetes. Deze opdracht maakte mij van data engineer een allround platformprofessional die de hele stack kan ontwerpen, automatiseren, beheren en onderwijzen.
+Naast het dataplatform ondersteunde ik het integratieteam bij het moderniseren van hun infrastructuur, van Azure App Services naar Kubernetes. Deze opdracht verbreedde mijn rol van data engineer naar platform engineer: ontwerpen, automatiseren, beheren en kennisoverdracht over de hele stack.

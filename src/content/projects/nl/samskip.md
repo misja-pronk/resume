@@ -16,6 +16,6 @@ tags:
   - DB2
 ---
 
-Samskip is een transportbedrijf dat is gegroeid door talloze overnames. Door het complexe en gefragmenteerde IT-landschap was er dringend behoefte om data centraal beschikbaar te maken. Er werd een dataplatform ontwikkeld en een pilotrapportage gemaakt om de waarde van het platform aan te tonen.
+Samskip is een transportbedrijf dat is gegroeid door een reeks overnames. Door het complexe en gefragmenteerde IT-landschap was er dringend behoefte om data centraal beschikbaar te maken. Er werd een dataplatform ontwikkeld en een pilotrapportage gemaakt om de waarde van het platform aan te tonen.
 
 Ik ontwikkelde de ETL vanuit AS400 (DB2) en andere on-premises systemen, implementeerde en configureerde de Azure-omgevingen, vertaalde logica uit QlikView-rapportages naar datamarts en trainde medewerkers in het gebruik van Data Factory.
