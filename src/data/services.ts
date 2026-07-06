@@ -43,7 +43,7 @@ const data: Record<Locale, ServicesContent> = {
       {
         title: 'Training & coaching',
         blurb:
-          'Turn BI and data teams into engineering teams: dbt introduction and standards, Git, DataOps and cloud-engineering practices — taught hands-on, on your own platform, until the team runs without me.',
+          'Coaching for every team around the platform — BI, software, cloud engineering and data science: dbt introduction and standards, Git, DataOps and cloud practices, taught hands-on on your own platform, until the team runs without me.',
         deliverables: 'dbt-STANDARDS · GIT/DATAOPS COACHING · HANDS-ON WORKSHOPS',
       },
     ],
@@ -77,7 +77,7 @@ const data: Record<Locale, ServicesContent> = {
       {
         title: 'Training & coaching',
         blurb:
-          'Maak van BI- en datateams engineeringteams: dbt-introductie en -standaarden, Git, DataOps en cloud-engineering-praktijken — hands-on aangeleerd, op je eigen platform, tot het team zonder mij draait.',
+          'Coaching voor elk team rond het platform — BI, software, cloud engineering en data science: dbt-introductie en -standaarden, Git, DataOps en cloudpraktijken, hands-on aangeleerd op je eigen platform, tot het team zonder mij draait.',
         deliverables: 'dbt-STANDAARDEN · GIT/DATAOPS-COACHING · HANDS-ON WORKSHOPS',
       },
     ],

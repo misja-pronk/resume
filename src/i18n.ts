@@ -127,13 +127,13 @@ export const ui = {
       subjects: 'SUBJECTS',
       diploma: 'CERTIFIED COPY ON FILE — VIEW DIPLOMA (PDF) →',
       philosophy:
-        'I learn the way I build: on site, from the material, one honest iteration at a time. Eleven years shipping data platforms and a shelf of thirty-seven titles taught me more than any exam room could — so I let the work and the reading carry the proof. The certificates below are the foundation; the projects and the register that follows are the real inspection report.',
+        'I learn on the job and from books, not in exam rooms. The certificates below are the foundation; what I can do today shows better in the projects above and the library that follows.',
       credentials: 'ON FILE — CERTIFICATIONS',
     },
     notes: {
       title: 'GENERAL NOTES',
       items: [
-        'SUBJECT BUILDS DATA PLATFORMS THE WAY HE BUILDS FURNITURE: <b>MEASURE TWICE, BUILD ONCE.</b>',
+        'IN THE WOODSHOP, SUBJECT MEASURES TWICE AND CUTS ONCE. ON DATA PLATFORMS HE WORKS THE OTHER WAY ROUND: <b>BUILD FAST, FAIL FAST, KEEP IT SIMPLE.</b> CODE THAT LEAVES THE REPO IS CONSIDERED PROGRESS.',
         'CURRENT CLIENTS ARE LITERAL BUILDERS — CONSTRUCTION GROUPS <b>HEIJMANS</b> AND <b>TBI</b>. SUBJECT SPEAKS FLUENT CONSTRUCTION.',
         'SUBJECT IS <b>MARRIED</b>. PRIMARY CONNECTION: PERMANENT, LOAD-BEARING, NOT UP FOR VALUE ENGINEERING.',
         '<span class="wip">CHANGE ORDER APPROVED:</span> ONE (1) JUNIOR RESIDENT UNDER CONSTRUCTION. <b>SUBJECT IS BECOMING A FATHER.</b> DELIVERY DATE: SEE STORK.',
@@ -181,7 +181,7 @@ export const ui = {
       min: 'MIN',
       draft: 'DRAFT',
       draftStamp: 'DRAFT — NOT FOR CONSTRUCTION',
-      signed: 'SIGNED: M. PRONK · MEASURE TWICE, BUILD ONCE',
+      signed: 'SIGNED: M. PRONK · BUILD FAST, FAIL FAST, KEEP IT SIMPLE',
     },
     detail: {
       back: '← FULL DRAWING SET',
@@ -203,7 +203,7 @@ export const ui = {
       projectVal: 'MISJA PRONK — PROFESSIONAL PROFILE',
       drawnBy: 'Drawn by',
       motto: 'Motto',
-      mottoVal: 'MEASURE TWICE · BUILD ONCE',
+      mottoVal: 'BUILD FAST · FAIL FAST · KEEP IT SIMPLE',
       firm: 'Firm',
       contact: 'Contact',
       rev: 'Rev',
@@ -313,13 +313,13 @@ export const ui = {
       subjects: 'VAKKEN',
       diploma: 'GEWAARMERKT AFSCHRIFT IN ARCHIEF — BEKIJK DIPLOMA (PDF) →',
       philosophy:
-        'Ik leer zoals ik bouw: op locatie, vanuit het materiaal, één eerlijke iteratie per keer. Ruim tien jaar dataplatformen opleveren en een plank met zevenendertig titels leerden me meer dan welk examenlokaal ook — dus laat ik het werk en het lezen het bewijs dragen. De certificaten hieronder vormen de fundering; de projecten en het register hierna zijn het echte keuringsrapport.',
+        'Ik leer in de praktijk en uit boeken, niet in examenlokalen. De certificaten hieronder vormen de fundering; wat ik vandaag kan, zie je beter aan de projecten hierboven en de bibliotheek hierna.',
       credentials: 'IN ARCHIEF — CERTIFICERINGEN',
     },
     notes: {
       title: 'ALGEMENE OPMERKINGEN',
       items: [
-        'SUBJECT BOUWT DATAPLATFORMEN ZOALS HIJ MEUBELS BOUWT: <b>MEET TWEE KEER, BOUW ÉÉN KEER.</b>',
+        'IN DE HOUTWERKPLAATS MEET SUBJECT TWEE KEER EN ZAAGT HIJ ÉÉN KEER. OP DATAPLATFORMEN WERKT HIJ ANDERSOM: <b>SNEL BOUWEN, SNEL FALEN, HOU HET SIMPEL.</b> CODE DIE DE REPO VERLAAT, TELT ALS VOORUITGANG.',
         'HUIDIGE KLANTEN ZIJN LETTERLIJK BOUWERS — BOUWCONCERNS <b>HEIJMANS</b> EN <b>TBI</b>. SUBJECT SPREEKT VLOEIEND BOUW.',
         'SUBJECT IS <b>GETROUWD</b>. PRIMAIRE VERBINDING: PERMANENT, DRAGEND, NIET VATBAAR VOOR VALUE ENGINEERING.',
         '<span class="wip">WIJZIGINGSOPDRACHT GOEDGEKEURD:</span> ÉÉN (1) JUNIOR BEWONER IN AANBOUW. <b>SUBJECT WORDT VADER.</b> OPLEVERDATUM: ZIE OOIEVAAR.',
@@ -367,7 +367,7 @@ export const ui = {
       min: 'MIN',
       draft: 'CONCEPT',
       draftStamp: 'CONCEPT — NIET VOOR UITVOERING',
-      signed: 'GETEKEND: M. PRONK · MEET TWEE KEER, BOUW ÉÉN KEER',
+      signed: 'GETEKEND: M. PRONK · SNEL BOUWEN, SNEL FALEN, HOU HET SIMPEL',
     },
     detail: {
       back: '← VOLLEDIGE TEKENINGENSET',
@@ -389,7 +389,7 @@ export const ui = {
       projectVal: 'MISJA PRONK — PROFESSIONEEL PROFIEL',
       drawnBy: 'Getekend door',
       motto: 'Motto',
-      mottoVal: 'MEET TWEE KEER · BOUW ÉÉN KEER',
+      mottoVal: 'SNEL BOUWEN · SNEL FALEN · HOU HET SIMPEL',
       firm: 'Bureau',
       contact: 'Contact',
       rev: 'Rev',

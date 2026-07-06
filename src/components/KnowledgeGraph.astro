@@ -68,6 +68,7 @@ const t = ui[locale];
     ['cypher', 'CYPHER', 'work', 11],
     // oss
     ['isolinear', 'ISOLINEAR', 'oss', 14],
+    ['dbt4ps', 'DBT-4PS-STAGING', 'oss', 12],
     // hobbies
     ['wood', 'WOODWORKING', 'hobby', 12],
     ['tiny', 'TINY HOUSES', 'hobby', 12],
@@ -100,6 +101,9 @@ const t = ui[locale];
     { source: 'neo4j', target: 'cypher', rel: 'SPEAKS' },
     { source: 'misja', target: 'isolinear', rel: 'AUTHORED' },
     { source: 'isolinear', target: 'databricks', rel: 'MANAGES_SECRETS_OF' },
+    { source: 'misja', target: 'dbt4ps', rel: 'AUTHORED' },
+    { source: 'dbt4ps', target: 'dbt', rel: 'GENERATES_MODELS_FOR' },
+    { source: 'dbt4ps', target: 'tbi', rel: 'BORN_AT' },
     { source: 'heijmans', target: 'databricks', rel: 'RUNS_ON' },
     { source: 'tbi', target: 'terragrunt', rel: 'BUILT_WITH' },
     { source: 'misja', target: 'wood', rel: 'CRAFTS' },

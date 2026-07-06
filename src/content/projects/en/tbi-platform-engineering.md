@@ -26,4 +26,4 @@ TBI is a group of 17 companies in the Dutch construction and infrastructure sect
 
 A large part of the role was enablement. I coached the BI team (5–8 professionals) in dbt — introducing it, setting the standards and practices — and taught them TMDL, Power BI deployments from code, Git and DataOps ways of working, turning a classic BI team into an engineering-minded one.
 
-Beyond the data platform I supported the integration team in modernizing their infrastructure, moving from Azure App Services to Kubernetes. This engagement rounded me out from data engineer into a well-rounded platform professional who can design, automate, operate and teach the entire stack.
+Beyond the data platform I supported the integration team in modernizing their infrastructure, moving from Azure App Services to Kubernetes. This engagement broadened my scope from data engineering to the full platform stack: design, automation, operations and training.

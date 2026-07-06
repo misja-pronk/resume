@@ -15,6 +15,6 @@ tags:
   - U-SQL
 ---
 
-Marlink levert mobiele diensten aan de maritieme sector en verzamelt enorme hoeveelheden data die geanalyseerd moeten worden om de dienstverlening te verbeteren. Het bedrijf had een bigdataplatform nodig, gebouwd op PaaS-diensten, bij voorkeur met een pay-as-you-go-model.
+Marlink levert mobiele diensten aan de maritieme sector en verzamelt grote hoeveelheden data die geanalyseerd moeten worden om de dienstverlening te verbeteren. Het bedrijf had een bigdataplatform nodig, gebouwd op PaaS-diensten, bij voorkeur met een pay-as-you-go-model.
 
 Mijn rol was het ontwerpen van het platform, het inrichten van CI/CD, het definiëren van ontwikkelstandaarden voor een multidisciplinair team van 5 personen, het ontwikkelen van de ELT voor de Boskalis-pilot en de kwaliteitsborging.

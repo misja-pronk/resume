@@ -110,7 +110,7 @@ def main() -> None:
 
     # footer strip
     d.line([m, H - m - 52, W - m, H - m - 52], fill=INK, width=2)
-    d.text((m + 26, H - m - 36), "MEASURE TWICE · BUILD ONCE", font=mono_s, fill=DIM)
+    d.text((m + 26, H - m - 36), "BUILD FAST · FAIL FAST · KEEP IT SIMPLE", font=mono_s, fill=DIM)
     d.text((W - m - 26, H - m - 36), "prorexconsultancy.nl", font=mono_s, fill=ACCENT, anchor="ra")
 
     # registration marks

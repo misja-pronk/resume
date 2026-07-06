@@ -23,14 +23,14 @@ const specialismsData: Record<Locale, Specialism[]> = {
     {
       name: 'Metadata-Driven Data Platforms',
       blurb:
-        'My signature approach: platforms that integrate hundreds of sources through configuration instead of code duplication — cheaper to extend, easier to maintain, faster to onboard.',
+        'How I prefer to build: platforms that integrate hundreds of sources through configuration instead of code duplication — cheaper to extend, easier to maintain, faster to onboard.',
       tools: ['Data Factory', 'Databricks', 'Azure', 'SQL'],
     },
     {
       name: 'Open Source First',
       blurb:
-        'A love for open source runs through everything I build: open formats, open tooling and open standards over vendor lock-in. I also ship my own — isolinear, an open-source terminal UI for managing Databricks secrets.',
-      tools: ['isolinear', 'dbt', 'Spark', 'Delta Lake', 'Terraform'],
+        'A love for open source runs through everything I build: open formats, open tooling and open standards over vendor lock-in. I also ship my own: isolinear, a terminal UI for Databricks secrets, and dbt-4ps-staging, a dbt staging-layer generator for 4PS Construct.',
+      tools: ['isolinear', 'dbt-4ps-staging', 'dbt', 'Spark', 'Delta Lake', 'Terraform'],
     },
   ],
   nl: [
@@ -49,14 +49,14 @@ const specialismsData: Record<Locale, Specialism[]> = {
     {
       name: 'Metadata-gedreven dataplatformen',
       blurb:
-        'Mijn handtekening: platformen die honderden bronnen integreren via configuratie in plaats van codeduplicatie — goedkoper uit te breiden, makkelijker te onderhouden en sneller in gebruik te nemen.',
+        'Zo bouw ik het liefst: platformen die honderden bronnen integreren via configuratie in plaats van codeduplicatie — goedkoper uit te breiden, makkelijker te onderhouden en sneller in gebruik te nemen.',
       tools: ['Data Factory', 'Databricks', 'Azure', 'SQL'],
     },
     {
       name: 'Open source eerst',
       blurb:
-        'Liefde voor open source loopt door alles wat ik bouw: open formaten, open tooling en open standaarden boven vendor lock-in. Ik lever ook zelf — isolinear, een open-source terminal-UI voor het beheren van Databricks-secrets.',
-      tools: ['isolinear', 'dbt', 'Spark', 'Delta Lake', 'Terraform'],
+        'Liefde voor open source loopt door alles wat ik bouw: open formaten, open tooling en open standaarden boven vendor lock-in. Ik lever ook zelf: isolinear, een terminal-UI voor Databricks-secrets, en dbt-4ps-staging, een dbt-staginglaag-generator voor 4PS Construct.',
+      tools: ['isolinear', 'dbt-4ps-staging', 'dbt', 'Spark', 'Delta Lake', 'Terraform'],
     },
   ],
 };

@@ -58,14 +58,16 @@ BASE = {
         "clients_label": "SELECTED CLIENTS",
         "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
         "footer_left": "MISJA PRONK",
-        "footer_right": "MEASURE TWICE · BUILD ONCE — SHEET {page} OF {total}",
+        "footer_right": "BUILD FAST · FAIL FAST · KEEP IT SIMPLE — SHEET {page} OF {total}",
         "profile_h": "Profile",
         "expertise_h": "Core expertise",
         "experience_h": "Experience",
         "oss_h": "Open source",
         "oss": (
             "<b>isolinear</b> — keyboard-driven terminal UI for managing Databricks secrets "
-            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear"
+            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear<br/>"
+            "<b>dbt-4ps-staging</b> — generates a Databricks dbt staging layer from 4PS Construct "
+            "(Business Central) exports (Python, dbt, MIT) · github.com/misja-pronk/dbt-4ps-staging"
         ),
         "certs_h": "Certifications",
         "certs": [
@@ -112,14 +114,16 @@ BASE = {
         "clients_label": "SELECTIE VAN KLANTEN",
         "clients": "Heijmans · TBI · Vattenfall · Nationale-Nederlanden · ABN AMRO · Stedin · Van Gogh Museum · Menzis",
         "footer_left": "MISJA PRONK",
-        "footer_right": "MEET TWEE KEER · BOUW ÉÉN KEER — BLAD {page} VAN {total}",
+        "footer_right": "SNEL BOUWEN · SNEL FALEN · HOU HET SIMPEL — BLAD {page} VAN {total}",
         "profile_h": "Profiel",
         "expertise_h": "Kernexpertise",
         "experience_h": "Werkervaring",
         "oss_h": "Open source",
         "oss": (
             "<b>isolinear</b> — toetsenbordgedreven terminal-UI voor het beheren van Databricks-secrets "
-            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear"
+            "(Python, Textual, MIT) · github.com/misja-pronk/isolinear<br/>"
+            "<b>dbt-4ps-staging</b> — genereert een Databricks dbt-staginglaag uit 4PS Construct-exports "
+            "(Business Central) (Python, dbt, MIT) · github.com/misja-pronk/dbt-4ps-staging"
         ),
         "certs_h": "Certificeringen",
         "certs": [
@@ -185,9 +189,11 @@ VARIANTS = {
             "title": "Data & Platform Engineering Consultant",
             "profile": (
                 "Freelance Data & Platform Engineering consultant with 11+ years in IT, of which 8+ years designing and "
-                "building data platforms. Deep, day-to-day Databricks expertise, metadata-driven architectures and the full "
-                "platform-engineering stack — Terraform, Terragrunt, GitHub and CI/CD. Open-source-first, and as much a "
-                "coach as an engineer: teams I leave behind own their platform. Motto: measure twice, build once."
+                "building data platforms. Typically hired to cover what would otherwise be three roles: architecting the "
+                "platform, building and automating it, and training the team that runs it. Deep, day-to-day Databricks "
+                "expertise, metadata-driven architectures and the full platform-engineering stack — Terraform, Terragrunt, "
+                "GitHub and CI/CD. Open-source-first, and as much a coach as an engineer: teams I leave behind own their "
+                "platform. Motto: build fast, fail fast, keep it simple."
             ),
             "expertise": [
                 "<b>Databricks platform</b> — Spark, Delta Lake, Unity Catalog, Asset Bundles, workspace architecture, cost control, agentic AI",
@@ -225,9 +231,11 @@ VARIANTS = {
             "title": "Data & Platform Engineering Consultant",
             "profile": (
                 "Freelance Data & Platform Engineering consultant met 11+ jaar in de IT, waarvan 8+ jaar in het ontwerpen en "
-                "bouwen van dataplatformen. Diepgaande, dagelijkse Databricks-expertise, metadata-gedreven architecturen en de "
-                "volledige platform-engineering-stack — Terraform, Terragrunt, GitHub en CI/CD. Open source eerst, en evenzeer "
-                "coach als engineer: teams die ik achterlaat, beheren hun eigen platform. Motto: meet twee keer, bouw één keer."
+                "bouwen van dataplatformen. Wordt doorgaans ingehuurd voor wat anders drie rollen zouden zijn: het ontwerpen "
+                "van het platform, het bouwen en automatiseren ervan, en het opleiden van het team dat het draait. Diepgaande, "
+                "dagelijkse Databricks-expertise, metadata-gedreven architecturen en de volledige platform-engineering-stack — "
+                "Terraform, Terragrunt, GitHub en CI/CD. Open source eerst, en evenzeer coach als engineer: teams die ik "
+                "achterlaat, beheren hun eigen platform. Motto: snel bouwen, snel falen, hou het simpel."
             ),
             "expertise": [
                 "<b>Databricks-platform</b> — Spark, Delta Lake, Unity Catalog, Asset Bundles, workspace-architectuur, kostenbeheersing, agentic AI",

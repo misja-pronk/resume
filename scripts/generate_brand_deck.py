@@ -124,7 +124,7 @@ def frame(slide, ink, sheet_no, title_label, dark=True):
     text(slide, m + Inches(0.2), fy + Inches(0.08), Inches(6), Inches(0.3),
          [[("PROREX CONSULTANCY — DATA & PLATFORM ENGINEERING", MONO, 9, dimc, False, 100)]])
     text(slide, W - m - Inches(5.2), fy + Inches(0.08), Inches(5), Inches(0.3),
-         [[("MEASURE TWICE · BUILD ONCE", MONO, 9, acc, True, 150)]], align=PP_ALIGN.RIGHT)
+         [[("BUILD FAST · FAIL FAST · KEEP IT SIMPLE", MONO, 9, acc, True, 150)]], align=PP_ALIGN.RIGHT)
 
 
 def main() -> None:
