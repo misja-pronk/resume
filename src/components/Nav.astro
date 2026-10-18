@@ -28,7 +28,7 @@ const alts = altPaths(Astro.url.pathname);
       <span class="brand-mark">MP</span>
     </a>
     <details class="menu">
-      <summary aria-label={t.nav.sheetIndex}>☰ {t.nav.menu}</summary>
+      <summary aria-label={t.nav.sheetIndex}>☰<span class="menu-word"> {t.nav.menu}</span></summary>
       <div class="menu-panel">
         <span class="menu-title">{t.nav.sheetIndex}</span>
         {links.map((l, i) => (
@@ -40,7 +40,13 @@ const alts = altPaths(Astro.url.pathname);
       </div>
     </details>
     <div class="actions">
-      <button class="cmdk-btn" data-cmdk-open title={t.cmdk.placeholder}>{t.cmdk.button}</button>
+      <button class="cmdk-btn" data-cmdk-open title={t.cmdk.placeholder} aria-label={t.cmdk.placeholder}>
+        <svg class="cmdk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <span class="cmdk-key">{t.cmdk.button}</span>
+      </button>
       <div class="lang" role="group" aria-label="Language">
         <a href={alts.en} class:list={[{ active: locale === 'en' }]} aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
         <span aria-hidden="true">/</span>
@@ -151,6 +157,10 @@ const alts = altPaths(Astro.url.pathname);
     border: 1px solid var(--line);
     padding: 0.45rem 0.6rem;
     cursor: pointer;
+  }
+
+  .cmdk-icon {
+    display: none;
   }
 
   .cmdk-btn:hover {
@@ -310,8 +320,27 @@ const alts = altPaths(Astro.url.pathname);
       gap: 0.45rem;
     }
 
-    .cmdk-btn {
+    .menu-word,
+    .cmdk-key {
       display: none;
+    }
+
+    .cmdk-icon {
+      display: block;
+    }
+
+    .cmdk-btn {
+      padding: 0.4rem 0.5rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    nav {
+      gap: 0.45rem;
+    }
+
+    .actions {
+      gap: 0.35rem;
     }
   }
 </style>

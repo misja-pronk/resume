@@ -291,6 +291,24 @@ a.chip:hover {
   }
 }
 
+/* ---------- Show all (phones) ---------- */
+.clamp-toggle {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .is-clamped:not(.is-filtered) .clamp-extra {
+    display: none !important;
+  }
+
+  [data-clamp]:not(.is-filtered) .clamp-toggle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
 /* ---------- Phones ---------- */
 @media (max-width: 560px) {
   .container {
