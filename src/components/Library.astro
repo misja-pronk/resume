@@ -243,4 +243,45 @@ const counts = Object.fromEntries(
     border-color: var(--stamp);
     border-style: dashed;
   }
+
+  @media (max-width: 640px) {
+    .register {
+      min-width: 0;
+    }
+
+    .register thead {
+      display: none;
+    }
+
+    .register tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 0.5rem 0.8rem;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid var(--line);
+    }
+
+    .register tr + tr {
+      border-top: none;
+    }
+
+    .register td {
+      border: none;
+      padding: 0;
+    }
+
+    .register .title {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .register .author {
+      white-space: normal;
+    }
+
+    .register .status {
+      justify-self: end;
+    }
+  }
 </style>

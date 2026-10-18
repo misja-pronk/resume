@@ -300,4 +300,18 @@ const alts = altPaths(Astro.url.pathname);
     color: var(--stamp);
     letter-spacing: 0.12em;
   }
+
+  @media (max-width: 560px) {
+    nav {
+      gap: 0.6rem;
+    }
+
+    .actions {
+      gap: 0.45rem;
+    }
+
+    .cmdk-btn {
+      display: none;
+    }
+  }
 </style>

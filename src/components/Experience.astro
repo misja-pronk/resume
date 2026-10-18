@@ -126,4 +126,44 @@ const revisions = [...getExperience(locale)].reverse();
   tr.current .rev::after {
     content: ' ◄';
   }
+
+  @media (max-width: 640px) {
+    .revtable {
+      min-width: 0;
+    }
+
+    .revtable thead {
+      display: none;
+    }
+
+    .revtable tr {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      border: 1px solid var(--line);
+    }
+
+    .revtable tr + tr {
+      border-top: none;
+    }
+
+    .revtable td {
+      border: none;
+      padding: 0.7rem 0.9rem 0;
+    }
+
+    .revtable .period {
+      align-self: center;
+      white-space: normal;
+    }
+
+    .revtable .org,
+    .revtable .desc {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .revtable .desc {
+      padding-bottom: 1rem;
+    }
+  }
 </style>

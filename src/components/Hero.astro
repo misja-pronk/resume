@@ -370,4 +370,26 @@ const stats = getStats(locale);
       display: none;
     }
   }
+
+  @media (max-width: 560px) {
+    .quantities {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+    }
+
+    .qty {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .qty:nth-child(odd) {
+      border-right: 1px solid var(--line);
+    }
+
+    .qty:nth-last-child(-n + 2):nth-child(odd),
+    .qty:nth-last-child(-n + 2):nth-child(odd) ~ .qty {
+      border-bottom: none;
+    }
+  }
 </style>

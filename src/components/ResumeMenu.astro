@@ -71,7 +71,7 @@ const t = ui[locale].cv;
     top: calc(100% + 0.5rem);
     right: 0;
     z-index: 60;
-    min-width: 19rem;
+    min-width: min(19rem, calc(100vw - 5rem));
     background: var(--paper);
     border: 1.5px solid var(--accent);
     box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
@@ -137,5 +137,12 @@ const t = ui[locale].cv;
     border-color: var(--accent);
     background: var(--accent-soft);
     text-decoration: none;
+  }
+
+  @media (max-width: 400px) {
+    .resume-menu.nav summary {
+      padding: 0.45rem 0.55rem;
+      letter-spacing: 0.04em;
+    }
   }
 </style>
