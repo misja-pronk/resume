@@ -12,10 +12,11 @@ const projects = (await getCollection('projects', (p) => p.id.startsWith(`${loca
 const total = projects.length;
 const slug = (id: string) => id.replace(`${locale}/`, '');
 
+const clampAt = 6;
 const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())].sort();
 ---
 
-<section id="projects" class="block">
+<section id="projects" class="block" data-clamp>
   <h2 class="sheet-title reveal"><span>{t.sheet} 04</span> {t.projects.title}</h2>
 
   <div class="filters reveal" role="group" aria-label="Filter projects by role">
@@ -28,7 +29,7 @@ const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())]
   <div class="details-grid">
     {projects.map((p, i) => (
       <a
-        class:list={['detail', 'project', 'reveal', { featured: p.data.featured }]}
+        class:list={['detail', 'project', 'reveal', { featured: p.data.featured, 'clamp-extra': i >= clampAt }]}
         href={url(lpath(locale, `projects/${slug(p.id)}/`))}
         data-roles={p.data.role}
       >
@@ -49,15 +50,19 @@ const roles = [...new Set(projects.map((p) => p.data.role.split(' / ')).flat())]
       </a>
     ))}
   </div>
+  <button class="btn-bp clamp-toggle" data-more={`${t.more.all} (${total}) ▾`} data-less={t.more.less}></button>
 </section>
 
 <script>
+  import { setFiltered } from '../scripts/clamp';
+
   const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
   const cards = document.querySelectorAll<HTMLElement>('.project');
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
       const role = btn.dataset.role;
+      setFiltered(document.getElementById('projects'), role !== 'all');
       cards.forEach((card) => {
         const match = role === 'all' || card.dataset.roles?.includes(role ?? '');
         card.style.display = match ? '' : 'none';

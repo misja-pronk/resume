@@ -175,6 +175,7 @@ img {
   border: 1px solid var(--line);
   color: var(--ink-dim);
   white-space: nowrap;
+  max-width: 100%;
   background: transparent;
 }
 
@@ -287,6 +288,56 @@ a.chip:hover {
   }
   to {
     translate: 0 -4px;
+  }
+}
+
+/* ---------- Show all (phones) ---------- */
+.clamp-toggle {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .is-clamped:not(.is-filtered) .clamp-extra {
+    display: none !important;
+  }
+
+  [data-clamp]:not(.is-filtered) .clamp-toggle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 560px) {
+  .container {
+    width: calc(100% - 1.75rem);
+  }
+
+  .sheet {
+    outline-offset: 4px;
+  }
+
+  .block {
+    padding: 1.6rem 1.1rem;
+  }
+
+  .sheet-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+  }
+
+  .sheet-title span {
+    display: table;
+    margin: 0 0 0.6rem;
+  }
+
+  .regmark.tl, .regmark.bl { left: -0.75rem; }
+  .regmark.tr, .regmark.br { right: -0.75rem; }
+
+  .chip {
+    white-space: normal;
   }
 }
 

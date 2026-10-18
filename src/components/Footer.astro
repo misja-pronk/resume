@@ -82,6 +82,28 @@ const year = new Date().getFullYear();
 
   .tb-value.links {
     display: flex;
-    gap: 0.9rem;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.9rem;
+  }
+
+  @media (max-width: 560px) {
+    /* Every cell draws its right and bottom rule; the outer edges are clipped. */
+    .titleblock {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .tb-cell,
+    .tb-cell:last-child {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin: 0 -1px -1px 0;
+      padding: 0.7rem 0.9rem;
+    }
+
+    .tb-cell.grow {
+      grid-column: 1 / -1;
+    }
   }
 </style>

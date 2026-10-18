@@ -1,8 +1,10 @@
 ---
 import { getLocale, ui } from '../i18n';
+import { defs, edges } from '../data/graph';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
+const labels = new Map(defs.map(([id, label]) => [id, label]));
 ---
 
 <section id="graph" class="block">
@@ -20,11 +22,19 @@ const t = ui[locale];
       <span><i class="sw hobby"></i> {t.graph.legend.hobby}</span>
     </div>
   </div>
+  <details class="rows reveal">
+    <summary>{t.graph.rows.replace('{n}', String(edges.length))}</summary>
+    <ol>
+      {edges.map((e) => (
+        <li>({labels.get(e.source)})-[:<b>{e.rel}</b>]-&gt;({labels.get(e.target)})</li>
+      ))}
+    </ol>
+  </details>
   <p class="note">{t.graph.note}</p>
 </section>
 
 <script>
-  type Group = 'person' | 'family' | 'work' | 'oss' | 'hobby';
+  import { defs, edges, type Group } from '../data/graph';
 
   interface GNode {
     id: string;
@@ -39,87 +49,16 @@ const t = ui[locale];
     fy?: number | null;
   }
 
-  interface GEdge {
-    source: string;
-    target: string;
-    rel: string;
+  // Phones get a portrait sheet with larger labels.
+  const svg = document.getElementById('kgraph');
+  const compact = (svg?.clientWidth ?? 1000) < 560;
+  const W = compact ? 600 : 1000;
+  const H = compact ? 860 : 620;
+  const SPRING = compact ? 0.8 : 1;
+  if (compact) {
+    svg?.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg?.classList.add('compact');
   }
-
-  const W = 1000;
-  const H = 620;
-
-  const defs: [string, string, Group, number][] = [
-    ['misja', 'MISJA', 'person', 30],
-    // family
-    ['wife', 'WIFE', 'family', 15],
-    ['junior', 'JUNIOR v1.0', 'family', 13],
-    ['rex', 'REX 🐾', 'family', 13],
-    // work
-    ['prorex', 'PROREX', 'work', 16],
-    ['heijmans', 'HEIJMANS', 'work', 14],
-    ['tbi', 'TBI', 'work', 14],
-    ['vattenfall', 'VATTENFALL', 'work', 12],
-    ['databricks', 'DATABRICKS', 'work', 16],
-    ['terraform', 'TERRAFORM', 'work', 13],
-    ['terragrunt', 'TERRAGRUNT', 'work', 12],
-    ['dbt', 'DBT', 'work', 12],
-    ['github', 'GITHUB', 'work', 12],
-    ['neo4j', 'NEO4J', 'work', 13],
-    ['cypher', 'CYPHER', 'work', 11],
-    // oss
-    ['isolinear', 'ISOLINEAR', 'oss', 14],
-    ['dbt4ps', 'DBT-4PS-STAGING', 'oss', 12],
-    // hobbies
-    ['wood', 'WOODWORKING', 'hobby', 12],
-    ['tiny', 'TINY HOUSES', 'hobby', 12],
-    ['house', 'OWN HOUSE', 'hobby', 11],
-    ['bbq', 'BBQ', 'hobby', 11],
-    ['dining', 'FINE DINING', 'hobby', 11],
-    ['homeauto', 'HOME AUTOMATION', 'hobby', 12],
-    ['desk', 'DESK SETUP', 'hobby', 10],
-    ['pcs', 'CUSTOM PCs', 'hobby', 10],
-    ['keebs', 'MECH KEYBOARDS', 'hobby', 10],
-    ['ktm', 'KTM 1190', 'hobby', 10],
-    ['guitars', 'GUITARS', 'hobby', 10],
-  ];
-
-  const edges: GEdge[] = [
-    { source: 'misja', target: 'wife', rel: 'MARRIED_TO' },
-    { source: 'misja', target: 'junior', rel: 'EXPECTING' },
-    { source: 'wife', target: 'junior', rel: 'EXPECTING' },
-    { source: 'misja', target: 'rex', rel: 'WALKS' },
-    { source: 'misja', target: 'prorex', rel: 'OWNS' },
-    { source: 'prorex', target: 'heijmans', rel: 'WORKS_FOR' },
-    { source: 'prorex', target: 'tbi', rel: 'WORKED_FOR' },
-    { source: 'prorex', target: 'vattenfall', rel: 'WORKED_FOR' },
-    { source: 'misja', target: 'databricks', rel: 'EXPERT_IN' },
-    { source: 'misja', target: 'terraform', rel: 'AUTOMATES_WITH' },
-    { source: 'terraform', target: 'terragrunt', rel: 'WRAPPED_BY' },
-    { source: 'misja', target: 'dbt', rel: 'TRANSFORMS_WITH' },
-    { source: 'misja', target: 'github', rel: 'SHIPS_VIA' },
-    { source: 'misja', target: 'neo4j', rel: 'LOVES' },
-    { source: 'neo4j', target: 'cypher', rel: 'SPEAKS' },
-    { source: 'misja', target: 'isolinear', rel: 'AUTHORED' },
-    { source: 'isolinear', target: 'databricks', rel: 'MANAGES_SECRETS_OF' },
-    { source: 'misja', target: 'dbt4ps', rel: 'AUTHORED' },
-    { source: 'dbt4ps', target: 'dbt', rel: 'GENERATES_MODELS_FOR' },
-    { source: 'dbt4ps', target: 'tbi', rel: 'BORN_AT' },
-    { source: 'heijmans', target: 'databricks', rel: 'RUNS_ON' },
-    { source: 'tbi', target: 'terragrunt', rel: 'BUILT_WITH' },
-    { source: 'misja', target: 'wood', rel: 'CRAFTS' },
-    { source: 'wood', target: 'tiny', rel: 'SCALES_TO' },
-    { source: 'tiny', target: 'house', rel: 'DREAMS_OF' },
-    { source: 'misja', target: 'bbq', rel: 'SMOKES' },
-    { source: 'bbq', target: 'dining', rel: 'PAIRS_WITH' },
-    { source: 'misja', target: 'homeauto', rel: 'AUTOMATES' },
-    { source: 'homeauto', target: 'desk', rel: 'POWERS' },
-    { source: 'misja', target: 'pcs', rel: 'BUILDS' },
-    { source: 'misja', target: 'keebs', rel: 'SOLDERS' },
-    { source: 'pcs', target: 'desk', rel: 'DRIVES' },
-    { source: 'keebs', target: 'desk', rel: 'CLACKS_ON' },
-    { source: 'misja', target: 'ktm', rel: 'RIDES' },
-    { source: 'misja', target: 'guitars', rel: 'PLAYS' },
-  ];
 
   // deterministic pseudo-random initial ring placement
   const nodes: GNode[] = defs.map(([id, label, group, r], i) => {
@@ -134,7 +73,6 @@ const t = ui[locale];
   });
 
   const byId = new Map(nodes.map((n) => [n.id, n]));
-  const svg = document.getElementById('kgraph');
 
   if (svg) {
     const NS = 'http://www.w3.org/2000/svg';
@@ -158,7 +96,7 @@ const t = ui[locale];
     const nodeEls = nodes.map((n) => {
       const g = el('g', { class: `node ${n.group}`, 'data-id': n.id, tabindex: '0' });
       const circle = el('circle', { r: String(n.r) });
-      const label = el('text', { class: 'nlabel', dy: String(n.r + 13) });
+      const label = el('text', { class: 'nlabel', dy: String(n.r + (compact ? 18 : 13)) });
       label.textContent = n.label;
       g.append(circle, label);
       if (n.id === 'misja') {
@@ -200,7 +138,7 @@ const t = ui[locale];
       // springs
       for (const e of edges) {
         const a = byId.get(e.source)!, b = byId.get(e.target)!;
-        const rest = a.id === 'misja' || b.id === 'misja' ? 170 : 110;
+        const rest = (a.id === 'misja' || b.id === 'misja' ? 170 : 110) * SPRING;
         let dx = b.x - a.x, dy = b.y - a.y;
         const d = Math.sqrt(dx * dx + dy * dy) || 1;
         const f = ((d - rest) / d) * 0.045 * alpha * 8;
@@ -209,15 +147,15 @@ const t = ui[locale];
       }
       // gravity + integrate
       for (const n of nodes) {
-        n.vx += (W / 2 - n.x) * 0.0016 * alpha * 8;
-        n.vy += (H / 2 - n.y) * 0.0022 * alpha * 8;
+        n.vx += (W / 2 - n.x) * (compact ? 0.0022 : 0.0016) * alpha * 8;
+        n.vy += (H / 2 - n.y) * (compact ? 0.0016 : 0.0022) * alpha * 8;
         n.vx *= 0.82; n.vy *= 0.82;
         n.x += n.vx; n.y += n.vy;
         if (n.fx != null) { n.x = n.fx; n.vx = 0; }
         if (n.fy != null) { n.y = n.fy; n.vy = 0; }
         const m = n.r + 8;
         n.x = Math.max(m + 42, Math.min(W - m - 42, n.x));
-        n.y = Math.max(m + 6, Math.min(H - m - 48, n.y));
+        n.y = Math.max(m + 6, Math.min(H - m - (compact ? 24 : 48), n.y));
       }
     }
 
@@ -421,9 +359,26 @@ const t = ui[locale];
     fill: var(--accent);
   }
 
+  svg:global(.compact) :global(.node .nlabel) {
+    font-size: 15px;
+    letter-spacing: 0.5px;
+  }
+
   @media (max-width: 640px) {
     svg :global(.edge .rel) {
       display: none;
+    }
+
+    .cypher {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .graph-wrap .legend {
+      position: static;
+      gap: 0.4rem 0.9rem;
+      padding: 0.6rem 0.8rem;
+      border-top: 1px solid var(--line);
     }
   }
 
@@ -458,4 +413,30 @@ const t = ui[locale];
   .sw.work { border-color: var(--ink); }
   .sw.oss { border-color: var(--pass); }
   .sw.hobby { border-color: var(--ink-dim); border-style: dashed; }
+
+  .rows {
+    margin-top: 1rem;
+    border: 1px solid var(--line);
+    font-size: 0.68rem;
+  }
+
+  .rows summary {
+    cursor: pointer;
+    padding: 0.6rem 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+  }
+
+  .rows ol {
+    margin: 0;
+    padding: 0.2rem 0.9rem 0.8rem 2.6rem;
+    color: var(--ink-dim);
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+  }
+
+  .rows b {
+    color: var(--accent);
+  }
 </style>

@@ -95,6 +95,7 @@ export const ui = {
       org: 'ORGANISATION',
       desc: 'DESCRIPTION OF CHANGE',
     },
+    more: { all: 'SHOW ALL', less: 'SHOW LESS ▴' },
     projects: {
       title: 'DETAIL DRAWINGS — CLIENT PROJECTS',
       all: 'ALL',
@@ -149,6 +150,7 @@ export const ui = {
       title: 'AS-BUILT GRAPH — SELF-DOCUMENTING',
       note: 'NOTE: SUBJECT LOVES GRAPH DATABASES. NODES ARE DRAGGABLE. THIS SHEET DOCUMENTS ITSELF.',
       legend: { person: 'SUBJECT', family: 'FAMILY', work: 'WORK', oss: 'OPEN SOURCE', hobby: 'AFTER HOURS' },
+      rows: 'RETURNED {n} ROWS — SHOW AS TABLE',
     },
     library: {
       title: 'DOCUMENT REGISTER — THE LIBRARY',
@@ -281,6 +283,7 @@ export const ui = {
       org: 'ORGANISATIE',
       desc: 'OMSCHRIJVING VAN WIJZIGING',
     },
+    more: { all: 'TOON ALLES', less: 'TOON MINDER ▴' },
     projects: {
       title: 'DETAILTEKENINGEN — KLANTPROJECTEN',
       all: 'ALLE',
@@ -335,6 +338,7 @@ export const ui = {
       title: 'AS-BUILT GRAAF — ZELFDOCUMENTEREND',
       note: 'OPMERKING: SUBJECT HOUDT VAN GRAFDATABASES. KNOPEN ZIJN VERSLEEPBAAR. DIT BLAD DOCUMENTEERT ZICHZELF.',
       legend: { person: 'SUBJECT', family: 'FAMILIE', work: 'WERK', oss: 'OPEN SOURCE', hobby: 'NA WERKTIJD' },
+      rows: '{n} RIJEN TERUGGEGEVEN — TOON ALS TABEL',
     },
     library: {
       title: 'DOCUMENTENREGISTER — DE BIBLIOTHEEK',
