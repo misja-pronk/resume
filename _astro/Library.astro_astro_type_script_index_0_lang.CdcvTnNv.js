@@ -1,0 +1,1 @@
+import{s as a}from"./clamp.B2omjPdd.js";const l=document.querySelectorAll(".lib-filter"),o=document.querySelectorAll(".book");l.forEach(e=>{e.addEventListener("click",()=>{l.forEach(t=>t.classList.toggle("is-active",t===e));const s=e.dataset.status;a(document.getElementById("library"),s!=="all"),o.forEach(t=>{t.style.display=s==="all"||t.dataset.status===s?"":"none"})})});
